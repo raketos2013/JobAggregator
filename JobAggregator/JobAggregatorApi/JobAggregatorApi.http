@@ -1,0 +1,6 @@
+@JobAggregatorApi_HostAddress = http://localhost:5266
+
+GET {{JobAggregatorApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
