@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace JobAggregator.Core.Entities
 {
-    public class User
+    public class User : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Login { get; set; }
         [Required]
@@ -15,7 +14,7 @@ namespace JobAggregator.Core.Entities
         public string Name { get; set; }
         [Required]
         public string LastName { get; set; }
-        public UserStatuse Statuse { get; set; }
+        public UserStatus Status { get; set; }
         public int RoleId { get; set; }
         public List<Organization>? Organizations { get; set; }
         public List<Article>? Articles { get; set; }

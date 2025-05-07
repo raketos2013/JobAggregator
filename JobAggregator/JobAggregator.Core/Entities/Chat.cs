@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Chat
+    public class Chat : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public User User1 { get; set; }

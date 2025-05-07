@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Activity
+    public class Activity : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public List<Organization>? Organizations { get; set; }

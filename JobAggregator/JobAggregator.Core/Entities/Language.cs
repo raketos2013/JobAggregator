@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Language
+    public class Language : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Length(2, 2)]

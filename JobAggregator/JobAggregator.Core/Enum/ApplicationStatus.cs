@@ -1,6 +1,6 @@
 ﻿namespace JobAggregator.Core.Enum
 {
-    public enum ApplicationStatuse
+    public enum ApplicationStatus
     {
         Sent =  1,
         Reviewed = 2,

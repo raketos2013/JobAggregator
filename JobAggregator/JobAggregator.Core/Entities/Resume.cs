@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Resume
+    public class Resume : Entity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public string? Experience { get; set; }
         public string? Links { get; set; }
@@ -12,7 +11,7 @@ namespace JobAggregator.Core.Entities
         public Gender Gender { get; set; }
         public string? Photo {  get; set; }
         public List<Language>? Languages { get; set; }
-        public string Education { get; set; }
+        public string? Education { get; set; }
         public int CountViews { get; set; }
         public int Priority { get; set; }
         public DateTime Created {  get; set; }

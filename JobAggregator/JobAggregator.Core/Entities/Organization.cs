@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Organization
+    public class Organization : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public string? Website { get; set; }
@@ -13,7 +12,8 @@ namespace JobAggregator.Core.Entities
         public string Email { get; set; }
         public int? PhoneNumber { get; set; }
         public string? Address { get; set; }
-        public List<User> Users { get; set; } = [];
+        [Required]
+        public List<User> Users { get; set; }
         public List<Activity>? Activities { get; set; }
         public List<Vacancy>? Vacancies { get; set; }
         public List<OrganizationAplication>? OrganizationAplications { get; set; }

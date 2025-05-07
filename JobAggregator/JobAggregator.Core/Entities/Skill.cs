@@ -2,9 +2,8 @@
 
 namespace JobAggregator.Core.Entities
 {
-    public class Skill
+    public class Skill : Entity
     {
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         public List<Vacancy>? Vacancies { get; set; }

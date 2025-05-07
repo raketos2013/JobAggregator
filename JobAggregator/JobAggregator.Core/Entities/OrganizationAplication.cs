@@ -3,13 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JobAggregator.Core.Entities
 {
-    public class OrganizationAplication
+    public class OrganizationAplication : Entity
     {
-        public int Id { get; set; }
         [Required]
         public int OrganizationId { get; set; }
         [Required]
         public int ResumeId { get; set; }
-        public ApplicationStatuse Statuse { get; set; }
+        public ApplicationStatus Status { get; set; }
     }
 }
