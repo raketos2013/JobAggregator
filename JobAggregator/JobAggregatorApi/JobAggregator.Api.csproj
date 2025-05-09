@@ -16,8 +16,4 @@
     <ProjectReference Include="..\JobAggregator.Infrastructure\JobAggregator.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

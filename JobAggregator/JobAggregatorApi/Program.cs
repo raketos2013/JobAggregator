@@ -1,4 +1,8 @@
+using JobAggregator.Core.Interfaces.Repositories;
+using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Services;
 using JobAggregator.Infrastructure.Data;
+using JobAggregator.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 builder.Services.AddSwaggerGen();
 
