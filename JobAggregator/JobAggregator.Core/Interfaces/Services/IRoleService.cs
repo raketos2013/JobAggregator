@@ -8,7 +8,7 @@ namespace JobAggregator.Core.Interfaces.Services
         Task<Role> UpdateAsync(Role role);
         Task<bool> DeleteAsync(int id);
         Task<List<Role>> GetAllAsync();
-        Task<Role> GetAsync(int id);
+        Task<Role?> GetAsync(int id);
         Task<int> GetIdByNameAsync(string name);
     }
 }

@@ -1,4 +1,5 @@
-﻿using JobAggregator.Api.DTO;
+﻿using AutoMapper;
+using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,8 @@ namespace JobAggregator.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     // TODO: дать доступ к контроллеру только роли ADMIN
-    public class RoleController(IRoleService roleService) : ControllerBase
+    public class RoleController(IRoleService roleService,
+                                IMapper mapper) : ControllerBase
     {
         // GET: api/<RoleController>
         [HttpGet]
@@ -19,19 +21,17 @@ namespace JobAggregator.Api.Controllers
 
         // GET api/<RoleController>/5
         [HttpGet("{id}")]
-        public async Task<Role> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return await roleService.GetAsync(id);
+            var role = await roleService.GetAsync(id);
+            return role == null ? NotFound() : Ok(role);
         }
 
         // POST api/<RoleController>
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody]RoleDTO role)
+        public async Task<IActionResult> Create([FromBody] RoleDTO role)
         {
-            Role newRole = new()
-            {
-                Name = role.Name
-            };
+            var newRole = mapper.Map<Role>(role);
             var created = await roleService.CreateAsync(newRole); 
             return Ok(created);
         }

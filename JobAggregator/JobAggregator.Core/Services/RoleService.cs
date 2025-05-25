@@ -21,7 +21,7 @@ namespace JobAggregator.Core.Services
             return await roleRepository.GetAllAsync();
         }
 
-        public async Task<Role> GetAsync(int id)
+        public async Task<Role?> GetAsync(int id)
         {
             return await roleRepository.GetAsync(id);
         }

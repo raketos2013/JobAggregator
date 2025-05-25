@@ -10,7 +10,7 @@ namespace JobAggregator.Core.Services
     {
         public async Task<User> CreateAsync(User user)
         {
-            user.RoleId = await roleService.GetIdByNameAsync("USER");
+            user.RoleId = await roleService.GetIdByNameAsync(UserRole.USER.ToString());
             user.Status = UserStatus.Active;
             return await userRepository.CreateAsync(user);
         }
@@ -21,7 +21,7 @@ namespace JobAggregator.Core.Services
             return deleted;
         }
 
-        public async Task<User> GetAsync(int id)
+        public async Task<User?> GetAsync(int id)
         {
             return await userRepository.GetAsync(id);
         }

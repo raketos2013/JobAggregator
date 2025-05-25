@@ -1,4 +1,5 @@
-﻿using JobAggregator.Api.DTO;
+﻿using AutoMapper;
+using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Enum;
 using JobAggregator.Core.Interfaces.Services;
@@ -8,7 +9,8 @@ namespace JobAggregator.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(IUserService userService) : ControllerBase
+    public class UserController(IUserService userService,
+                                IMapper mapper) : ControllerBase
     {
         // TODO: доступ только роли ADMIN
         // GET: api/<UserController>
@@ -30,13 +32,7 @@ namespace JobAggregator.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Create([FromBody] UserDTO user)
         {
-            User newUser = new()
-            {
-                Login = user.Login,
-                Password = user.Password,
-                Name = user.Name,
-                LastName = user.LastName
-            };
+            var newUser = mapper.Map<User>(user);
             var created = await userService.CreateAsync(newUser);
             return Ok(created);
         }
@@ -46,19 +42,11 @@ namespace JobAggregator.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, [FromBody] UserDTO user)
         {
-            User oldUser = await userService.GetAsync(id);
+            var oldUser = await userService.GetAsync(id);
             if (oldUser != null)
             {
-               User editedUser = new()
-                {
-                    Id = id,
-                    Name = user.Name,
-                    LastName = user.LastName,
-                    Login = user.Login,
-                    Password = user.Password,
-                    RoleId = oldUser.RoleId,
-                    Status = oldUser.Status
-                };
+                var editedUser = mapper.Map<User>(oldUser);
+                editedUser.Id = id;
                 var updated = await userService.UpdateAsync(editedUser);
                 return Ok(updated);
             }
@@ -76,7 +64,7 @@ namespace JobAggregator.Api.Controllers
 
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
+        [HttpPut("Block/{id}")]
         public async Task<ActionResult> Block(int id)
         {
             User user = await userService.GetAsync(id);

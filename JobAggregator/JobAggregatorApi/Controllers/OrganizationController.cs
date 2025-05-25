@@ -1,25 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Interfaces.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobAggregator.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrganizationController : ControllerBase
+    public class OrganizationController(IOrganizationService organizationService) 
+        : ControllerBase
     {
         // GET: api/<OrganizationController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Organization>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await organizationService.GetAllAsync();
         }
 
         // GET api/<OrganizationController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Organization> Get(int id)
         {
-            return "value";
+            return await organizationService.GetAsync(id);
         }
 
         // POST api/<OrganizationController>

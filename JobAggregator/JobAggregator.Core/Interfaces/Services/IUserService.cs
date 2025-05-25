@@ -8,6 +8,6 @@ namespace JobAggregator.Core.Interfaces.Services
         Task<User> UpdateAsync(User user);
         Task<bool> DeleteAsync(int id);
         Task<List<User>> GetAllAsync();
-        Task<User> GetAsync(int id);
+        Task<User?> GetAsync(int id);
     }
 }

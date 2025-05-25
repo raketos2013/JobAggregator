@@ -2,8 +2,8 @@
 {
     public enum ScheduleType
     {
-        None,
-        FULL,
-        PARTIAL
+        None = 1,
+        FULL = 2,
+        PARTIAL = 3
     }
 }

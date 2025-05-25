@@ -10,7 +10,11 @@ namespace JobAggregator.Infrastructure.Repositories
     {
         public async Task<int> GetIdByNameAsync(string name)
         {
-            Role role = await context.Roles.FirstOrDefaultAsync(x => x.Name == name);
+            var role = await context.Roles.FirstOrDefaultAsync(x => x.Name == name);
+            if (role == null)
+            {
+                return -1;
+            }
             return role.Id;
         }
     }
