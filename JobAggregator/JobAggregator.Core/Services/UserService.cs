@@ -5,35 +5,39 @@ using JobAggregator.Core.Interfaces.Services;
 
 namespace JobAggregator.Core.Services
 {
-    public class UserService(IUserRepository userRepository,
+    public class UserService(IUnitOfWork unitOfWork,
                                 IRoleService roleService) : IUserService
     {
         public async Task<User> CreateAsync(User user)
         {
             user.RoleId = await roleService.GetIdByNameAsync(UserRole.USER.ToString());
             user.Status = UserStatus.Active;
-            return await userRepository.CreateAsync(user);
+            var createdUser = await unitOfWork.UserRepository.CreateAsync(user);
+            // TODO: поменять exception на свой
+            return await unitOfWork.SaveAsync() > 0 ? createdUser : throw new Exception();
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var deleted  = await userRepository.DeleteAsync(id);
-            return deleted;
+            var deleted  = await unitOfWork.UserRepository.DeleteAsync(id);
+            return deleted && await unitOfWork.SaveAsync() > 0;
         }
 
         public async Task<User?> GetAsync(int id)
         {
-            return await userRepository.GetAsync(id);
+            return await unitOfWork.UserRepository.GetAsync(id);
         }
 
         public async Task<List<User>> GetAllAsync()
         {
-            return await userRepository.GetAllAsync();
+            return await unitOfWork.UserRepository.GetAllAsync();
         }
 
         public async Task<User> UpdateAsync(User user)
         {
-            return await userRepository.UpdateAsync(user);
+            var updatedUser = unitOfWork.UserRepository.Update(user);
+            // TODO: поменять exception на свой
+            return await unitOfWork.SaveAsync() > 0 ? updatedUser : throw new Exception();
         }
     }
 }

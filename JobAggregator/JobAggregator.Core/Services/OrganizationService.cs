@@ -17,7 +17,7 @@ namespace JobAggregator.Core.Services
         }
         public async Task<Organization> UpdateAsync(Organization organization)
         {
-            return await organizationRepository.UpdateAsync(organization);
+            return organizationRepository.Update(organization);
         }
         public async Task<IEnumerable<Organization>> GetAllAsync()
         {
