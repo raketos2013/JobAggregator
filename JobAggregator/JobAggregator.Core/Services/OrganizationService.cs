@@ -2,30 +2,36 @@
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
-namespace JobAggregator.Core.Services
+namespace JobAggregator.Core.Services;
+
+public class OrganizationService(IUnitOfWork unitOfWork)
+    : IOrganizationService
 {
-    public class OrganizationService(IOrganizationRepository organizationRepository) 
-        : IOrganizationService
+    public async Task<bool> DeleteAsync(int id)
     {
-        public async Task<bool> DeleteAsync(int id)
-        {
-            return await organizationRepository.DeleteAsync(id);
-        }
-        public async Task<Organization> CreateAsync(Organization organization)
-        {
-            return await organizationRepository.CreateAsync(organization);
-        }
-        public async Task<Organization> UpdateAsync(Organization organization)
-        {
-            return organizationRepository.Update(organization);
-        }
-        public async Task<IEnumerable<Organization>> GetAllAsync()
-        {
-            return await organizationRepository.GetAllAsync();
-        }
-        public async Task<Organization?> GetAsync(int id)
-        {
-            return await organizationRepository.GetAsync(id);
-        }
+        var cdeleted = await unitOfWork.OrganizationRepository.DeleteAsync(id);
+        return cdeleted && await unitOfWork.SaveAsync() > 0;
+    }
+    public async Task<Organization> CreateAsync(Organization organization)
+    {
+        var createdOrganization = await unitOfWork.OrganizationRepository.CreateAsync(organization);
+        return await unitOfWork.SaveAsync() > 0 ? createdOrganization
+            // TODO: поменять exception на свой
+            : throw new Exception("Failed to create organization.");
+    }
+    public async Task<Organization> UpdateAsync(Organization organization)
+    {
+        var updatedOrganization = unitOfWork.OrganizationRepository.Update(organization);
+        return await unitOfWork.SaveAsync() > 0 ? updatedOrganization
+            // TODO: поменять exception на свой
+            : throw new Exception("Failed to update organization.");
+    }
+    public async Task<IEnumerable<Organization>> GetAllAsync()
+    {
+        return await unitOfWork.OrganizationRepository.GetAllAsync();
+    }
+    public async Task<Organization?> GetAsync(int id)
+    {
+        return await unitOfWork.OrganizationRepository.GetAsync(id);
     }
 }

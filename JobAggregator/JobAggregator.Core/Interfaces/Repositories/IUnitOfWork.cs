@@ -1,9 +1,10 @@
-﻿namespace JobAggregator.Core.Interfaces.Repositories
+﻿namespace JobAggregator.Core.Interfaces.Repositories;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        IUserRepository UserRepository { get; }
-        IRoleRepository RoleRepository { get; }
-        Task<int> SaveAsync();
-    }
+    IUserRepository UserRepository { get; }
+    IRoleRepository RoleRepository { get; }
+    IOrganizationRepository OrganizationRepository { get; }
+    IVacancyRepository VacancyRepository { get; }
+    Task<int> SaveAsync();
 }

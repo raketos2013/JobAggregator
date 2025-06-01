@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobAggregator.Core.Entities
+namespace JobAggregator.Core.Entities;
+
+public class Activity : Entity
 {
-    public class Activity : Entity
-    {
-        [Required]
-        public string Name { get; set; }
-        public List<Organization>? Organizations { get; set; }
-    }
+    [Required]
+    public string Name { get; set; }
+    public List<Organization>? Organizations { get; set; }
 }

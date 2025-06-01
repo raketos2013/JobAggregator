@@ -18,6 +18,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
+builder.Services.AddScoped<IVacancyService, VacancyService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

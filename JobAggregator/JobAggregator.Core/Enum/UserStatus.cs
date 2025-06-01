@@ -1,8 +1,7 @@
-﻿namespace JobAggregator.Core.Enum
+﻿namespace JobAggregator.Core.Enum;
+
+public enum UserStatus
 {
-    public enum UserStatus
-    {
-        Active = 1,
-        Blocked = 2
-    }
+    Active = 1,
+    Blocked = 2
 }
