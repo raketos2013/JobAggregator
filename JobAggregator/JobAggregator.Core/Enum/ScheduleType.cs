@@ -1,9 +1,8 @@
-﻿namespace JobAggregator.Core.Enum
+﻿namespace JobAggregator.Core.Enum;
+
+public enum ScheduleType
 {
-    public enum ScheduleType
-    {
-        None = 1,
-        FULL = 2,
-        PARTIAL = 3
-    }
+    None = 1,
+    FULL = 2,
+    PARTIAL = 3
 }

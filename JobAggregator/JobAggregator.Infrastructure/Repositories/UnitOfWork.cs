@@ -1,45 +1,56 @@
 ﻿using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Infrastructure.Data;
 
-namespace JobAggregator.Infrastructure.Repositories
+namespace JobAggregator.Infrastructure.Repositories;
+
+public class UnitOfWork(AppDbContext context) : IUnitOfWork, IDisposable
 {
-    public class UnitOfWork(AppDbContext context) : IUnitOfWork, IDisposable
+    private IUserRepository? _userRepository;
+    private IRoleRepository? _roleRepository;
+    private IOrganizationRepository? _organizationRepository;
+    private IVacancyRepository? _vacancyRepository;
+
+    public IUserRepository UserRepository
     {
-        private IUserRepository? _userRepository;
-        private IRoleRepository? _roleRepository;
+        get { return _userRepository ??= new UserRepository(context); }
+    }
 
-        public IUserRepository UserRepository
-        {
-            get { return _userRepository ??= new UserRepository(context); }
-        }
+    public IRoleRepository RoleRepository
+    {
+        get { return _roleRepository ??= new RoleRepository(context); }
+    }
 
-        public IRoleRepository RoleRepository
-        {
-            get { return _roleRepository ??= new RoleRepository(context); }
-        }
+    public IOrganizationRepository OrganizationRepository
+    {
+        get { return _organizationRepository ??= new OrganizationRepository(context); }
+    }
 
-        public async Task<int> SaveAsync()
-        {
-           return await context.SaveChangesAsync();
-        }
+    public IVacancyRepository VacancyRepository
+    {
+        get { return _vacancyRepository ??= new VacancyRepository(context); }
+    }
 
-        private bool disposed = false;
-        protected virtual void Dispose(bool disposing)
+    public async Task<int> SaveAsync()
+    {
+        return await context.SaveChangesAsync();
+    }
+
+    private bool disposed = false;
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
         {
-            if (!disposed)
+            if (disposing)
             {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
+                context.Dispose();
             }
-            disposed = true;
         }
+        disposed = true;
+    }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

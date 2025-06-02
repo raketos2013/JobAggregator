@@ -1,13 +1,12 @@
 ﻿using JobAggregator.Core.Entities;
 
-namespace JobAggregator.Core.Interfaces.Services
+namespace JobAggregator.Core.Interfaces.Services;
+
+public interface IOrganizationService
 {
-    public interface IOrganizationService
-    {
-        Task<Organization?> GetAsync(int id);
-        Task<IEnumerable<Organization>> GetAllAsync();
-        Task<Organization> CreateAsync(Organization organization);
-        Task<Organization> UpdateAsync(Organization organization);
-        Task<bool> DeleteAsync(int id);
-    }
+    Task<Organization?> GetAsync(int id);
+    Task<IEnumerable<Organization>> GetAllAsync();
+    Task<Organization> CreateAsync(Organization organization);
+    Task<Organization> UpdateAsync(Organization organization);
+    Task<bool> DeleteAsync(int id);
 }

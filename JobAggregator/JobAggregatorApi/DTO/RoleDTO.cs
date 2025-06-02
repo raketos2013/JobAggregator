@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace JobAggregator.Api.DTO
+namespace JobAggregator.Api.DTO;
+
+public class RoleDTO
 {
-    public class RoleDTO
-    {
-        [Required]
-        public string Name { get; set; }
-    }
+    [Required]
+    public string Name { get; set; }
 }
