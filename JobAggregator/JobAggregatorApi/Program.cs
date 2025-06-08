@@ -19,9 +19,22 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+builder.Services.AddScoped<IResumeRepository, ResumeRepository>();
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 builder.Services.AddScoped<IVacancyRepository, VacancyRepository>();
 builder.Services.AddScoped<IVacancyService, VacancyService>();
+builder.Services.AddScoped<IResumeService, ResumeService>();
+
+builder.Services.AddScoped(typeof(IHandbookRepository<>), typeof(HandBookRepository<>));
+builder.Services.AddScoped<IRequirementService, RequirementService>();
+builder.Services.AddScoped<IResponsibilityService, ResponsibilityService>();
+builder.Services.AddScoped<IOfferService, OfferService>();
+builder.Services.AddScoped<ISpecialisationService, SpecialisationService>();
+builder.Services.AddScoped<ISkillService, SkillService>();
+builder.Services.AddScoped<ILanguageService, LanguageService>();
+builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

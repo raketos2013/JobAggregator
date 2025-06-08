@@ -16,5 +16,21 @@ public class AutoMapperProfiles : Profile
         CreateMap<OrganizationDTO, Organization>();
         CreateMap<Vacancy, VacancyDTO>();
         CreateMap<VacancyDTO, Vacancy>();
+        CreateMap<Resume, ResumeDTO>();
+        CreateMap<ResumeDTO, Resume>();
+        CreateMap<Responsibility, HandbookDTO>();
+        CreateMap<HandbookDTO, Responsibility>();
+        CreateMap<Requirement, HandbookDTO>();
+        CreateMap<HandbookDTO, Requirement>();
+        CreateMap<Offer, HandbookDTO>();
+        CreateMap<HandbookDTO, Offer>();
+        CreateMap<Specialisation, HandbookDTO>();
+        CreateMap<HandbookDTO, Specialisation>();
+        CreateMap<Skill, HandbookDTO>();
+        CreateMap<HandbookDTO, Skill>();
+        CreateMap<Activity, HandbookDTO>();
+        CreateMap<HandbookDTO, Activity>();
+        CreateMap<Language, LanguageDTO>();
+        CreateMap<LanguageDTO, Language>();
     }
 }

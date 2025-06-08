@@ -57,6 +57,13 @@ public class VacancyController(IVacancyService vacancyService,
     public async Task<ActionResult> Delete(int id)
     {
         var deleted = await vacancyService.DeleteAsync(id);
-        return Ok(deleted);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(deleted);
+        }
     }
 }
