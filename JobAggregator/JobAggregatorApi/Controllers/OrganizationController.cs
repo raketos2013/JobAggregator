@@ -56,6 +56,13 @@ public class OrganizationController(IOrganizationService organizationService,
     public async Task<ActionResult> Delete(int id)
     {
         var deleted = await organizationService.DeleteAsync(id);
-        return Ok(deleted);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(deleted);
+        }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobAggregator.Core.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobAggregator.Core.Entities;
 
-public class Specialisation : Entity
+public class Specialisation : Entity, IHandbook
 {
     [Required]
     public string Name { get; set; }

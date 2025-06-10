@@ -4,7 +4,7 @@ using JobAggregator.Infrastructure.Data;
 
 namespace JobAggregator.Infrastructure.Repositories;
 
-public class UserRepository(AppDbContext context)
-    : RepositoryBase<User>(context), IUserRepository
+public class ResumeRepository(AppDbContext context)
+    : RepositoryBase<Resume>(context), IResumeRepository
 {
 }

@@ -59,7 +59,14 @@ public class UserController(IUserService userService,
     {
         // TODO: добавить проверку, удалять только самого себя, либо ADMIN
         var deleted = await userService.DeleteAsync(id);
-        return Ok(deleted);
+        if (!deleted)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(deleted);
+        }
     }
 
 

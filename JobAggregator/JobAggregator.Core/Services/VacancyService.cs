@@ -20,7 +20,7 @@ public class VacancyService(IUnitOfWork unitOfWork) : IVacancyService
     public async Task<Vacancy> UpdateAsync(Vacancy vacancy)
     {
         var updatedVacancy = unitOfWork.VacancyRepository.Update(vacancy);
-        return await unitOfWork.SaveAsync() > 0 ? updatedVacancy 
+        return await unitOfWork.SaveAsync() > 0 ? updatedVacancy
             // TODO: поменять exception на свой
             : throw new Exception("Failed to update vacancy.");
     }

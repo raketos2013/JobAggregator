@@ -9,8 +9,8 @@ public class OrganizationService(IUnitOfWork unitOfWork)
 {
     public async Task<bool> DeleteAsync(int id)
     {
-        var cdeleted = await unitOfWork.OrganizationRepository.DeleteAsync(id);
-        return cdeleted && await unitOfWork.SaveAsync() > 0;
+        var deleted = await unitOfWork.OrganizationRepository.DeleteAsync(id);
+        return deleted && await unitOfWork.SaveAsync() > 0;
     }
     public async Task<Organization> CreateAsync(Organization organization)
     {
