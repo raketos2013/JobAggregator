@@ -44,9 +44,8 @@ public class SpecialisationController(SpecialisationService specialisationServic
         var oldSpecialisation = await specialisationService.GetAsync(id);
         if (oldSpecialisation != null)
         {
-            Specialisation edited = mapper.Map<Specialisation>(dto);
-            edited.Id = id;
-            var updated = specialisationService.UpdateAsync(edited);
+            oldSpecialisation = mapper.Map<HandbookDTO, Specialisation>(dto, oldSpecialisation);
+            var updated = specialisationService.UpdateAsync(oldSpecialisation);
             return Ok(updated);
         }
         return BadRequest();

@@ -44,9 +44,8 @@ public class SkillController(ISkillService skillService,
         var oldSkill = await skillService.GetAsync(id);
         if (oldSkill != null)
         {
-            Skill edited = mapper.Map<Skill>(dto);
-            edited.Id = id;
-            var updated = skillService.UpdateAsync(edited);
+            oldSkill = mapper.Map<HandbookDTO, Skill>(dto, oldSkill);
+            var updated = skillService.UpdateAsync(oldSkill);
             return Ok(updated);
         }
         return BadRequest();

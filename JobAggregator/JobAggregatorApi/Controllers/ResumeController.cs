@@ -44,9 +44,8 @@ public class ResumeController(IResumeService resumeService,
         var oldResume = await resumeService.GetAsync(id);
         if (oldResume != null)
         {
-            Resume edited = mapper.Map<Resume>(resume);
-            edited.Id = id;
-            var updated = await resumeService.UpdateAsync(edited);
+            oldResume = mapper.Map<ResumeDTO, Resume>(resume, oldResume);
+            var updated = await resumeService.UpdateAsync(oldResume);
             return Ok(updated);
         }
         return BadRequest();

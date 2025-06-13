@@ -43,9 +43,8 @@ public class OrganizationController(IOrganizationService organizationService,
         var oldOrganization = await organizationService.GetAsync(id);
         if (oldOrganization != null)
         {
-            Organization edited = mapper.Map<Organization>(organization);
-            edited.Id = id;
-            var updated = await organizationService.UpdateAsync(edited);
+            oldOrganization = mapper.Map<OrganizationDTO, Organization>(organization, oldOrganization);
+            var updated = await organizationService.UpdateAsync(oldOrganization);
             return Ok(updated);
         }
         return BadRequest();

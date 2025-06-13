@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Registrators\" />
+    <Compile Remove="Registrators\**" />
+    <EmbeddedResource Remove="Registrators\**" />
+    <None Remove="Registrators\**" />
   </ItemGroup>
 
   <ItemGroup>

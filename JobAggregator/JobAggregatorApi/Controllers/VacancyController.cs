@@ -44,9 +44,8 @@ public class VacancyController(IVacancyService vacancyService,
         var oldVacancy = await vacancyService.GetAsync(id);
         if (oldVacancy != null)
         {
-            Vacancy edited = mapper.Map<Vacancy>(vacancy);
-            edited.Id = id;
-            var updated = await vacancyService.UpdateAsync(edited);
+            oldVacancy = mapper.Map<VacancyDTO, Vacancy>(vacancy, oldVacancy);
+            var updated = await vacancyService.UpdateAsync(oldVacancy);
             return Ok(updated);
         }
         return BadRequest();

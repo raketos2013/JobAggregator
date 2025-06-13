@@ -44,9 +44,8 @@ public class RequirementController(IRequirementService requirementService,
         var oldRequirement = await requirementService.GetAsync(id);
         if (oldRequirement != null)
         {
-            Requirement edited = mapper.Map<Requirement>(dto);
-            edited.Id = id;
-            var updated = await requirementService.UpdateAsync(edited);
+            oldRequirement = mapper.Map<HandbookDTO, Requirement>(dto, oldRequirement);
+            var updated = await requirementService.UpdateAsync(oldRequirement);
             return Ok(updated);
         }
         return BadRequest();

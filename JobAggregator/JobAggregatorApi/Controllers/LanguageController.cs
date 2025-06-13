@@ -44,9 +44,8 @@ public class LanguageController(ILanguageService languageService,
         var oldLanguage = await languageService.GetAsync(id);
         if (oldLanguage != null)
         {
-            Language edited = mapper.Map<Language>(dto);
-            edited.Id = id;
-            var updated = await languageService.UpdateAsync(edited);
+            oldLanguage = mapper.Map<LanguageDTO, Language>(dto, oldLanguage);
+            var updated = await languageService.UpdateAsync(oldLanguage);
             return Ok(updated);
         }
         return BadRequest();

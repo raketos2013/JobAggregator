@@ -44,9 +44,8 @@ public class OfferController(IOfferService offerService,
         var oldOffer = await offerService.GetAsync(id);
         if (oldOffer != null)
         {
-            Offer edited = mapper.Map<Offer>(dto);
-            edited.Id = id;
-            var updated = await offerService.UpdateAsync(edited);
+            oldOffer = mapper.Map<HandbookDTO, Offer>(dto, oldOffer);
+            var updated = await offerService.UpdateAsync(oldOffer);
             return Ok(updated);
         }
         return BadRequest();

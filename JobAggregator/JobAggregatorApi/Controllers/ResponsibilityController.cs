@@ -44,9 +44,8 @@ public class ResponsibilityController(IResponsibilityService responsibilityServi
         var oldResponsibility = responsibilityService.GetAsync(id).Result;
         if (oldResponsibility != null)
         {
-            Responsibility edited = mapper.Map<Responsibility>(dto);
-            edited.Id = id;
-            var updated = await responsibilityService.UpdateAsync(edited);
+            oldResponsibility = mapper.Map<HandbookDTO, Responsibility>(dto, oldResponsibility);
+            var updated = await responsibilityService.UpdateAsync(oldResponsibility);
             return Ok(updated);
         }
         return BadRequest();
