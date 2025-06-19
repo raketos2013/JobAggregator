@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobAggregator.Core.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobAggregator.Api.DTO;
 
-public class LanguageDTO
+public class LanguageDTO : IHandbook
 {
     [Required]
     public string Name { get; set; }

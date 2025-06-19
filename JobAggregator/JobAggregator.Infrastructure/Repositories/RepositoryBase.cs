@@ -10,7 +10,7 @@ public class RepositoryBase<TEntity>(AppDbContext context)
 {
     public async Task<TEntity> CreateAsync(TEntity entity)
     {
-        context.Set<TEntity>().AddAsync(entity);
+        await context.Set<TEntity>().AddAsync(entity);
         return entity;
     }
 

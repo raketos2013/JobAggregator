@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -10,8 +11,7 @@ public class ResumeService(IUnitOfWork unitOfWork) : IResumeService
     {
         var createdResume = await unitOfWork.ResumeRepository.CreateAsync(resume);
         return await unitOfWork.SaveAsync() > 0 ? createdResume
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create resume.");
+            : throw new DomainException("Failed to create resume.");
     }
     public async Task<bool> DeleteAsync(int id)
     {
@@ -30,7 +30,6 @@ public class ResumeService(IUnitOfWork unitOfWork) : IResumeService
     {
         var updatedResume = unitOfWork.ResumeRepository.Update(resume);
         return await unitOfWork.SaveAsync() > 0 ? updatedResume
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to update resume.");
+            : throw new DomainException("Failed to update resume.");
     }
 }

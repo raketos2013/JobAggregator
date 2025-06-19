@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -20,16 +21,14 @@ public class ResponsibilityService(IUnitOfWork unitOfWork) : IResponsibilityServ
     {
         var created = await unitOfWork.HandbookRepositoryResponsibility.CreateAsync(responsibility);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create responsibility.");
+            : throw new DomainException("Failed to create responsibility.");
     }
 
     public async Task<Responsibility> UpdateAsync(Responsibility responsibility)
     {
         var updated = unitOfWork.HandbookRepositoryResponsibility.Update(responsibility);
         return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to update responsibility.");
+            : throw new DomainException("Failed to update responsibility.");
     }
 
     public async Task<bool> DeleteAsync(int id)

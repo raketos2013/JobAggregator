@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
@@ -10,8 +11,9 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LanguageController(ILanguageService languageService,
-                                IMapper mapper) : ControllerBase
+public class LanguagesController(ILanguageService languageService,
+                                IMapper mapper,
+                                IValidator<LanguageDTO> validator) : ControllerBase
 {
     // GET: api/<LanguageController>
     [HttpGet]
@@ -32,6 +34,11 @@ public class LanguageController(ILanguageService languageService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] LanguageDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newLanguage = mapper.Map<Language>(dto);
         var created = await languageService.CreateAsync(newLanguage);
         return Ok(created);
@@ -41,12 +48,16 @@ public class LanguageController(ILanguageService languageService,
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] LanguageDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldLanguage = await languageService.GetAsync(id);
         if (oldLanguage != null)
         {
-            Language edited = mapper.Map<Language>(dto);
-            edited.Id = id;
-            var updated = await languageService.UpdateAsync(edited);
+            oldLanguage = mapper.Map<LanguageDTO, Language>(dto, oldLanguage);
+            var updated = await languageService.UpdateAsync(oldLanguage);
             return Ok(updated);
         }
         return BadRequest();

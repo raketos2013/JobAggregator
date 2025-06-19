@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -18,15 +19,13 @@ public class RequirementService(IUnitOfWork unitOfWork) : IRequirementService
     {
         var created = await unitOfWork.HandbookRepositoryRequirement.CreateAsync(requirement);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create requirement.");
+            : throw new DomainException("Failed to create requirement.");
     }
     public async Task<Requirement> UpdateAsync(Requirement requirement)
     {
         var updated = unitOfWork.HandbookRepositoryRequirement.Update(requirement);
         return await unitOfWork.SaveAsync() > 0 ? updated :
-            // TODO: поменять exception на свой
-            throw new Exception("Failed to update requirement.");
+            throw new DomainException("Failed to update requirement.");
     }
     public async Task<bool> DeleteAsync(int id)
     {

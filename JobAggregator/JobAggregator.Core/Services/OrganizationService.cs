@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -16,15 +17,13 @@ public class OrganizationService(IUnitOfWork unitOfWork)
     {
         var createdOrganization = await unitOfWork.OrganizationRepository.CreateAsync(organization);
         return await unitOfWork.SaveAsync() > 0 ? createdOrganization
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create organization.");
+            : throw new DomainException("Failed to create organization.");
     }
     public async Task<Organization> UpdateAsync(Organization organization)
     {
         var updatedOrganization = unitOfWork.OrganizationRepository.Update(organization);
         return await unitOfWork.SaveAsync() > 0 ? updatedOrganization
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to update organization.");
+            : throw new DomainException("Failed to update organization.");
     }
     public async Task<IEnumerable<Organization>> GetAllAsync()
     {

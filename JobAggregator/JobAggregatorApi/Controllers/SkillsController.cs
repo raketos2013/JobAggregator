@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,8 +12,9 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SkillController(ISkillService skillService,
-                                IMapper mapper) : ControllerBase
+public class SkillsController(ISkillService skillService,
+                                IMapper mapper,
+                                IValidator<HandbookDTO> validator) : ControllerBase
 {
     // GET: api/<SkillController>
     [HttpGet]
@@ -32,6 +35,11 @@ public class SkillController(ISkillService skillService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] HandbookDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newSkill = mapper.Map<Skill>(dto);
         var created = await skillService.CreateAsync(newSkill);
         return Ok(created);
@@ -41,12 +49,16 @@ public class SkillController(ISkillService skillService,
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] HandbookDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldSkill = await skillService.GetAsync(id);
         if (oldSkill != null)
         {
-            Skill edited = mapper.Map<Skill>(dto);
-            edited.Id = id;
-            var updated = skillService.UpdateAsync(edited);
+            oldSkill = mapper.Map<HandbookDTO, Skill>(dto, oldSkill);
+            var updated = skillService.UpdateAsync(oldSkill);
             return Ok(updated);
         }
         return BadRequest();

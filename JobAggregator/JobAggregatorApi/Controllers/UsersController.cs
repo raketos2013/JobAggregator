@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Enum;
@@ -9,8 +10,9 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IUserService userService,
-                            IMapper mapper) : ControllerBase
+public class UsersController(IUserService userService,
+                            IMapper mapper,
+                            IValidator<UserDTO> userValidator) : ControllerBase
 {
     // TODO: доступ только роли ADMIN
     // GET: api/<UserController>
@@ -32,6 +34,11 @@ public class UserController(IUserService userService,
     [HttpPost]
     public async Task<ActionResult<User>> Create([FromBody] UserDTO user)
     {
+        var validationResult = userValidator.Validate(user);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newUser = mapper.Map<User>(user);
         var created = await userService.CreateAsync(newUser);
         return Ok(created);
@@ -42,12 +49,16 @@ public class UserController(IUserService userService,
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, [FromBody] UserDTO user)
     {
+        var validationResult = userValidator.Validate(user);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldUser = await userService.GetAsync(id);
         if (oldUser != null)
         {
-            var editedUser = mapper.Map<User>(oldUser);
-            editedUser.Id = id;
-            var updated = await userService.UpdateAsync(editedUser);
+            oldUser = mapper.Map<UserDTO, User>(user, oldUser);
+            var updated = await userService.UpdateAsync(oldUser);
             return Ok(updated);
         }
         return BadRequest();

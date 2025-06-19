@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -18,15 +19,13 @@ public class ActivityService(IUnitOfWork unitOfWork) : IActivityService
     {
         var created = await unitOfWork.HandbookRepositoryActivity.CreateAsync(activity);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create skill.");
+            : throw new DomainException("Failed to create skill.");
     }
     public async Task<Activity> UpdateAsync(Activity activity)
     {
         var updated = unitOfWork.HandbookRepositoryActivity.Update(activity);
-        return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to update skill.");
+        return await unitOfWork.SaveAsync() > 0 ? updated 
+            : throw new DomainException("Failed to update skill.");
     }
     public async Task<bool> DeleteAsync(int id)
     {

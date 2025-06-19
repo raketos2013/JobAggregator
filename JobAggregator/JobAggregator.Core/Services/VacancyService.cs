@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -9,20 +10,17 @@ public class VacancyService(IUnitOfWork unitOfWork) : IVacancyService
     public async Task<Vacancy> CreateAsync(Vacancy vacancy)
     {
         _ = await unitOfWork.OrganizationRepository.GetAsync(vacancy.OrganizationId)
-                            // TODO: поменять exception на свой
-                            ?? throw new Exception($"Organization with ID {vacancy.OrganizationId} not found.");
+                            ?? throw new DomainException($"Organization with ID {vacancy.OrganizationId} not found.");
         vacancy.Created = DateTime.Now;
         var createdVacancy = await unitOfWork.VacancyRepository.CreateAsync(vacancy);
         return await unitOfWork.SaveAsync() > 0 ? createdVacancy
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to create vacancy.");
+            : throw new DomainException("Failed to create vacancy.");
     }
     public async Task<Vacancy> UpdateAsync(Vacancy vacancy)
     {
         var updatedVacancy = unitOfWork.VacancyRepository.Update(vacancy);
         return await unitOfWork.SaveAsync() > 0 ? updatedVacancy
-            // TODO: поменять exception на свой
-            : throw new Exception("Failed to update vacancy.");
+            : throw new DomainException("Failed to update vacancy.");
     }
     public async Task<bool> DeleteAsync(int id)
     {
