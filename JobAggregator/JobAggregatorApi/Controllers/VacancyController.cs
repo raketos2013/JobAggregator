@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
@@ -11,7 +12,8 @@ namespace JobAggregator.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class VacancyController(IVacancyService vacancyService,
-                                IMapper mapper) : ControllerBase
+                                IMapper mapper,
+                                IValidator<VacancyDTO> validator) : ControllerBase
 {
     // GET: api/<VacancyController>
     [HttpGet]
@@ -32,6 +34,11 @@ public class VacancyController(IVacancyService vacancyService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] VacancyDTO vacancy)
     {
+        var validationResult = validator.Validate(vacancy);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newVacancy = mapper.Map<Vacancy>(vacancy);
         var created = await vacancyService.CreateAsync(newVacancy);
         return Ok(created);
@@ -41,6 +48,11 @@ public class VacancyController(IVacancyService vacancyService,
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] VacancyDTO vacancy)
     {
+        var validationResult = validator.Validate(vacancy);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldVacancy = await vacancyService.GetAsync(id);
         if (oldVacancy != null)
         {

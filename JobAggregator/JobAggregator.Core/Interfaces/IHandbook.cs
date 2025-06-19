@@ -2,4 +2,5 @@
 
 public interface IHandbook
 {
+    string Name { get; set; }
 }

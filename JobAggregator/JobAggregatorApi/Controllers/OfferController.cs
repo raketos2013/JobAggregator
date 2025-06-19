@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
@@ -11,7 +12,8 @@ namespace JobAggregator.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class OfferController(IOfferService offerService,
-                                IMapper mapper) : ControllerBase
+                                IMapper mapper,
+                                IValidator<HandbookDTO> validator) : ControllerBase
 {
     // GET: api/<OfferController>
     [HttpGet]
@@ -32,6 +34,11 @@ public class OfferController(IOfferService offerService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] HandbookDTO dto)
     {
+        var validationresult = validator.Validate(dto);
+        if (!validationresult.IsValid)
+        {
+            return BadRequest(validationresult.Errors[0].ToString());
+        }
         var newOffer = mapper.Map<Offer>(dto);
         var created = await offerService.CreateAsync(newOffer);
         return Ok(created);
@@ -41,6 +48,11 @@ public class OfferController(IOfferService offerService,
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] HandbookDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldOffer = await offerService.GetAsync(id);
         if (oldOffer != null)
         {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
@@ -11,7 +12,8 @@ namespace JobAggregator.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class ResponsibilityController(IResponsibilityService responsibilityService,
-                                        IMapper mapper) : ControllerBase
+                                        IMapper mapper,
+                                        IValidator<HandbookDTO> validator) : ControllerBase
 {
     // GET: api/<ResponsibilityController>
     [HttpGet]
@@ -32,6 +34,11 @@ public class ResponsibilityController(IResponsibilityService responsibilityServi
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] HandbookDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newResponsibility = mapper.Map<Responsibility>(dto);
         var created = await responsibilityService.CreateAsync(newResponsibility);
         return Ok(created);
@@ -41,6 +48,11 @@ public class ResponsibilityController(IResponsibilityService responsibilityServi
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] HandbookDTO dto)
     {
+        var validationResult = validator.Validate(dto);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldResponsibility = responsibilityService.GetAsync(id).Result;
         if (oldResponsibility != null)
         {

@@ -1,4 +1,5 @@
-﻿using JobAggregator.Core.Enum;
+﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Enum;
 
 namespace JobAggregator.Api.DTO;
 
@@ -10,5 +11,9 @@ public class VacancyDTO
     public decimal? Salary { get; set; }
     public int OrganizationId { get; set; }
     public ScheduleType ScheduleType { get; set; }
-    // TODO: добавить DTO для Requirements, Responsibilities, Offers, Specialisations, Skills
+    public List<Requirement>? Requirements { get; set; }
+    public List<Responsibility>? Responsibilities { get; set; }
+    public List<Offer>? Offers { get; set; }
+    public List<Specialisation>? Specialisations { get; set; }
+    public List<Skill>? Skills { get; set; }
 }

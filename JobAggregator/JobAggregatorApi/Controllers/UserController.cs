@@ -35,7 +35,7 @@ public class UserController(IUserService userService,
     public async Task<ActionResult<User>> Create([FromBody] UserDTO user)
     {
         var validationResult = userValidator.Validate(user);
-        if (validationResult.IsValid)
+        if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors[0].ToString());
         }
@@ -50,7 +50,7 @@ public class UserController(IUserService userService,
     public async Task<ActionResult> Update(int id, [FromBody] UserDTO user)
     {
         var validationResult = userValidator.Validate(user);
-        if (validationResult.IsValid)
+        if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors[0].ToString());
         }

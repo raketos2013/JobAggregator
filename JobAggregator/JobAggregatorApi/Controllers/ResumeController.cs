@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,7 +13,8 @@ namespace JobAggregator.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class ResumeController(IResumeService resumeService,
-                                IMapper mapper) : ControllerBase
+                                IMapper mapper,
+                                IValidator<ResumeDTO> validator) : ControllerBase
 {
     // GET: api/<ResumeController>
     [HttpGet]
@@ -32,6 +35,11 @@ public class ResumeController(IResumeService resumeService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] ResumeDTO resume)
     {
+        var validationResult = validator.Validate(resume);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var newResume = mapper.Map<Resume>(resume);
         var created = await resumeService.CreateAsync(newResume);
         return Ok(created);
@@ -41,6 +49,11 @@ public class ResumeController(IResumeService resumeService,
     [HttpPut("{id}")]
     public async Task<ActionResult> Put(int id, [FromBody] ResumeDTO resume)
     {
+        var validationResult = validator.Validate(resume);
+        if (!validationResult.IsValid)
+        {
+            return BadRequest(validationResult.Errors[0].ToString());
+        }
         var oldResume = await resumeService.GetAsync(id);
         if (oldResume != null)
         {

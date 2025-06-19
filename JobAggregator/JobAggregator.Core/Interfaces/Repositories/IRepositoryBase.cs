@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using X.PagedList;
 
 namespace JobAggregator.Core.Interfaces.Repositories;
 

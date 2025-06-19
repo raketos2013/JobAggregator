@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Exceptions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 
@@ -10,7 +11,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     {
         var createdRole = await unitOfWork.RoleRepository.CreateAsync(role);
         // TODO: поменять exception на свой
-        return await unitOfWork.SaveAsync() > 0 ? createdRole : throw new Exception();
+        return await unitOfWork.SaveAsync() > 0 ? createdRole : throw new DomainException();
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -38,6 +39,6 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     {
         var updatedRole = unitOfWork.RoleRepository.Update(role);
         // TODO: поменять exception на свой
-        return await unitOfWork.SaveAsync() > 0 ? updatedRole : throw new Exception();
+        return await unitOfWork.SaveAsync() > 0 ? updatedRole : throw new DomainException();
     }
 }

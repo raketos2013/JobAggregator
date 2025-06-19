@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Api.Validators;
+using JobAggregator.Core.Entities;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 using JobAggregator.Core.Services;
@@ -46,7 +47,7 @@ public static class RegistrationExtensions
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
         services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
-
+        services.AddScoped<IValidator<HandbookDTO>, HandbookDTOValidator<HandbookDTO>>();
 
         return services;
     }
