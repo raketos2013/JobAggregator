@@ -10,8 +10,7 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<Role> CreateAsync(Role role)
     {
         var createdRole = await unitOfWork.RoleRepository.CreateAsync(role);
-        // TODO: поменять exception на свой
-        return await unitOfWork.SaveAsync() > 0 ? createdRole : throw new DomainException();
+        return await unitOfWork.SaveAsync() > 0 ? createdRole : throw new DomainException("Failed to create role.");
     }
 
     public async Task<bool> DeleteAsync(int id)
@@ -38,7 +37,6 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
     public async Task<Role> UpdateAsync(Role role)
     {
         var updatedRole = unitOfWork.RoleRepository.Update(role);
-        // TODO: поменять exception на свой
-        return await unitOfWork.SaveAsync() > 0 ? updatedRole : throw new DomainException();
+        return await unitOfWork.SaveAsync() > 0 ? updatedRole : throw new DomainException("Failed to update role.");
     }
 }

@@ -17,14 +17,12 @@ public class OrganizationService(IUnitOfWork unitOfWork)
     {
         var createdOrganization = await unitOfWork.OrganizationRepository.CreateAsync(organization);
         return await unitOfWork.SaveAsync() > 0 ? createdOrganization
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create organization.");
     }
     public async Task<Organization> UpdateAsync(Organization organization)
     {
         var updatedOrganization = unitOfWork.OrganizationRepository.Update(organization);
         return await unitOfWork.SaveAsync() > 0 ? updatedOrganization
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to update organization.");
     }
     public async Task<IEnumerable<Organization>> GetAllAsync()

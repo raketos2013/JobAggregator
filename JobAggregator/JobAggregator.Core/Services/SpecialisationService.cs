@@ -19,14 +19,12 @@ public class SpecialisationService(IUnitOfWork unitOfWork) : ISpecialisationServ
     {
         var created = await unitOfWork.HandbookRepositorySpecialisation.CreateAsync(specialisation);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create specialisation.");
     }
     public async Task<Specialisation> UpdateAsync(Specialisation specialisation)
     {
         var updated = unitOfWork.HandbookRepositorySpecialisation.Update(specialisation);
         return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to update specialisation.");
     }
     public async Task<bool> DeleteAsync(int id)

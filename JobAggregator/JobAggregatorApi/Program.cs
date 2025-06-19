@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddRepositories();
 builder.Services.AddServices();
+builder.Services.AddValidators();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

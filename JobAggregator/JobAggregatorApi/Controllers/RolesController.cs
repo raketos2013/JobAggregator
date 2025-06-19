@@ -9,7 +9,7 @@ namespace JobAggregator.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 // TODO: дать доступ к контроллеру только роли ADMIN
-public class RoleController(IRoleService roleService,
+public class RolesController(IRoleService roleService,
                             IMapper mapper) : ControllerBase
 {
     // GET: api/<RoleController>

@@ -11,7 +11,7 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class VacancyController(IVacancyService vacancyService,
+public class VacanciesController(IVacancyService vacancyService,
                                 IMapper mapper,
                                 IValidator<VacancyDTO> validator) : ControllerBase
 {
@@ -34,14 +34,15 @@ public class VacancyController(IVacancyService vacancyService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] VacancyDTO vacancy)
     {
-        var validationResult = validator.Validate(vacancy);
+        var validationResult = await validator.ValidateAsync(vacancy);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors[0].ToString());
         }
         var newVacancy = mapper.Map<Vacancy>(vacancy);
         var created = await vacancyService.CreateAsync(newVacancy);
-        return Ok(created);
+        var createdDTO = mapper.Map<VacancyDTO>(created);
+        return Ok(createdDTO);
     }
 
     // PUT api/<VacancyController>/5

@@ -21,7 +21,6 @@ public class ResponsibilityService(IUnitOfWork unitOfWork) : IResponsibilityServ
     {
         var created = await unitOfWork.HandbookRepositoryResponsibility.CreateAsync(responsibility);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create responsibility.");
     }
 
@@ -29,7 +28,6 @@ public class ResponsibilityService(IUnitOfWork unitOfWork) : IResponsibilityServ
     {
         var updated = unitOfWork.HandbookRepositoryResponsibility.Update(responsibility);
         return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to update responsibility.");
     }
 

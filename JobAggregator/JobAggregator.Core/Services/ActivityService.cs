@@ -19,14 +19,12 @@ public class ActivityService(IUnitOfWork unitOfWork) : IActivityService
     {
         var created = await unitOfWork.HandbookRepositoryActivity.CreateAsync(activity);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create skill.");
     }
     public async Task<Activity> UpdateAsync(Activity activity)
     {
         var updated = unitOfWork.HandbookRepositoryActivity.Update(activity);
-        return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
+        return await unitOfWork.SaveAsync() > 0 ? updated 
             : throw new DomainException("Failed to update skill.");
     }
     public async Task<bool> DeleteAsync(int id)

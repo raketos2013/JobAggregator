@@ -8,7 +8,7 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class OrganizationController(IOrganizationService organizationService,
+public class OrganizationsController(IOrganizationService organizationService,
                                     IMapper mapper)
     : ControllerBase
 {

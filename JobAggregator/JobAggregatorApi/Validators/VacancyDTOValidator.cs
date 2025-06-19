@@ -27,11 +27,11 @@ public class VacancyDTOValidator : AbstractValidator<VacancyDTO>
             .WithMessage("OrganizationId is required")
             .MustAsync(async (x, cancellationToken) => { return await organizationService.GetAsync(x) != null; })
             .WithMessage("Organization does not exist");
-        RuleForEach(x => x.Offers).SetValidator(new HandbookDTOValidator<Offer>());
-        RuleForEach(x => x.Requirements).SetValidator(new HandbookDTOValidator<Requirement>());
-        RuleForEach(x => x.Responsibilities).SetValidator(new HandbookDTOValidator<Responsibility>());
-        RuleForEach(x => x.Skills).SetValidator(new HandbookDTOValidator<Skill>());
-        RuleForEach(x => x.Requirements).SetValidator(new HandbookDTOValidator<Requirement>());
-        RuleForEach(x => x.Specialisations).SetValidator(new HandbookDTOValidator<Specialisation>());
+        RuleForEach(x => x.Offers).SetValidator(new HandbookDTOValidator());
+        RuleForEach(x => x.Requirements).SetValidator(new HandbookDTOValidator());
+        RuleForEach(x => x.Responsibilities).SetValidator(new HandbookDTOValidator());
+        RuleForEach(x => x.Skills).SetValidator(new HandbookDTOValidator());
+        RuleForEach(x => x.Requirements).SetValidator(new HandbookDTOValidator());
+        RuleForEach(x => x.Specialisations).SetValidator(new HandbookDTOValidator());
     }
 }

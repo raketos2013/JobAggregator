@@ -11,7 +11,7 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ResponsibilityController(IResponsibilityService responsibilityService,
+public class ResponsibilitiesController(IResponsibilityService responsibilityService,
                                         IMapper mapper,
                                         IValidator<HandbookDTO> validator) : ControllerBase
 {

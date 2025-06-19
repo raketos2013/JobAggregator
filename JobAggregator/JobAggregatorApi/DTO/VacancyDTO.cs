@@ -11,9 +11,9 @@ public class VacancyDTO
     public decimal? Salary { get; set; }
     public int OrganizationId { get; set; }
     public ScheduleType ScheduleType { get; set; }
-    public List<Requirement>? Requirements { get; set; }
-    public List<Responsibility>? Responsibilities { get; set; }
-    public List<Offer>? Offers { get; set; }
-    public List<Specialisation>? Specialisations { get; set; }
-    public List<Skill>? Skills { get; set; }
+    public List<HandbookDTO>? Requirements { get; set; }
+    public List<HandbookDTO>? Responsibilities { get; set; }
+    public List<HandbookDTO>? Offers { get; set; }
+    public List<HandbookDTO>? Specialisations { get; set; }
+    public List<HandbookDTO>? Skills { get; set; }
 }

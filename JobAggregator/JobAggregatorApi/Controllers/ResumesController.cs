@@ -12,7 +12,7 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ResumeController(IResumeService resumeService,
+public class ResumesController(IResumeService resumeService,
                                 IMapper mapper,
                                 IValidator<ResumeDTO> validator) : ControllerBase
 {

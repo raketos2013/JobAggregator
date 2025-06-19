@@ -19,14 +19,12 @@ public class OfferService(IUnitOfWork unitOfWork) : IOfferService
     {
         var created = await unitOfWork.HandbookRepositoryOffer.CreateAsync(offer);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create offer.");
     }
     public async Task<Offer> UpdateAsync(Offer offer)
     {
         var updated = unitOfWork.HandbookRepositoryOffer.Update(offer);
         return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to update offer.");
     }
     public async Task<bool> DeleteAsync(int id)

@@ -14,7 +14,6 @@ public class UserService(IUnitOfWork unitOfWork,
         user.RoleId = await roleService.GetIdByNameAsync(UserRole.USER.ToString());
         user.Status = UserStatus.Active;
         var createdUser = await unitOfWork.UserRepository.CreateAsync(user);
-        // TODO: поменять exception на свой
         return await unitOfWork.SaveAsync() > 0 ? createdUser : throw new DomainException();
     }
 
@@ -37,7 +36,6 @@ public class UserService(IUnitOfWork unitOfWork,
     public async Task<User> UpdateAsync(User user)
     {
         var updatedUser = unitOfWork.UserRepository.Update(user);
-        // TODO: поменять exception на свой
         return await unitOfWork.SaveAsync() > 0 ? updatedUser : throw new DomainException();
     }
 }

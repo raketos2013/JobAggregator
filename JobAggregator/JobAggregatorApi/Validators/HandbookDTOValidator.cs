@@ -4,7 +4,7 @@ using JobAggregator.Core.Interfaces;
 
 namespace JobAggregator.Api.Validators;
 
-public class HandbookDTOValidator<T> : AbstractValidator<T> where T : IHandbook
+public class HandbookDTOValidator : AbstractValidator<HandbookDTO>
 {
     public HandbookDTOValidator()
     {

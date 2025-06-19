@@ -46,8 +46,12 @@ public static class RegistrationExtensions
 
     public static IServiceCollection AddValidators(this IServiceCollection services)
     {
+        services.AddScoped<IValidator<VacancyDTO>, VacancyDTOValidator>();
         services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
-        services.AddScoped<IValidator<HandbookDTO>, HandbookDTOValidator<HandbookDTO>>();
+        services.AddScoped<IValidator<HandbookDTO>, HandbookDTOValidator>();
+        services.AddScoped<IValidator<ResumeDTO>, ResumeDTOValidator>();
+        services.AddScoped<IValidator<OrganizationDTO>, OrganizationDTOValidator>();
+        services.AddScoped<IValidator<LanguageDTO>, LanguageDTOValidator>();
 
         return services;
     }

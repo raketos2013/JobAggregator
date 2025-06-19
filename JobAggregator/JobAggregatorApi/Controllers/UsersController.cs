@@ -10,7 +10,7 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController(IUserService userService,
+public class UsersController(IUserService userService,
                             IMapper mapper,
                             IValidator<UserDTO> userValidator) : ControllerBase
 {

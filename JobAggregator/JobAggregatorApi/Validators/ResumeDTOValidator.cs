@@ -33,6 +33,7 @@ public class ResumeDTOValidator : AbstractValidator<ResumeDTO>
             .WithMessage("Education is required.")
             .Length(2, 100)
             .WithMessage("Education must be between 2 and 100 characters.");
-        RuleForEach(x => x.Skills).SetValidator(new HandbookDTOValidator<Skill>());
+        RuleForEach(x => x.Languages).SetValidator(new LanguageDTOValidator());
+        RuleForEach(x => x.Skills).SetValidator(new HandbookDTOValidator());
     }
 }

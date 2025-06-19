@@ -2,8 +2,9 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
-using JobAggregator.Core.Services;
+using JobAggregator.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,26 +12,26 @@ namespace JobAggregator.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecialisationController(SpecialisationService specialisationService,
-                                        IMapper mapper,
-                                        IValidator<HandbookDTO> validator) : ControllerBase
+public class RequirementsController(IRequirementService requirementService,
+                                    IMapper mapper,
+                                    IValidator<HandbookDTO> validator) : ControllerBase
 {
-    // GET: api/<SpecialisationController>
+    // GET: api/<RequirementController>
     [HttpGet]
-    public async Task<IEnumerable<Specialisation>> Get()
+    public async Task<IEnumerable<Requirement>> Get()
     {
-        return await specialisationService.GetAllAsync();
+        return await requirementService.GetAllAsync();
     }
 
-    // GET api/<SpecialisationController>/5
+    // GET api/<RequirementController>/5
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var specialisation = await specialisationService.GetAsync(id);
-        return specialisation == null ? NotFound() : Ok(specialisation);
+        var requirement = await requirementService.GetAsync(id);
+        return requirement == null ? NotFound() : Ok(requirement);
     }
 
-    // POST api/<SpecialisationController>
+    // POST api/<RequirementController>
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] HandbookDTO dto)
     {
@@ -39,12 +40,12 @@ public class SpecialisationController(SpecialisationService specialisationServic
         {
             return BadRequest(validationResult.Errors[0].ToString());
         }
-        var newSpecialisation = mapper.Map<Specialisation>(dto);
-        var created = await specialisationService.CreateAsync(newSpecialisation);
+        var newRequirement = mapper.Map<Requirement>(dto);
+        var created = await requirementService.CreateAsync(newRequirement);
         return Ok(created);
     }
 
-    // PUT api/<SpecialisationController>/5
+    // PUT api/<RequirementController>/5
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, [FromBody] HandbookDTO dto)
     {
@@ -53,28 +54,28 @@ public class SpecialisationController(SpecialisationService specialisationServic
         {
             return BadRequest(validationResult.Errors[0].ToString());
         }
-        var oldSpecialisation = await specialisationService.GetAsync(id);
-        if (oldSpecialisation != null)
+        var oldRequirement = await requirementService.GetAsync(id);
+        if (oldRequirement != null)
         {
-            oldSpecialisation = mapper.Map<HandbookDTO, Specialisation>(dto, oldSpecialisation);
-            var updated = specialisationService.UpdateAsync(oldSpecialisation);
+            oldRequirement = mapper.Map<HandbookDTO, Requirement>(dto, oldRequirement);
+            var updated = await requirementService.UpdateAsync(oldRequirement);
             return Ok(updated);
         }
         return BadRequest();
     }
 
-    // DELETE api/<SpecialisationController>/5
+    // DELETE api/<RequirementController>/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await specialisationService.DeleteAsync(id);
+        var deleted = await requirementService.DeleteAsync(id);
         if (!deleted)
         {
             return NotFound();
         }
         else
         {
-            return Ok();
+            return Ok(deleted);
         }
     }
 }

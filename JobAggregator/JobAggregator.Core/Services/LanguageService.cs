@@ -19,14 +19,12 @@ public class LanguageService(IUnitOfWork unitOfWork) : ILanguageService
     {
         var created = await unitOfWork.LanguageRepository.CreateAsync(language);
         return await unitOfWork.SaveAsync() > 0 ? created
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to create language.");
     }
     public async Task<Language> UpdateAsync(Language language)
     {
         var updated = unitOfWork.LanguageRepository.Update(language);
         return await unitOfWork.SaveAsync() > 0 ? updated
-            // TODO: поменять exception на свой
             : throw new DomainException("Failed to update language.");
     }
     public async Task<bool> DeleteAsync(int id)
