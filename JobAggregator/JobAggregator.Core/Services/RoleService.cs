@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -19,9 +21,9 @@ public class RoleService(IUnitOfWork unitOfWork) : IRoleService
         return deleted && await unitOfWork.SaveAsync() > 0;
     }
 
-    public async Task<List<Role>> GetAllAsync()
+    public async Task<PagedList<Role>> GetAllAsync(Query query)
     {
-        return await unitOfWork.RoleRepository.GetAllAsync();
+        return await unitOfWork.RoleRepository.GetAllAsync(query);
     }
 
     public async Task<Role?> GetAsync(int id)

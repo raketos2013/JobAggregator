@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -11,9 +13,9 @@ public class SkillService(IUnitOfWork unitOfWork) : ISkillService
     {
         return await unitOfWork.HandbookRepositorySkill.GetAsync(id);
     }
-    public async Task<IEnumerable<Skill>> GetAllAsync()
+    public async Task<PagedList<Skill>> GetAllAsync(Query query)
     {
-        return await unitOfWork.HandbookRepositorySkill.GetAllAsync();
+        return await unitOfWork.HandbookRepositorySkill.GetAllAsync(query);
     }
     public async Task<Skill> CreateAsync(Skill skill)
     {

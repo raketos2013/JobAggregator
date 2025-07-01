@@ -2,7 +2,9 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,9 +20,12 @@ public class SkillsController(ISkillService skillService,
 {
     // GET: api/<SkillController>
     [HttpGet]
-    public async Task<IEnumerable<Skill>> Get()
+    public async Task<ActionResult<IEnumerable<Skill>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await skillService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var skills = await skillService.GetAllAsync(query);
+        var pagedDTO = new PagedList<Skill>(skills, skills.Count, skills.CurrentPage, skills.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<SkillController>/5

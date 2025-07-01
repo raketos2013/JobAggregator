@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -12,9 +14,9 @@ public class ResponsibilityService(IUnitOfWork unitOfWork) : IResponsibilityServ
         return await unitOfWork.HandbookRepositoryResponsibility.GetAsync(id);
     }
 
-    public async Task<IEnumerable<Responsibility>> GetAllAsync()
+    public async Task<PagedList<Responsibility>> GetAllAsync(Query query)
     {
-        return await unitOfWork.HandbookRepositoryResponsibility.GetAllAsync();
+        return await unitOfWork.HandbookRepositoryResponsibility.GetAllAsync(query);
     }
 
     public async Task<Responsibility> CreateAsync(Responsibility responsibility)

@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -25,9 +27,9 @@ public class OrganizationService(IUnitOfWork unitOfWork)
         return await unitOfWork.SaveAsync() > 0 ? updatedOrganization
             : throw new DomainException("Failed to update organization.");
     }
-    public async Task<IEnumerable<Organization>> GetAllAsync()
+    public async Task<PagedList<Organization>> GetAllAsync(Query query)
     {
-        return await unitOfWork.OrganizationRepository.GetAllAsync();
+        return await unitOfWork.OrganizationRepository.GetAllAsync(query);
     }
     public async Task<Organization?> GetAsync(int id)
     {

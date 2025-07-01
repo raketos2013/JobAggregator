@@ -2,9 +2,11 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
+using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,9 +20,13 @@ public class RequirementsController(IRequirementService requirementService,
 {
     // GET: api/<RequirementController>
     [HttpGet]
-    public async Task<IEnumerable<Requirement>> Get()
+    public async Task<ActionResult<IEnumerable<Requirement>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await requirementService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var requirements = await requirementService.GetAllAsync(query);
+        var pagedDTO = new PagedList<Requirement>(requirements, requirements.Count,
+                                                        requirements.CurrentPage, requirements.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<RequirementController>/5

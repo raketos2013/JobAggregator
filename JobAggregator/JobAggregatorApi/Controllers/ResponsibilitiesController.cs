@@ -2,7 +2,9 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,9 +19,13 @@ public class ResponsibilitiesController(IResponsibilityService responsibilitySer
 {
     // GET: api/<ResponsibilityController>
     [HttpGet]
-    public async Task<IEnumerable<Responsibility>> Get()
+    public async Task<ActionResult<IEnumerable<Responsibility>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await responsibilityService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var responsibilities = await responsibilityService.GetAllAsync(query);
+        var pagedDTO = new PagedList<Responsibility>(responsibilities, responsibilities.Count, 
+                                                        responsibilities.CurrentPage, responsibilities.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<ResponsibilityController>/5

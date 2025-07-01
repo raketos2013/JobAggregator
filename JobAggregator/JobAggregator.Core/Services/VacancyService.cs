@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -28,9 +30,10 @@ public class VacancyService(IUnitOfWork unitOfWork) : IVacancyService
 
         return result && await unitOfWork.SaveAsync() > 0;
     }
-    public async Task<List<Vacancy>> GetAllAsync()
+    public async Task<PagedList<Vacancy>> GetAllAsync(Query query)
     {
-        return await unitOfWork.VacancyRepository.GetAllAsync();
+
+        return await unitOfWork.VacancyRepository.GetAllAsync(query);
     }
     public async Task<Vacancy?> GetAsync(int id)
     {

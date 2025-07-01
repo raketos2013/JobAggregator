@@ -2,7 +2,10 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
+using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,9 +20,12 @@ public class LanguagesController(ILanguageService languageService,
 {
     // GET: api/<LanguageController>
     [HttpGet]
-    public async Task<IEnumerable<Language>> Get()
+    public async Task<ActionResult<IEnumerable<Language>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await languageService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var languages = await languageService.GetAllAsync(query);
+        var pagedDTO = new PagedList<Language>(languages, languages.Count, languages.CurrentPage, languages.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<LanguageController>/5

@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -11,9 +13,9 @@ public class OfferService(IUnitOfWork unitOfWork) : IOfferService
     {
         return await unitOfWork.HandbookRepositoryOffer.GetAsync(id);
     }
-    public async Task<IEnumerable<Offer>> GetAllAsync()
+    public async Task<PagedList<Offer>> GetAllAsync(Query query)
     {
-        return await unitOfWork.HandbookRepositoryOffer.GetAllAsync();
+        return await unitOfWork.HandbookRepositoryOffer.GetAllAsync(query);
     }
     public async Task<Offer> CreateAsync(Offer offer)
     {

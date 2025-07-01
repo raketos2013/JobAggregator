@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -11,9 +13,9 @@ public class LanguageService(IUnitOfWork unitOfWork) : ILanguageService
     {
         return await unitOfWork.LanguageRepository.GetAsync(id);
     }
-    public async Task<IEnumerable<Language>> GetAllAsync()
+    public async Task<PagedList<Language>> GetAllAsync(Query query)
     {
-        return await unitOfWork.LanguageRepository.GetAllAsync();
+        return await unitOfWork.LanguageRepository.GetAllAsync(query);
     }
     public async Task<Language> CreateAsync(Language language)
     {
