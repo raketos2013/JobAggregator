@@ -2,7 +2,10 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
+using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,9 +20,13 @@ public class OffersController(IOfferService offerService,
 {
     // GET: api/<OfferController>
     [HttpGet]
-    public async Task<IEnumerable<Offer>> Get()
+    public async Task<ActionResult<PagedList<Offer>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await offerService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var offers = await offerService.GetAllAsync(query);
+        var offersDTO = mapper.Map<List<HandbookDTO>>(offers);
+        var pagedDTO = new PagedList<HandbookDTO>(offersDTO, offers.Count, offers.CurrentPage, offers.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<OfferController>/5

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobAggregator.Api.Controllers;
@@ -14,9 +16,13 @@ public class RolesController(IRoleService roleService,
 {
     // GET: api/<RoleController>
     [HttpGet]
-    public async Task<IEnumerable<Role>> Get()
+    public async Task<ActionResult<PagedList<Role>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await roleService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var roles = await roleService.GetAllAsync(query);
+        var rolesDTO = mapper.Map<List<RoleDTO>>(roles);
+        var pagedDTO = new PagedList<RoleDTO>(rolesDTO, roles.Count, roles.CurrentPage, roles.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<RoleController>/5

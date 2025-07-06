@@ -1,5 +1,7 @@
 ﻿using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
+using JobAggregator.Core.Queries;
 using JobAggregator.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,9 +26,22 @@ public class RepositoryBase<TEntity>(AppDbContext context)
         return false;
     }
 
-    public async Task<List<TEntity>> GetAllAsync()
+    public async Task<PagedList<TEntity>> GetAllAsync(Query query)
     {
-        return await context.Set<TEntity>().ToListAsync();
+        var entity = context.Set<TEntity>().AsQueryable();
+        if (string.IsNullOrEmpty(query.SortColumn))
+        {
+            query.SortColumn = "Id";
+        }
+        if (query.IsAscending)
+        {
+            entity = entity.OrderBy(x => EF.Property<object>(x, query.SortColumn));
+        }
+        else
+        {
+            entity = entity.OrderByDescending(x => EF.Property<object>(x, query.SortColumn));
+        }
+        return await PagedList<TEntity>.ToPagedList(entity, query.Skip, query.Take);
     }
 
     public async Task<TEntity?> GetAsync(int id)

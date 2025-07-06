@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Api.Helpers;
 
@@ -32,5 +33,6 @@ public class AutoMapperProfiles : Profile
         CreateMap<HandbookDTO, Activity>();
         CreateMap<Language, LanguageDTO>();
         CreateMap<LanguageDTO, Language>();
+        CreateMap<QueryDTO, Query>();
     }
 }

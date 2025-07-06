@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
+using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobAggregator.Api.Controllers;
@@ -14,9 +17,13 @@ public class OrganizationsController(IOrganizationService organizationService,
 {
     // GET: api/<OrganizationController>
     [HttpGet]
-    public async Task<IEnumerable<Organization>> Get()
+    public async Task<ActionResult<PagedList<Organization>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await organizationService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var organizations = await organizationService.GetAllAsync(query);
+        var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
+        var pagedDTO = new PagedList<OrganizationDTO>(organizationsDTO, organizations.Count, organizations.CurrentPage, organizations.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<OrganizationController>/5

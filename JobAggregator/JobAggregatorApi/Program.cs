@@ -1,10 +1,6 @@
 using JobAggregator.Api.Extensions;
 using JobAggregator.Api.Helpers;
-using JobAggregator.Core.Interfaces.Repositories;
-using JobAggregator.Core.Interfaces.Services;
-using JobAggregator.Core.Services;
 using JobAggregator.Infrastructure.Data;
-using JobAggregator.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +18,8 @@ builder.Services.AddValidators();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
+
 
 var app = builder.Build();
 

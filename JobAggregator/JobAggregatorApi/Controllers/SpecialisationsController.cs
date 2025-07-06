@@ -2,6 +2,8 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
+using JobAggregator.Core.Queries;
 using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +19,14 @@ public class SpecialisationsController(SpecialisationService specialisationServi
 {
     // GET: api/<SpecialisationController>
     [HttpGet]
-    public async Task<IEnumerable<Specialisation>> Get()
+    public async Task<ActionResult<PagedList<Specialisation>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await specialisationService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var specialisations = await specialisationService.GetAllAsync(query);
+        var specialisationsDTO = mapper.Map<List<HandbookDTO>>(specialisations);
+        var pagedDTO = new PagedList<HandbookDTO>(specialisationsDTO, specialisations.Count, 
+                                                    specialisations.CurrentPage, specialisations.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<SpecialisationController>/5

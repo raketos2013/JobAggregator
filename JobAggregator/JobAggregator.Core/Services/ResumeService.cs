@@ -1,7 +1,9 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -18,9 +20,9 @@ public class ResumeService(IUnitOfWork unitOfWork) : IResumeService
         var deleted = await unitOfWork.ResumeRepository.DeleteAsync(id);
         return deleted && await unitOfWork.SaveAsync() > 0;
     }
-    public Task<List<Resume>> GetAllAsync()
+    public Task<PagedList<Resume>> GetAllAsync(Query query)
     {
-        return unitOfWork.ResumeRepository.GetAllAsync();
+        return unitOfWork.ResumeRepository.GetAllAsync(query);
     }
     public Task<Resume?> GetAsync(int id)
     {

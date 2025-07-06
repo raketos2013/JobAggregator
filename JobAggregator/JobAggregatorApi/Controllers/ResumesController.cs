@@ -2,7 +2,9 @@
 using FluentValidation;
 using JobAggregator.Api.DTO;
 using JobAggregator.Core.Entities;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,9 +20,13 @@ public class ResumesController(IResumeService resumeService,
 {
     // GET: api/<ResumeController>
     [HttpGet]
-    public async Task<IEnumerable<Resume>> Get()
+    public async Task<ActionResult<PagedList<Resume>>> Get([FromQuery] QueryDTO queryDTO)
     {
-        return await resumeService.GetAllAsync();
+        var query = mapper.Map<Query>(queryDTO);
+        var resumes = await resumeService.GetAllAsync(query);
+        var resumesDTO = mapper.Map<List<ResumeDTO>>(resumes);
+        var pagedDTO = new PagedList<ResumeDTO>(resumesDTO, resumes.Count, resumes.CurrentPage, resumes.PageSize);
+        return Ok(pagedDTO);
     }
 
     // GET api/<ResumeController>/5

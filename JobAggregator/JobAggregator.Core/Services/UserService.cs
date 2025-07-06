@@ -1,8 +1,10 @@
 ﻿using JobAggregator.Core.Entities;
 using JobAggregator.Core.Enum;
 using JobAggregator.Core.Exceptions;
+using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
+using JobAggregator.Core.Queries;
 
 namespace JobAggregator.Core.Services;
 
@@ -28,9 +30,9 @@ public class UserService(IUnitOfWork unitOfWork,
         return await unitOfWork.UserRepository.GetAsync(id);
     }
 
-    public async Task<List<User>> GetAllAsync()
+    public async Task<PagedList<User>> GetAllAsync(Query query)
     {
-        return await unitOfWork.UserRepository.GetAllAsync();
+        return await unitOfWork.UserRepository.GetAllAsync(query);
     }
 
     public async Task<User> UpdateAsync(User user)
