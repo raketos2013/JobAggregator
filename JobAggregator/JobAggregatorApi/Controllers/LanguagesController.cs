@@ -20,11 +20,12 @@ public class LanguagesController(ILanguageService languageService,
 {
     // GET: api/<LanguageController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Language>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<LanguageDTO>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var languages = await languageService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Language>(languages, languages.Count, languages.CurrentPage, languages.PageSize);
+        var languagesDTO = mapper.Map<List<LanguageDTO>>(languages);
+        var pagedDTO = new PagedList<LanguageDTO>(languagesDTO, languages.Count, languages.CurrentPage, languages.PageSize);
         return Ok(pagedDTO);
     }
 

@@ -19,11 +19,12 @@ public class ResponsibilitiesController(IResponsibilityService responsibilitySer
 {
     // GET: api/<ResponsibilityController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Responsibility>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Responsibility>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var responsibilities = await responsibilityService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Responsibility>(responsibilities, responsibilities.Count, 
+        var responsibilitiesDTO = mapper.Map<List<HandbookDTO>>(responsibilities);
+        var pagedDTO = new PagedList<HandbookDTO>(responsibilitiesDTO, responsibilities.Count, 
                                                         responsibilities.CurrentPage, responsibilities.PageSize);
         return Ok(pagedDTO);
     }

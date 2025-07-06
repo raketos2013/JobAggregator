@@ -20,11 +20,12 @@ public class ResumesController(IResumeService resumeService,
 {
     // GET: api/<ResumeController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Resume>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Resume>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var resumes = await resumeService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Resume>(resumes, resumes.Count, resumes.CurrentPage, resumes.PageSize);
+        var resumesDTO = mapper.Map<List<ResumeDTO>>(resumes);
+        var pagedDTO = new PagedList<ResumeDTO>(resumesDTO, resumes.Count, resumes.CurrentPage, resumes.PageSize);
         return Ok(pagedDTO);
     }
 

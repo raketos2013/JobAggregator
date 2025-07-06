@@ -20,11 +20,12 @@ public class RequirementsController(IRequirementService requirementService,
 {
     // GET: api/<RequirementController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Requirement>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Requirement>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var requirements = await requirementService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Requirement>(requirements, requirements.Count,
+        var requirementsDTO = mapper.Map<List<HandbookDTO>>(requirements);
+        var pagedDTO = new PagedList<HandbookDTO>(requirementsDTO, requirements.Count,
                                                         requirements.CurrentPage, requirements.PageSize);
         return Ok(pagedDTO);
     }

@@ -19,11 +19,12 @@ public class UsersController(IUserService userService,
     // TODO: доступ только роли ADMIN
     // GET: api/<UserController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<User>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var users = await userService.GetAllAsync(query);
-        var pagedDTO = new PagedList<User>(users, users.Count, users.CurrentPage, users.PageSize);
+        var usersDTO = mapper.Map<List<UserDTO>>(queryDTO);
+        var pagedDTO = new PagedList<UserDTO>(usersDTO, users.Count, users.CurrentPage, users.PageSize);
         return Ok(pagedDTO);
     }
 

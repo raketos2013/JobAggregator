@@ -20,11 +20,12 @@ public class OffersController(IOfferService offerService,
 {
     // GET: api/<OfferController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Offer>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Offer>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var offers = await offerService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Offer>(offers, offers.Count, offers.CurrentPage, offers.PageSize);
+        var offersDTO = mapper.Map<List<HandbookDTO>>(offers);
+        var pagedDTO = new PagedList<HandbookDTO>(offersDTO, offers.Count, offers.CurrentPage, offers.PageSize);
         return Ok(pagedDTO);
     }
 

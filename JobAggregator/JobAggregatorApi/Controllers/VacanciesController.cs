@@ -19,11 +19,13 @@ public class VacanciesController(IVacancyService vacancyService,
 {
     // GET: api/<VacancyController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Vacancy>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Vacancy>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var vacancies = await vacancyService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Vacancy>(vacancies, vacancies.Count, vacancies.CurrentPage, vacancies.PageSize);
+        var vacanciesDTO = mapper.Map<List<VacancyDTO>>(vacancies);
+        var pagedDTO = new PagedList<VacancyDTO>(vacanciesDTO, vacancies.Count, 
+                                                    vacancies.CurrentPage, vacancies.PageSize);
         return Ok(pagedDTO);
     }
 

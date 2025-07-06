@@ -20,11 +20,12 @@ public class SkillsController(ISkillService skillService,
 {
     // GET: api/<SkillController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Skill>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Skill>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var skills = await skillService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Skill>(skills, skills.Count, skills.CurrentPage, skills.PageSize);
+        var skillsDTO = mapper.Map<List<HandbookDTO>>(skills);
+        var pagedDTO = new PagedList<HandbookDTO>(skillsDTO, skills.Count, skills.CurrentPage, skills.PageSize);
         return Ok(pagedDTO);
     }
 

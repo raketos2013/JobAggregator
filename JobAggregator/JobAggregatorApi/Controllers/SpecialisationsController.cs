@@ -19,11 +19,13 @@ public class SpecialisationsController(SpecialisationService specialisationServi
 {
     // GET: api/<SpecialisationController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Specialisation>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Specialisation>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var specialisations = await specialisationService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Specialisation>(specialisations, specialisations.Count, specialisations.CurrentPage, specialisations.PageSize);
+        var specialisationsDTO = mapper.Map<List<HandbookDTO>>(specialisations);
+        var pagedDTO = new PagedList<HandbookDTO>(specialisationsDTO, specialisations.Count, 
+                                                    specialisations.CurrentPage, specialisations.PageSize);
         return Ok(pagedDTO);
     }
 

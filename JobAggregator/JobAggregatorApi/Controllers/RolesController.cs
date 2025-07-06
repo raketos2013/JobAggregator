@@ -16,11 +16,12 @@ public class RolesController(IRoleService roleService,
 {
     // GET: api/<RoleController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Role>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Role>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var roles = await roleService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Role>(roles, roles.Count, roles.CurrentPage, roles.PageSize);
+        var rolesDTO = mapper.Map<List<RoleDTO>>(roles);
+        var pagedDTO = new PagedList<RoleDTO>(rolesDTO, roles.Count, roles.CurrentPage, roles.PageSize);
         return Ok(pagedDTO);
     }
 

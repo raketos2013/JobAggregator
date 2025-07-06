@@ -17,11 +17,12 @@ public class OrganizationsController(IOrganizationService organizationService,
 {
     // GET: api/<OrganizationController>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Organization>>> Get([FromQuery] QueryDTO queryDTO)
+    public async Task<ActionResult<PagedList<Organization>>> Get([FromQuery] QueryDTO queryDTO)
     {
         var query = mapper.Map<Query>(queryDTO);
         var organizations = await organizationService.GetAllAsync(query);
-        var pagedDTO = new PagedList<Organization>(organizations, organizations.Count, organizations.CurrentPage, organizations.PageSize);
+        var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
+        var pagedDTO = new PagedList<OrganizationDTO>(organizationsDTO, organizations.Count, organizations.CurrentPage, organizations.PageSize);
         return Ok(pagedDTO);
     }
 
