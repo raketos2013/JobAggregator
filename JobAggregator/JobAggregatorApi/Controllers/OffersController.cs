@@ -5,7 +5,6 @@ using JobAggregator.Core.Entities;
 using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
 using JobAggregator.Core.Queries;
-using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

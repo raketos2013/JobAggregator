@@ -4,7 +4,6 @@ using JobAggregator.Core.Entities;
 using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Services;
 using JobAggregator.Core.Queries;
-using JobAggregator.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobAggregator.Api.Controllers;
