@@ -41,6 +41,8 @@ public static class RegistrationExtensions
         services.AddScoped<ILanguageService, LanguageService>();
         services.AddScoped<IActivityService, ActivityService>();
 
+        services.AddScoped<ITokenService, TokenService>();
+
         return services;
     }
 

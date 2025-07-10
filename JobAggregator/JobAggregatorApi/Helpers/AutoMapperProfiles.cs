@@ -34,5 +34,6 @@ public class AutoMapperProfiles : Profile
         CreateMap<Language, LanguageDTO>();
         CreateMap<LanguageDTO, Language>();
         CreateMap<QueryDTO, Query>();
+        CreateMap<Query, QueryDTO>();
     }
 }

@@ -7,4 +7,5 @@ namespace JobAggregator.Core.Interfaces.Repositories;
 public interface IUserRepository : IRepositoryBase<User>
 {
     Task<PagedList<User>> SearchByTermAsync(Query query);
+    Task<User?> GetByLoginAsync(string login);
 }

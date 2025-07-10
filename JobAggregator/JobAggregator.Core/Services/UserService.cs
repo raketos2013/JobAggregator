@@ -5,6 +5,8 @@ using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 using JobAggregator.Core.Queries;
+using JobAggregator.Core.Utilities;
+using System.Text;
 
 namespace JobAggregator.Core.Services;
 
@@ -13,8 +15,19 @@ public class UserService(IUnitOfWork unitOfWork,
 {
     public async Task<User> CreateAsync(User user)
     {
+        var existingUser = await GetByLoginAsync(user.Login);
+        if (existingUser != null)
+        {
+            throw new DomainException("user with this login already exist.");
+        }
         user.RoleId = await roleService.GetIdByNameAsync(UserRole.USER.ToString());
         user.Status = UserStatus.Active;
+
+        var salt = HashedPassword.GenerateSalt();
+        var hmac = HashedPassword.ComputeHMAC_SHA256(Encoding.UTF8.GetBytes(user.Password), salt);
+        user.PasswordSalt = salt;
+        user.Password = Convert.ToBase64String(hmac);
+
         var createdUser = await unitOfWork.UserRepository.CreateAsync(user);
         return await unitOfWork.SaveAsync() > 0 ? createdUser : throw new DomainException();
     }
@@ -39,5 +52,25 @@ public class UserService(IUnitOfWork unitOfWork,
     {
         var updatedUser = unitOfWork.UserRepository.Update(user);
         return await unitOfWork.SaveAsync() > 0 ? updatedUser : throw new DomainException();
+    }
+
+    public async Task<User?> GetByLoginAsync(string login)
+    {
+        return await unitOfWork.UserRepository.GetByLoginAsync(login);
+    }
+
+    public async Task<bool> ValidateUserAsync(string login, string password)
+    {
+        var user = await GetByLoginAsync(login);
+        if (user == null)
+        {
+            return false;
+        }
+        var hmac = HashedPassword.ComputeHMAC_SHA256(Encoding.UTF8.GetBytes(password), user.PasswordSalt);
+        if (Convert.ToBase64String(hmac) == user.Password)
+        {
+            return true;
+        }
+        return false;
     }
 }

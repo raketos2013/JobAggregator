@@ -11,4 +11,6 @@ public interface IUserService
     Task<bool> DeleteAsync(int id);
     Task<PagedList<User>> GetAllAsync(Query query);
     Task<User?> GetAsync(int id);
+    Task<User?> GetByLoginAsync(string login);
+    Task<bool> ValidateUserAsync(string login, string password);
 }

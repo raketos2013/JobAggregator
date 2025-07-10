@@ -10,6 +10,7 @@ public class User : Entity
     public string Login { get; set; }
     [Required]
     public string Password { get; set; }
+    public byte[] PasswordSalt { get; set; } = [];
     [Required]
     public string Name { get; set; }
     [Required]

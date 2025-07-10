@@ -23,7 +23,7 @@ public class UsersController(IUserService userService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var users = await userService.GetAllAsync(query);
-        var usersDTO = mapper.Map<List<UserDTO>>(queryDTO);
+        var usersDTO = mapper.Map<List<UserDTO>>(users);
         var pagedDTO = new PagedList<UserDTO>(usersDTO, users.Count, users.CurrentPage, users.PageSize);
         return Ok(pagedDTO);
     }
