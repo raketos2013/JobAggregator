@@ -1,0 +1,21 @@
+services:
+  jobaggregator.api:
+    image: ${DOCKER_REGISTRY-}jobaggregatorapi
+    build:
+      context: .
+      dockerfile: JobAggregatorApi/Dockerfile
+    ports:
+        - 8080:8080
+        - 8081:8081
+    environment:
+        - ASPNETCORE_HTTP_PORTS=8080
+        - ASPNETCORE_HTTP_PORTS=8081
+  jobaggregatordb:
+      image: postgres
+      environment:
+          POSTGRES_DB: JobAggregator
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: root
+      ports:
+        - 5432:5432
+      

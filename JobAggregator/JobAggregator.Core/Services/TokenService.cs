@@ -24,8 +24,8 @@ public class TokenService(IOptions<JwtConfiguration> jwtConfig,
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iss, jwtConfig.Value.Issuer),
-            new("Name", user.Name),
-            new("Lastname", user.LastName),
+            new(JwtRegisteredClaimNames.Name, user.Name),
+            new(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new(ClaimTypes.Role, userRole.Name)
         };
 
