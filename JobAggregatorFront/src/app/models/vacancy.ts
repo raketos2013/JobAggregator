@@ -1,0 +1,18 @@
+import { Handbook } from "./handbook";
+
+export interface Vacancy{
+    id: number;
+    name: string;
+    description: string;
+    location?: string;
+    salary?: number;
+    priority: number;
+    countViews: number;
+    countResponses: number;
+    created: Date;
+    requirements?: Handbook[];
+    responsibilities?: Handbook[];
+    offers?: Handbook[];
+    specialisations?: Handbook[];
+    skills?: Handbook[];
+}
