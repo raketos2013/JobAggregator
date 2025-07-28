@@ -1,0 +1,52 @@
+.filters-card {
+  background: #424242;
+  position: sticky;
+  top: 80px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+  background: #303030;
+}
+
+.filter-section mat-expansion-panel-header {
+  padding: 0 16px;
+  height: 48px;
+}
+
+.salary-range {
+  margin-top: 16px;
+}
+
+.range-values {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.reset-btn {
+  color: #9e9e9e;
+}
+
+.apply-btn {
+  width: 150px;
+}

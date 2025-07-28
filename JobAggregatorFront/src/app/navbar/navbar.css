@@ -1,0 +1,32 @@
+.nav-links {
+  display: flex;
+  margin-left: 20px;
+}
+
+.nav-links a {
+  margin-right: 10px;
+}
+
+.nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .auth-buttons {
+    margin-left: auto;
+  }
+}

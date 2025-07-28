@@ -16,8 +16,8 @@ export class AuthService {
   login(login: string, password: string) {
     return this.httpClient
       .post<LoginResponse>(`${this.baseUrl}/Login`, {
-        Login: login,
-        Password: password,
+        "login": "qwert",
+        "password": "qwert12345",
       })
       .subscribe((res) => {
         localStorage.setItem(this.TokenKey, res.token);

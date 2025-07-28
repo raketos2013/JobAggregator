@@ -1,13 +1,28 @@
-<app-toolbar ></app-toolbar>
+<!-- <app-toolbar ></app-toolbar>
 
 <main class="container">
 
   <div class="main">
       <router-outlet></router-outlet>
-    <!-- <app-vacancy-card></app-vacancy-card> -->
-     <!-- <app-grid-list></app-grid-list> -->
   </div>
 
-</main>
+</main> -->
 
+<app-navbar></app-navbar>
+
+<!-- <router-outlet></router-outlet> -->
+
+<div class="container" *ngIf="isVacanciesPage()">
+  <div class="layout">
+    <div class="filters-column">
+      <app-vacancy-filter></app-vacancy-filter>
+    </div>
+    <div class="vacancies-column">
+      <app-vacancies></app-vacancies>
+    </div>
+    <div class="sidebar-column">
+      <app-vacancy-sidebar></app-vacancy-sidebar>
+    </div>
+  </div>
+</div>
 

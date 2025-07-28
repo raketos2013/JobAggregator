@@ -92,6 +92,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseCors("FrontendCors");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

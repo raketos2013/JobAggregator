@@ -1,0 +1,45 @@
+<mat-card class="vacancy-detail-card" *ngIf="vacancy">
+  <mat-card-header>
+    <mat-card-title>{{ vacancy().name }}</mat-card-title>
+    <mat-card-subtitle>{{ vacancy().organizationId }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="salary">{{ vacancy().salary }}</div>
+
+    <div class="meta-info">
+      <span><mat-icon>location_on</mat-icon> {{ vacancy().location }}</span>
+      <span><mat-icon>work_outline</mat-icon> Experience</span>
+      <span><mat-icon>schedule</mat-icon> {{ vacancy().scheduleType }}</span>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h3>Описание вакансии</h3>
+    <p>{{ vacancy().description }}</p>
+
+    <h3>Требования</h3>
+    <ul>
+      <li *ngFor="let requirement of vacancy().requirements">{{ requirement }}</li>
+    </ul>
+
+    <h3>Условия</h3>
+    <ul>
+      <li *ngFor="let condition of vacancy().responsibilities">{{ condition }}</li>
+    </ul>
+
+    <div class="tags">
+      <mat-chip-listbox>
+        tags
+        <!-- <mat-chip-option *ngFor="let tag of vacancy.tags">{{ tag }}</mat-chip-option> -->
+      </mat-chip-listbox>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="applyForVacancy()">Откликнуться</button>
+    <button mat-button>Сохранить</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="!vacancy" class="loading">Загрузка информации о вакансии...</div>

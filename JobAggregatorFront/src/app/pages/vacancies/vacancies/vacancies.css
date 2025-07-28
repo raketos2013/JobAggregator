@@ -1,0 +1,21 @@
+.vacancies-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.vacancies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-paginator {
+  margin-top: 20px;
+  background: transparent;
+}

@@ -1,0 +1,25 @@
+<div class="vacancies-container">
+  <div class="header">
+    <h2>Найдено вакансий:  {{vacancies().length}}</h2>
+    <!-- <button mat-stroked-button>
+      <mat-icon>filter_list</mat-icon>
+      Фильтры
+    </button> -->
+  </div>
+
+  <div class="vacancies-list">
+    <app-card-vacancy
+      *ngFor="let vacancy of vacancies()"
+      [vacancy]="vacancy"
+      (click)="viewVacancyDetails(vacancy.id)"
+      >
+    </app-card-vacancy>
+  </div>
+
+  <mat-paginator 
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25]"
+    aria-label="Выберите страницу">
+  </mat-paginator>
+</div>
