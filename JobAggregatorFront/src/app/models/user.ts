@@ -1,8 +1,9 @@
 export interface User{
-    login: string;
-    password: string;
+    id: number;
+    // login: string;
+    // password: string;
     name: string;
     lastname: string;
-    statuse: number;
+//    statuse: number;
     role: string;
 }

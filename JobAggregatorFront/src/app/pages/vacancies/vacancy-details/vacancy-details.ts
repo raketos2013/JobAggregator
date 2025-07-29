@@ -1,5 +1,5 @@
 import { Component, inject, Input, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { VacancyService } from '../../../services/vacancy-service';
 import { Vacancy } from '../../../models/vacancy';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatButtonModule,
     MatChipsModule,
-    MatDividerModule],
+    MatDividerModule,
+  RouterModule],
   templateUrl: './vacancy-details.html',
   styleUrl: './vacancy-details.css'
 })

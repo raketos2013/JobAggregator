@@ -6,6 +6,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card-vacancy',
@@ -14,7 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatChipsModule,
     MatPaginatorModule,
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   templateUrl: './card-vacancy.html',
   styleUrl: './card-vacancy.css'
@@ -23,6 +25,10 @@ export class CardVacancy {
   @Input() vacancy!: Vacancy;
 
    @Output() viewDetailsClicked = new EventEmitter<number>();
+
+  constructor(
+    private router: Router 
+  ) {}
 
   handleCardClick(event: MouseEvent): void {
     // Переход только если клик был не по кнопке
@@ -34,6 +40,7 @@ export class CardVacancy {
   viewDetails(event: MouseEvent): void {
     event.stopPropagation();
     this.viewDetailsClicked.emit(this.vacancy.id);
+    this.router.navigate(['/vacancies', this.vacancy.id]);
   }
 
 

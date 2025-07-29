@@ -12,23 +12,29 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-vacancies',
   imports: [CardVacancy,
-    MatCardModule,
-    MatChipsModule,
-    MatPaginatorModule, MatIconModule, CommonModule],
+            MatCardModule,
+            MatChipsModule,
+            MatPaginatorModule, 
+            MatIconModule, 
+            CommonModule],
   templateUrl: './vacancies.html',
   styleUrl: './vacancies.css'
 })
 export class Vacancies implements OnInit{
   vacancies = signal<Vacancy[]>([]);
   private readonly vacancyService = inject(VacancyService);
-  
+  //private readonly router = inject(Router);
+
+
    constructor(
-    private router: Router // Добавьте Router
+    private router: Router 
   ) {}
 
   ngOnInit(): void{
     this.vacancyService.getVacancies().subscribe((res) => this.vacancies.set(res));
   }
+
+
 
   viewVacancyDetails(vacancyId: number): void {
     this.router.navigate(['/vacancies', vacancyId]);

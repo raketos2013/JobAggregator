@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { Login } from './pages/login/login';
-import { VacancyList } from './vacancy-list/vacancy-list';
 import { OrganizationDetails } from './pages/organization-details/organization-details';
 import { Vacancies } from './pages/vacancies/vacancies/vacancies';
 import { VacancyDetails } from './pages/vacancies/vacancy-details/vacancy-details';
+import { VacancyMain } from './pages/vacancies/vacancy-main/vacancy-main';
 
 export const routes: Routes = [
     { 
@@ -24,7 +24,7 @@ export const routes: Routes = [
     },
     {
         path: 'vacancies',
-        component: Vacancies
+        component: VacancyMain
     },
     {
         path: 'vacancies/:id',
