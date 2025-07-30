@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="filters-column">
+    <app-organization-filter></app-organization-filter>
+  </div>
+  
+  <div class="content-column">
+    <div class="header">
+      <h2>Найдено {{organizations().length}} организаций</h2>
+    </div>
+    
+    <div class="companies-list">
+      <app-organization-card 
+        *ngFor="let organization of organizations()"
+        [organization]="organization"
+        >
+      </app-organization-card>
+    </div>
+    
+    <!-- <mat-paginator [length]="totalCount" [pageSize]="pageSize"></mat-paginator> -->
+  </div>
+</div>
