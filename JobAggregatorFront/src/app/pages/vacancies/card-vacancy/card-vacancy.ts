@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Vacancy } from '../../../models/vacancy';
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from '@angular/material/card';
@@ -7,6 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-card-vacancy',
@@ -22,6 +23,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './card-vacancy.css'
 })
 export class CardVacancy {
+  public authService = inject(AuthService);
   @Input() vacancy!: Vacancy;
 
    @Output() viewDetailsClicked = new EventEmitter<number>();

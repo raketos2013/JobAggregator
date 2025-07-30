@@ -9,10 +9,43 @@
   
   <span class="spacer"></span>
   
-  <div class="auth-buttons">
-    <button mat-button 
-        routerLink="/login"
-    >Войти</button>
-    <button mat-raised-button color="accent" >Регистрация</button>
+  <div class="user-section">
+    <!-- Для авторизованных пользователей -->
+    <div *ngIf="authService.isAuthenticated$ | async; else unauthorizedBlock">
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <mat-icon>account_circle</mat-icon>
+        {{ authService.currentUser?.name }}
+      </button>
+      
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Мой профиль</span>
+        </button>
+        <button mat-menu-item routerLink="/my-resumes">
+          <mat-icon>description</mat-icon>
+          <span>Мои резюме</span>
+        </button>
+        <button mat-menu-item routerLink="/my-companies">
+          <mat-icon>business</mat-icon>
+          <span>Мои организации</span>
+        </button>
+        <button mat-menu-item routerLink="/saved-vacancies">
+          <mat-icon>bookmark</mat-icon>
+          <span>Сохранённые вакансии</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Выйти</span>
+        </button>
+      </mat-menu>
+    </div>
+    
+    <!-- Для неавторизованных пользователей -->
+    <ng-template #unauthorizedBlock>
+      <button mat-button routerLink="/login">Войти</button>
+      <button mat-raised-button color="accent" routerLink="/register">Регистрация</button>
+    </ng-template>
   </div>
 </mat-toolbar>

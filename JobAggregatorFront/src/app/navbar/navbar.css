@@ -1,3 +1,7 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
 .nav-links {
   display: flex;
   margin-left: 20px;
@@ -11,14 +15,26 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.auth-buttons {
+.user-section {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.spacer {
-  flex: 1 1 auto;
+.user-section button[mat-button] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-section button[mat-raised-button] {
+  margin-left: 0;
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 @media (max-width: 768px) {
@@ -26,7 +42,15 @@
     display: none;
   }
   
-  .auth-buttons {
+  .user-section {
     margin-left: auto;
+    flex-direction: row; /* Важно: оставляем в строке на мобильных */
+    flex-wrap: wrap; /* Разрешаем перенос при нехватке места */
+    justify-content: flex-end;
+  }
+
+  .user-section button {
+    font-size: 12px; /* Уменьшаем размер на мобильных */
+    padding: 0 8px; /* Уменьшаем отступы */
   }
 }

@@ -25,8 +25,8 @@ export class AuthService {
   private isAuthentificateSubject = new BehaviorSubject<boolean>(false);
   private currentUserSubject = new BehaviorSubject<User|null>(null);
 
-  isAuthentificateSubject$ = this.isAuthentificateSubject.asObservable();
-  currentUserSubject$ = this.currentUserSubject.asObservable();
+  isAuthenticated$ = this.isAuthentificateSubject.asObservable();
+  currentUser$ = this.currentUserSubject.asObservable();
 
   get currentUser(): User|null{
     return this.currentUserSubject.value;
@@ -48,7 +48,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(this.TokenKey);
-    this.router.navigate(['/login']);
+    this.isAuthentificateSubject.next(false);
+    this.router.navigate(['/']);
   }
 
   getAccessToken(): string | null {

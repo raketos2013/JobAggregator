@@ -7,15 +7,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-navbar',
-  imports: [MatToolbarModule, 
-            MatButtonModule,
-            MatIconModule,
-            MatMenuModule,
-            RouterModule,
-            CommonModule],
+  imports: [MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterModule,
+    CommonModule, 
+    MatDivider],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
