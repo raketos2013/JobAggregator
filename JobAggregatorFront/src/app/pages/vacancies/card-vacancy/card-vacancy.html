@@ -29,12 +29,12 @@
     <button mat-button (click)="viewDetails($event)">Подробнее</button>
 
     @if (authService.isAuthenticated$ | async) {
-    <button mat-raised-button 
-            color="primary" 
-            >
-      Откликнуться
-    </button>
-  }
+      <button mat-raised-button 
+              color="primary" 
+              >
+        Откликнуться
+      </button>
+    }
     <!-- <button mat-stroked-button *ngIf="authService.isAuthenticated">Откликнуться</button> -->
   </mat-card-actions>
 </mat-card>

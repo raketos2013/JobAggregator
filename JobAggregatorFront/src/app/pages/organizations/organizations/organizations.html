@@ -1,21 +1,61 @@
-<div class="page-container">
-  <div class="filters-column">
-    <app-organization-filter></app-organization-filter>
-  </div>
-  
-  <div class="content-column">
-    <div class="header">
-      <h2>Найдено {{organizations().length}} организаций</h2>
-    </div>
+<div class="companies-list-container">
+  <div class="companies-header">
+  <h1 class="companies-title">Организации</h1>
+  @if (authService.isAuthenticated$ | async) {
+  <button mat-raised-button 
+          class="add-company-button"
+          routerLink="/companies/create">
+    <mat-icon>add</mat-icon>
+    Добавить компанию
+  </button>
+   }
+</div>
+  <!-- <div class="companies-header">
+    <h1 class="companies-title">Организации</h1>
     
-    <div class="companies-list">
-      <app-organization-card 
-        *ngFor="let organization of organizations()"
-        [organization]="organization"
-        >
-      </app-organization-card>
-    </div>
+      <button mat-raised-button color="primary" routerLink="/companies/create">
+        <mat-icon>add</mat-icon>
+        Добавить компанию
+      </button>
+   
     
-    <!-- <mat-paginator [length]="totalCount" [pageSize]="pageSize"></mat-paginator> -->
+  </div> -->
+
+  <div class="companies-content">
+    <div class="filters-section">
+      <app-organization-filter></app-organization-filter>
+    </div>
+
+    <div class="main-content">
+      @if (isLoading) {
+        <div class="loading-spinner">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+      }
+      @else if (organizations().length === 0) {
+        <div class="empty-list-message">
+          <mat-icon>business</mat-icon>
+          <p>Организации не найдены</p>
+        </div>
+      }
+      @else {
+        <div class="companies-grid">
+          @for (organization of organizations(); track organization.id) {
+            <app-organization-card 
+              [organization]="organization"
+              >
+            </app-organization-card>
+          }
+        </div>
+
+        <!-- <div class="companies-pagination">
+          <mat-paginator [length]="totalItems"
+                         [pageSize]="pageSize"
+                         [pageIndex]="currentPage"
+                         (page)="onPageChange($event)">
+          </mat-paginator>
+        </div> -->
+      }
+    </div>
   </div>
 </div>

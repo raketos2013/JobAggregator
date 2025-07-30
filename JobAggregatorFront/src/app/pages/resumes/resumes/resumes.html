@@ -1,0 +1,28 @@
+<div class="resumes-page-container">
+  <div class="filters-column">
+    <app-resume-filter (filtersChanged)="onFiltersChange($event)"></app-resume-filter>
+  </div>
+  
+  <div class="resumes-column">
+    <mat-card class="resumes-header">
+      <h2>Найдено {{resumes().length}} резюме</h2>
+    </mat-card>
+    
+    <div class="resumes-list">
+      <app-resume-card 
+        *ngFor="let resume of resumes()"
+        [resume]="resume">
+      </app-resume-card>
+    </div>
+    
+    <!-- <mat-paginator [length]="totalItems"
+                   [pageSize]="pageSize"
+                   [pageIndex]="currentPage"
+                   (page)="onPageChange($event)">
+    </mat-paginator> -->
+  </div>
+  
+  <div class="sidebar-column">
+    <app-resume-sidebar></app-resume-sidebar>
+  </div>
+</div>

@@ -20,8 +20,8 @@ public class OrganizationsController(IOrganizationService organizationService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var organizations = await organizationService.GetAllAsync(query);
-        var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
-        var pagedDTO = new PagedList<OrganizationDTO>(organizationsDTO, organizations.Count, organizations.CurrentPage, organizations.PageSize);
+        //var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
+        var pagedDTO = new PagedList<Organization>(organizations, organizations.Count, organizations.CurrentPage, organizations.PageSize);
         return Ok(pagedDTO);
     }
 

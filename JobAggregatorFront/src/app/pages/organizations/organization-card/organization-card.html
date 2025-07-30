@@ -1,1 +1,40 @@
-dfshsdhdsfhfsdh
+<mat-card class="company-card">
+  <div class="company-header">
+    <!-- <img [src]="organization.logo" [alt]="organization.name" class="company-logo"> -->
+    <div class="company-info">
+      <h3 [routerLink]="['/companies', organization.id]" class="company-name">{{organization.name}}</h3>
+      <div class="company-meta">
+        <span class="company-industry">
+          <mat-icon>business</mat-icon>
+          {{organization.activities}}
+        </span>
+        <span class="company-location">
+          <mat-icon>location_on</mat-icon>
+          {{organization.address}}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- <p class="company-description">{{organization.description | truncate: 150}}</p> -->
+
+  <mat-divider></mat-divider>
+
+  <div class="company-footer">
+    <!-- <div class="company-rating">
+      <mat-icon>star</mat-icon>
+      <span>{{organization.rating | number: '1.1-1'}}</span>
+    </div> -->
+    <div class="company-vacancies">
+      <mat-icon>work_outline</mat-icon>
+      <span>{{organization.vacancies?.length}} вакансий</span>
+    </div>
+    <button mat-raised-button 
+            color="primary"
+            (click)="viewDetails($event)">
+      Подробнее
+    </button>
+  </div>
+</mat-card>

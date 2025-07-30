@@ -1,0 +1,49 @@
+.resumes-page-container {
+  display: flex;
+  gap: 24px;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.filters-column {
+  flex: 2;
+}
+
+.resumes-column {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-column {
+  flex: 1;
+}
+
+.resumes-header {
+  background-color: #2d2d2d;
+  padding: 16px 24px;
+}
+
+.resumes-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+.resumes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .resumes-page-container {
+    flex-direction: column;
+  }
+  
+  .filters-column, .resumes-column, .sidebar-column {
+    width: 100%;
+  }
+}

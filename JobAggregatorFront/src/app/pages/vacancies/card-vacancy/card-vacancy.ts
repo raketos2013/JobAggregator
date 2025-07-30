@@ -24,9 +24,10 @@ import { AuthService } from '../../../services/auth-service';
 })
 export class CardVacancy {
   public authService = inject(AuthService);
+  
   @Input() vacancy!: Vacancy;
 
-   @Output() viewDetailsClicked = new EventEmitter<number>();
+  @Output() viewDetailsClicked = new EventEmitter<number>();
 
   constructor(
     private router: Router 

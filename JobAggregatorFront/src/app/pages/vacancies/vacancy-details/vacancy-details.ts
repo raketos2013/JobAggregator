@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { VacancyService } from '../../../services/vacancy-service';
 import { Vacancy } from '../../../models/vacancy';
@@ -21,7 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './vacancy-details.html',
   styleUrl: './vacancy-details.css'
 })
-export class VacancyDetails {
+export class VacancyDetails implements OnInit{
     private readonly vacancyService = inject(VacancyService)
     private readonly route = inject(ActivatedRoute);
     @Input() vacancyId?: number;

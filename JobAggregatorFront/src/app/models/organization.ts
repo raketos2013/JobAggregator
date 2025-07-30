@@ -5,6 +5,7 @@ import { Vacancy } from "./vacancy";
 export interface Organization{
     id: number;
     name: string;
+    description: string;
     website?: string;
     email: string;
     phoneNumber?: number;

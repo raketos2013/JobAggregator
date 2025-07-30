@@ -1,0 +1,33 @@
+.company-card {
+  background-color: #2d2d2d; /* Более светлый оттенок темного */
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 16px;
+  border: 1px solid #424242; /* Добавляем тонкую границу */
+  border-radius: 8px !important; /* Более выраженные скругленные углы */
+  overflow: hidden; /* Для корректного отображения скругленных углов */
+}
+
+.company-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background-color: #333333; /* Изменение цвета при наведении */
+  border-color: #bb86fc; /* Акцентный цвет границы при наведении */
+}
+
+/* Остальные стили остаются без изменений */
+.company-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.1); /* Легкий градиентный эффект */
+}
+
+.company-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.05); /* Подчеркиваем раздел */
+}

@@ -23,8 +23,8 @@ public class ResumesController(IResumeService resumeService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var resumes = await resumeService.GetAllAsync(query);
-        var resumesDTO = mapper.Map<List<ResumeDTO>>(resumes);
-        var pagedDTO = new PagedList<ResumeDTO>(resumesDTO, resumes.Count, resumes.CurrentPage, resumes.PageSize);
+        //var resumesDTO = mapper.Map<List<ResumeDTO>>(resumes);
+        var pagedDTO = new PagedList<Resume>(resumes, resumes.Count, resumes.CurrentPage, resumes.PageSize);
         return Ok(pagedDTO);
     }
 
@@ -40,7 +40,7 @@ public class ResumesController(IResumeService resumeService,
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] ResumeDTO resume)
     {
-        var validationResult = validator.Validate(resume);
+        var validationResult = await validator.ValidateAsync(resume);
         if (!validationResult.IsValid)
         {
             return BadRequest(validationResult.Errors[0].ToString());
