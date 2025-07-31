@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-create-resume',
-  imports: [MatCardModule, MatFormFieldModule, MatIconModule, CommonModule, MatButtonModule, MatInputModule],
+  imports: [MatCardModule, MatFormFieldModule, MatIconModule, CommonModule, MatButtonModule, MatInputModule, MatButtonModule, MatInputModule],
   templateUrl: './create-resume.html',
   styleUrl: './create-resume.css'
 })

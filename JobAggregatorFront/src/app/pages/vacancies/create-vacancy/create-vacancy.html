@@ -1,0 +1,42 @@
+<div class="form-container">
+  <h1>Добавить вакансию</h1>
+  
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Информация о вакансии</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form >
+        <!-- [formGroup]="vacancyForm" -->
+        <mat-form-field appearance="outline">
+          <mat-label>Название должности</mat-label>
+          <input matInput formControlName="title" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Описание</mat-label>
+          <textarea matInput formControlName="description" rows="5"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Зарплата</mat-label>
+          <input matInput type="number" formControlName="salary">
+          <span matSuffix>₽</span>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Требуемый опыт</mat-label>
+          <mat-select formControlName="experience">
+            <mat-option value="no">Без опыта</mat-option>
+            <mat-option value="1-3">1-3 года</mat-option>
+            <mat-option value="3+">Более 3 лет</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="onSubmit()">Опубликовать</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

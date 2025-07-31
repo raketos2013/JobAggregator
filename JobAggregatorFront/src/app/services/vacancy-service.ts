@@ -9,10 +9,10 @@ export class VacancyService{
     private readonly httClient = inject(HttpClient);
 
     getVacancies(){
-        return this.httClient.get<Vacancy[]>('https://localhost:7261/api/vacancies');
+        return this.httClient.get<Vacancy[]>('https://6vw5xwbz-7261.euw.devtunnels.ms');
     }
 
     getVacancyById(id: number){
-        return this.httClient.get<Vacancy>(`https://localhost:7261/api/vacancies/${id}`);
+        return this.httClient.get<Vacancy>(`https://6vw5xwbz-7261.euw.devtunnels.ms/${id}`);
     }
 }

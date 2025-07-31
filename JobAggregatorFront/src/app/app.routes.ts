@@ -6,6 +6,9 @@ import { Organizations } from './pages/organizations/organizations/organizations
 import { Resumes } from './pages/resumes/resumes/resumes';
 import { ProfilePage } from './pages/profile/profile-page/profile-page';
 import { CreateResume } from './pages/resumes/create-resume/create-resume';
+import { Registration } from './pages/registration/registration';
+import { CreateVacancy } from './pages/vacancies/create-vacancy/create-vacancy';
+import { CreateOrganization } from './pages/organizations/create-organization/create-organization';
 
 export const routes: Routes = [
     { 
@@ -47,6 +50,22 @@ export const routes: Routes = [
     {
         path: 'profile',
         component: ProfilePage
+    },
+    {
+        path: 'createResume',
+        component: CreateResume
+    },
+    {
+        path: 'registration',
+        component: Registration
+    },
+    {
+        path: 'createVacancy',
+        component: CreateVacancy
+    },
+    {
+        path: 'createOrganization',
+        component: CreateOrganization
     },
     {
         path: 'createResume',
