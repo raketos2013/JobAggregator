@@ -23,12 +23,26 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './resume-details.css'
 })
 export class ResumeDetails implements OnInit {
+  private readonly vacancyService = inject(ResumeService)
+      private readonly route = inject(ActivatedRoute);
+      @Input() resumeId?: number;
+      resume = signal<Resume>({} as Resume);
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    if (!this.resumeId) {
+      this.resumeId = +this.route.snapshot.paramMap.get('id')!;
+    }
+    this.loadResume();
   }
-private readonly resumeService = inject(ResumeService)
-    private readonly route = inject(ActivatedRoute);
-    @Input() resumeId?: number;
-    resume = signal<Resume>({} as Resume);
+
     isLoading = false;
+
+  loadResume(): void {
+    if (this.resumeId) {
+      this.vacancyService.getResumeById(this.resumeId).subscribe((res) => {
+        this.resume.set(res);
+      });
+    }
+  }
+
 }

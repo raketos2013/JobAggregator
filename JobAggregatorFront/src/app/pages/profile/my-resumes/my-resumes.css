@@ -1,0 +1,68 @@
+.resumes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resumes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.resumes-header h2 {
+  margin: 0;
+  color: white;
+}
+
+.resumes-list {
+  background-color: #1e1e1e;
+}
+
+.resume-item {
+  height: auto !important;
+  padding: 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resume-item:last-child {
+  border-bottom: none;
+}
+
+.resume-content {
+  flex: 1;
+}
+
+.resume-content h3 {
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.resume-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: #bdbdbd;
+  font-size: 0.9rem;
+}
+
+.main-badge {
+  background-color: #3700b3;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+  .resumes-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .resume-meta {
+    gap: 8px;
+  }
+}

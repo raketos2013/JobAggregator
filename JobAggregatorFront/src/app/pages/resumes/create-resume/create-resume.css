@@ -1,0 +1,17 @@
+.resume-container {
+  padding: 20px;
+}
+.resume-card {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}

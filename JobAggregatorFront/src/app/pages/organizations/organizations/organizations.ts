@@ -8,14 +8,18 @@ import { OrganizationService } from '../../../services/organization-service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from "@angular/material/card";
+import { OrganizationSidebar } from '../organization-sidebar/organization-sidebar';
 
 @Component({
   selector: 'app-organizations',
   imports: [OrganizationFilter,
-            OrganizationCard, 
-            MatIconModule, 
-            MatProgressSpinnerModule,
-            CommonModule],
+    OrganizationCard,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    CommonModule, 
+    MatCardModule,
+    OrganizationSidebar],
   templateUrl: './organizations.html',
   styleUrl: './organizations.css'
 })

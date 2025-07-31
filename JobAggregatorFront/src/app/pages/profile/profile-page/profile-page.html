@@ -1,0 +1,18 @@
+<div class="profile-page-container">
+  <mat-card class="profile-card">
+    <mat-tab-group [(selectedIndex)]="activeTabIndex">
+      <mat-tab label="Мой профиль">
+        <app-profile-info></app-profile-info>
+      </mat-tab>
+      <mat-tab label="Мои резюме">
+        <app-my-resumes></app-my-resumes>
+      </mat-tab>
+      <mat-tab label="Мои отклики">
+        <app-my-applications></app-my-applications>
+      </mat-tab>
+      <mat-tab label="Настройки">
+        <app-profile-settings></app-profile-settings>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

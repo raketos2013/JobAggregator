@@ -47,7 +47,8 @@ public class ResumesController(IResumeService resumeService,
         }
         var newResume = mapper.Map<Resume>(resume);
         var created = await resumeService.CreateAsync(newResume);
-        return Ok(created);
+        var createdDTO = mapper.Map<ResumeDTO>(created);
+        return Ok(createdDTO);
     }
 
     // PUT api/<ResumeController>/5

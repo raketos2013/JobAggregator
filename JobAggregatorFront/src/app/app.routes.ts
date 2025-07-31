@@ -4,6 +4,8 @@ import { VacancyDetails } from './pages/vacancies/vacancy-details/vacancy-detail
 import { VacancyMain } from './pages/vacancies/vacancy-main/vacancy-main';
 import { Organizations } from './pages/organizations/organizations/organizations';
 import { Resumes } from './pages/resumes/resumes/resumes';
+import { ProfilePage } from './pages/profile/profile-page/profile-page';
+import { CreateResume } from './pages/resumes/create-resume/create-resume';
 
 export const routes: Routes = [
     { 
@@ -42,4 +44,12 @@ export const routes: Routes = [
         path: 'resumes/:id',
         loadComponent: () => import('./pages/resumes/resume-details/resume-details').then(m => m.ResumeDetails)
     },
+    {
+        path: 'profile',
+        component: ProfilePage
+    },
+    {
+        path: 'createResume',
+        component: CreateResume
+    }
 ];

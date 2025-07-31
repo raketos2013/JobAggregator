@@ -1,0 +1,40 @@
+<div class="profile-info-container">
+  <div class="profile-header">
+    <img [src]="user.avatar" alt="Avatar" class="profile-avatar">
+    <div class="profile-main-info">
+      <h1>{{user.name}}</h1>
+      <h2>{{user.position}}</h2>
+      <div class="profile-meta">
+        <span><mat-icon>work</mat-icon> {{user.experience}} опыта</span>
+        <span><mat-icon>location_on</mat-icon> {{user.location}}</span>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" class="edit-button">
+      <mat-icon>edit</mat-icon>
+      Редактировать
+    </button>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="profile-details">
+    <div class="details-section">
+      <h3>Контактная информация</h3>
+      <div class="contact-item">
+        <mat-icon>email</mat-icon>
+        <span>{{user.email}}</span>
+      </div>
+      <div class="contact-item">
+        <mat-icon>phone</mat-icon>
+        <span>{{user.phone}}</span>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h3>Ключевые навыки</h3>
+      <div class="skills-list">
+        <span class="skill-tag" *ngFor="let skill of user.skills">{{skill}}</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="resume-container">
+  <h1>Создание резюме</h1>
+  
+  <mat-card class="resume-card">
+    <mat-card-header>
+      <mat-card-title>Личные данные</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <!--  [formGroup]="resumeForm" -->
+        <!-- Основная информация -->
+        <mat-form-field appearance="outline">
+          <mat-label>ФИО</mat-label>
+          <input matInput formControlName="fullName" placeholder="Иванов Иван Иванович">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="example@mail.com">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Телефон</mat-label>
+          <input matInput formControlName="phone" placeholder="+375 (XX) XXX-XX-XX">
+        </mat-form-field>
+        <!-- Опыт работы -->
+        <h3>Опыт работы</h3>
+        <div formArrayName="experience">
+          <div *ngFor="let exp of experience.controls; let i = index" >
+            <!-- [formGroupName]="i" -->
+            <mat-form-field appearance="outline">
+              <mat-label>Компания</mat-label>
+              <input matInput formControlName="company">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Должность</mat-label>
+              <input matInput formControlName="position">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeExperience(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <button mat-raised-button color="primary" (click)="addExperience()">
+            <mat-icon>add</mat-icon> Добавить опыт
+          </button>
+        </div>
+        <!-- Кнопка сохранения -->
+        <div class="actions">
+          <button mat-raised-button color="accent" (click)="onSubmit()">Сохранить резюме</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

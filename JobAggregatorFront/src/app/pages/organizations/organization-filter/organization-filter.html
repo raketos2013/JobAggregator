@@ -1,18 +1,65 @@
 <mat-card class="filters-card">
+  <mat-card-header>
+    <mat-card-title>Фильтры организаций</mat-card-title>
+  </mat-card-header>
+  
   <mat-card-content>
-    <mat-form-field>
-      <input matInput placeholder="Название организации">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Название организации</mat-label>
+      <input matInput 
+        
+        placeholder="Поиск по названию">
+        <!-- [(ngModel)]="filters.search"  -->
     </mat-form-field>
     
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>Отрасли</mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-selection-list>
-        <mat-list-option>
-          fsdgdf
+      <mat-selection-list >
+        <!-- [(ngModel)]="filters.industries" -->
+        <mat-list-option *ngFor="let industry of industryOptions" [value]="industry">
+          {{industry}}
         </mat-list-option>
       </mat-selection-list>
     </mat-expansion-panel>
+    
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Локация</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Город или регион</mat-label>
+        <input matInput  placeholder="Москва, Санкт-Петербург...">
+        <!-- [(ngModel)]="filters.location" -->
+      </mat-form-field>
+    </mat-expansion-panel>
+    
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Размер компании</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-radio-group >
+        <!-- [(ngModel)]="filters.companySize" -->
+        <mat-radio-button *ngFor="let size of companySizeOptions" [value]="size">
+          {{size}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-expansion-panel>
+    
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Дополнительно</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-checkbox >Есть открытые вакансии</mat-checkbox>
+      <!-- [(ngModel)]="filters.hasVacancies" -->
+      <mat-checkbox >Сейчас нанимают</mat-checkbox>
+      <!-- [(ngModel)]="filters.hiringNow" -->
+    </mat-expansion-panel>
   </mat-card-content>
+  
+  <mat-card-actions>
+    <button mat-stroked-button (click)="resetFilters()">Сбросить</button>
+    <button mat-raised-button color="primary" (click)="applyFilters()">Применить</button>
+  </mat-card-actions>
 </mat-card>

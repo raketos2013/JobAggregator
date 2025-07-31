@@ -1,6 +1,7 @@
 import { Handbook } from "./handbook";
 
 export interface Resume{
+    id: number;
     resumeId: number;
     userId: number;
     experience?: string;
