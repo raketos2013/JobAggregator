@@ -8,6 +8,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from "@angular/material/icon";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-vacancies',
@@ -16,7 +17,8 @@ import { Router } from '@angular/router';
             MatChipsModule,
             MatPaginatorModule, 
             MatIconModule, 
-            CommonModule],
+            CommonModule,
+            MatButtonModule],
   templateUrl: './vacancies.html',
   styleUrl: './vacancies.css'
 })

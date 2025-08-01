@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -12,7 +12,9 @@ import { MatInputModule } from '@angular/material/input';
             MatFormFieldModule,
             CommonModule,
             MatButtonModule,
-            MatInputModule],
+            MatInputModule,
+            ReactiveFormsModule,
+            ],
   templateUrl: './registration.html',
   styleUrl: './registration.css'
 })
@@ -33,6 +35,7 @@ export class Registration implements OnInit{
   onSubmit(): void {
     if (this.registerForm.valid) {
       console.log('Регистрация:', this.registerForm.value);
+
       // Здесь добавить запрос к API
     }
   }

@@ -5,6 +5,7 @@ import { LoginResponse } from '../models/login-response';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { environment } from '../environments/environment';
 
 interface JwtPayload{
   sub: string;
@@ -17,7 +18,7 @@ interface JwtPayload{
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly baseUrl = 'https://localhost:7261/api/auth';
+  private readonly baseUrl = `${environment.apiUrl}/auth`;
   private readonly TokenKey = 'AppToken';
   private readonly router = inject(Router);
   private readonly httpClient = inject(HttpClient);
@@ -58,7 +59,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = this.getAccessToken();
-    return !!token; // Returns true if token exists, false otherwise
+    return !!token;
   }
 
   private decodeToken(token: string): User{

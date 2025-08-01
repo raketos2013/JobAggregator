@@ -1,4 +1,5 @@
 import { Handbook } from "./handbook";
+import { UserDTO } from "./userDTO";
 
 export interface Vacancy{
     id: number;
