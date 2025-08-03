@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 import { LoginResponse } from '../models/login-response';
 import { User } from '../models/user';
 import { BehaviorSubject } from 'rxjs';
-import { jwtDecode } from 'jwt-decode';
 import { environment } from '../environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 interface JwtPayload{
-  sub: string;
-  name: string;
-  lastname: string;
+  sub: number;
+  Name: string;
+  Lastname: string;
   role: string
 }
 
@@ -62,18 +62,59 @@ export class AuthService {
     return !!token;
   }
 
-  private decodeToken(token: string): User{
+  // private decodeToken(token: string): User{
+  //   try {
+  //     const decoded = jwtDecode<JwtPayload>(token);
+  //     return {
+  //       id: Number(decoded.sub),
+  //       name: decoded.name,
+  //       lastname: decoded.lastname,
+  //       role: decoded.role
+  //     }
+  //   } catch (error) {
+  //     console.error('Invalid token', error);
+  //     throw new Error('Invalid token');
+  //   }
+  // }
+
+  getUserData(): User | null {
+    const token = this.getAccessToken();
+    if (!token) return null;
+
     try {
       const decoded = jwtDecode<JwtPayload>(token);
       return {
-        id: Number(decoded.sub),
-        name: decoded.name,
-        lastname: decoded.lastname,
-        role: decoded.role
-      }
+        name: decoded.Name || '',
+        lastname: decoded.Lastname || '',
+        role: decoded.role || '',
+        id: decoded.sub || 0,
+      };
     } catch (error) {
-      console.error('Invalid token', error);
-      throw new Error('Invalid token');
+      console.error('Ошибка декодирования токена', error);
+      return null;
     }
   }
+  
+  // getUserData(): User | null {
+  //   const token = localStorage.getItem('AppToken');
+  //   if (!token) return null;
+    
+  //   try {
+  //     const payload = this.parseJwt(token);
+  //     return {
+  //       name: payload.given_name || payload.Name || '',
+  //       lastname: payload.family_name || payload.LastName || '',
+  //       role: payload.Role || '',
+  //       id: payload.Sub || 0
+  //     };
+  //   } catch {
+  //     return null;
+  //   }
+  // }
+  // private parseJwt(token: string): any {
+  //   const base64Url = token.split('.')[1];
+  //   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  //   return JSON.parse(atob(base64));
+  // }
+
 }

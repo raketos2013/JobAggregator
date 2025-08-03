@@ -1,7 +1,7 @@
 <mat-card class="vacancy-detail-card" *ngIf="vacancy">
   <mat-card-header>
     <mat-card-title>{{ vacancy().name }}</mat-card-title>
-    <mat-card-subtitle>{{ vacancy().organizationId }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ organization().name }}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
@@ -20,18 +20,22 @@
 
     <h3>Требования</h3>
     <ul>
-      <li *ngFor="let requirement of vacancy().requirements">{{ requirement }}</li>
+      <li *ngFor="let requirement of vacancy().requirements">{{ requirement.name }}</li>
     </ul>
 
     <h3>Условия</h3>
     <ul>
-      <li *ngFor="let condition of vacancy().responsibilities">{{ condition }}</li>
+      <li *ngFor="let responsibility of vacancy().responsibilities">{{ responsibility.name }}</li>
+    </ul>
+
+    <h3>Мы предлагаем</h3>
+    <ul>
+      <li *ngFor="let offer of vacancy().offers">{{ offer.name }}</li>
     </ul>
 
     <div class="tags">
       <mat-chip-listbox>
-        tags
-        <!-- <mat-chip-option *ngFor="let tag of vacancy.tags">{{ tag }}</mat-chip-option> -->
+        <mat-chip-option *ngFor="let tag of vacancy().skills">{{ tag.name }}</mat-chip-option>
       </mat-chip-listbox>
     </div>
   </mat-card-content>

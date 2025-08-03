@@ -1,15 +1,19 @@
+import { Gender } from "./enums/gender";
 import { Handbook } from "./handbook";
+import { Language } from "./language";
 
 export interface Resume{
     id: number;
-    resumeId: number;
     userId: number;
-    experience?: string;
-    links?: string;
+    experience?: string | null;
+    links: string | null;
     age: number;
-    education?: string;
+    gender: Gender;
+    photo?: string | null;
+    languages: Language[];
+    education?: string | null;
     countViews: number;
     priority: number;
     created: Date;
-    skills?: Handbook[];
+    skills: Handbook[];
 }

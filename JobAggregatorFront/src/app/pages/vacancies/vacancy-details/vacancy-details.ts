@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { OrganizationService } from '../../../services/organization-service';
+import { Organization } from '../../../models/organization';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -23,9 +25,11 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class VacancyDetails implements OnInit{
     private readonly vacancyService = inject(VacancyService)
+    private readonly organizationService = inject(OrganizationService)
     private readonly route = inject(ActivatedRoute);
     @Input() vacancyId?: number;
     vacancy = signal<Vacancy>({} as Vacancy);
+    organization = signal<Organization>({} as Organization);
 
     // ngOnInit(): void {
     //   const vacancyId = Number(this.route.snapshot.paramMap.get('id'))
@@ -35,17 +39,21 @@ export class VacancyDetails implements OnInit{
     // }
 
     ngOnInit(): void {
-    if (!this.vacancyId) {
-      this.vacancyId = +this.route.snapshot.paramMap.get('id')!;
+      if (!this.vacancyId) {
+        this.vacancyId = +this.route.snapshot.paramMap.get('id')!;
+      }
+      this.loadVacancy();
     }
-    this.loadVacancy();
-  }
 
   loadVacancy(): void {
     if (this.vacancyId) {
       this.vacancyService.getVacancyById(this.vacancyId).subscribe((res) => {
         this.vacancy.set(res);
+        this.organizationService.getOrganizationById(res.organizationId).subscribe((res) => {
+          this.organization.set(res)
+        })
       });
+      
     }
   }
 

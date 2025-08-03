@@ -1,0 +1,43 @@
+<div class="profile-container" *ngIf="currentUser">
+  <div class="profile-header">
+    <h1>{{ currentUser.name }} {{ currentUser.lastname }}</h1>
+    <p class="role-badge">{{ currentUser.role }}</p>
+  </div>
+
+  <mat-tab-group [(selectedIndex)]="activeTab">
+    <!-- Общая информация -->
+    <mat-tab label="Общая информация">
+      <app-profile-info [user]="currentUser"></app-profile-info>
+    </mat-tab>
+
+    <!-- Сохранённые вакансии -->
+    <mat-tab label="Сохранённые вакансии">
+      <app-saved-vacancies></app-saved-vacancies>
+    </mat-tab>
+
+    <!-- Мои резюме -->
+    <mat-tab label="Мои резюме">
+      <app-profile-resumes></app-profile-resumes>
+    </mat-tab>
+
+    <!-- Мои отклики -->
+    <mat-tab label="Мои отклики">
+      <app-profile-responses></app-profile-responses>
+    </mat-tab>
+
+    <!-- Мои организации (только для менеджеров) -->
+    <mat-tab *ngIf="isManager()" label="Мои организации">
+      <app-profile-organizations></app-profile-organizations>
+    </mat-tab>
+
+    <!-- Пользователи (только для админов) -->
+    <mat-tab *ngIf="isAdmin()" label="Пользователи">
+      <app-user-management></app-user-management>
+    </mat-tab>
+
+    <!-- Запросы на роли (только для админов) -->
+    <mat-tab *ngIf="isAdmin()" label="Запросы на роли">
+      <app-role-requests></app-role-requests>
+    </mat-tab>
+  </mat-tab-group>
+</div>

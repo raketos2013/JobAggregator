@@ -1,149 +1,109 @@
-.resume-details-container {
-  max-width: 900px;
-  margin: 24px auto;
-  padding: 0 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.resume-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  padding: 100px 0;
-}
-
-.resume-header-card {
-  background-color: #2d2d2d;
-  padding: 24px;
+.resume-card {
+  padding: 1.5rem;
 }
 
 .header-content {
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.resume-main-info {
-  flex: 1;
-}
-
-.resume-main-info h1 {
-  color: #bb86fc;
-  margin: 0 0 12px 0;
-  font-size: 1.8rem;
-}
-
-.resume-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  color: #bdbdbd;
-  font-size: 0.9rem;
-}
-
-.resume-meta .salary {
-  color: #69f0ae;
-  font-weight: 500;
-}
-
-.author-info {
-  display: flex;
-  gap: 16px;
   align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.author-avatar {
+.avatar-container {
   width: 80px;
   height: 80px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  background-color: #1e1e1e;
+  border: 2px solid #3f51b5;
 }
 
-.author-details h3 {
-  margin: 0 0 8px 0;
-  color: white;
+.header-text {
+  flex-grow: 1;
 }
 
-.author-contacts {
+.meta-info {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.contact-link {
-  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
   align-items: center;
-  gap: 4px;
-  color: #40c4ff;
-  text-decoration: none;
+  color: #666;
   font-size: 0.9rem;
 }
 
-.contact-link:hover {
+.meta-info span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.section {
+  margin: 1.5rem 0;
+}
+
+.section h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3f51b5;
+  margin-bottom: 0.5rem;
+}
+
+.pre-formatted {
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+.link-item:hover {
   text-decoration: underline;
 }
 
-.contact-link mat-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
-}
-
-.resume-actions {
+.priority-section {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff9800;
+  font-weight: 500;
 }
 
-.resume-section {
-  background-color: #2d2d2d;
-  padding: 24px;
+mat-chip-listbox {
+  margin-top: 0.5rem;
 }
 
-.resume-section h2 {
-  color: #bb86fc;
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.experience-item, .education-item {
-  margin-bottom: 20px;
-}
-
-.experience-item h3, .education-item h3 {
-  margin: 0 0 4px 0;
-  color: white;
-  font-size: 1.1rem;
-}
-
-.period, .institution {
-  color: #bdbdbd;
-  margin: 0 0 8px 0;
-  font-size: 0.9rem;
-}
-
-ul {
-  margin: 8px 0;
-  padding-left: 20px;
-}
-
-li {
-  margin-bottom: 4px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .header-content {
     flex-direction: column;
+    align-items: flex-start;
   }
   
-  .author-info {
-    align-self: flex-start;
-  }
-  
-  .resume-actions {
-    justify-content: center;
+  .meta-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }

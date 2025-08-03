@@ -21,4 +21,14 @@ public class VacancyRepository(AppDbContext context)
     {
         return await context.Vacancies.SearchByTerm(query.SearchTerm).SortSkipTakeAsync(query);
     }
+
+    new public async Task<Vacancy?> GetAsync(int id)
+    {
+        return await context.Vacancies
+                            .Include(a => a.Requirements)
+                            .Include(b => b.Responsibilities)
+                            .Include(c => c.Offers)
+                            .Include(d => d.Skills)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

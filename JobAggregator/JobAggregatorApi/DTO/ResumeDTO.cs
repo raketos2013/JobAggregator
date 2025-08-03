@@ -13,8 +13,8 @@ public class ResumeDTO
     public string? Photo { get; set; }
     public List<LanguageDTO>? Languages { get; set; }
     public string? Education { get; set; }
-    public int CountViews { get; set; }
-    public int Priority { get; set; }
-    public DateTime Created { get; set; }
+    //public int CountViews { get; set; }
+    //public int Priority { get; set; }
+    //public DateTime Created { get; set; }
     public List<HandbookDTO>? Skills { get; set; }
 }

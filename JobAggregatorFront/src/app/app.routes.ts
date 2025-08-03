@@ -4,11 +4,11 @@ import { VacancyDetails } from './pages/vacancies/vacancy-details/vacancy-detail
 import { VacancyMain } from './pages/vacancies/vacancy-main/vacancy-main';
 import { Organizations } from './pages/organizations/organizations/organizations';
 import { Resumes } from './pages/resumes/resumes/resumes';
-import { ProfilePage } from './pages/profile/profile-page/profile-page';
 import { CreateResume } from './pages/resumes/create-resume/create-resume';
 import { Registration } from './pages/registration/registration';
 import { CreateVacancy } from './pages/vacancies/create-vacancy/create-vacancy';
 import { CreateOrganization } from './pages/organizations/create-organization/create-organization';
+import { Profile } from './pages/profile/profile/profile';
 
 export const routes: Routes = [
     { 
@@ -49,7 +49,7 @@ export const routes: Routes = [
     },
     {
         path: 'profile',
-        component: ProfilePage
+        component: Profile
     },
     {
         path: 'createResume',

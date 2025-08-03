@@ -1,40 +1,44 @@
-<div class="profile-info-container">
-  <div class="profile-header">
-    <img [src]="user.avatar" alt="Avatar" class="profile-avatar">
-    <div class="profile-main-info">
-      <h1>{{user.name}}</h1>
-      <h2>{{user.position}}</h2>
-      <div class="profile-meta">
-        <span><mat-icon>work</mat-icon> {{user.experience}} опыта</span>
-        <span><mat-icon>location_on</mat-icon> {{user.location}}</span>
-      </div>
+<div class="general-info">
+  <div *ngIf="!isEditing">
+    <h2>Основная информация</h2>
+    <p><strong>Имя:</strong> {{ user.name }}</p>
+    <p><strong>Фамилия:</strong> {{ user.lastname }}</p>
+    <p><strong>Роль:</strong> {{ user.role }}</p>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="isEditing = true">
+        Редактировать
+      </button>
+      <button *ngIf="user.role !== 'Manager'" 
+              mat-raised-button 
+              color="accent" 
+              (click)="requestManagerRole()">
+        Получить роль Manager
+      </button>
     </div>
-    <button mat-raised-button color="primary" class="edit-button">
-      <mat-icon>edit</mat-icon>
-      Редактировать
-    </button>
   </div>
 
-  <mat-divider></mat-divider>
+  <div *ngIf="isEditing">
+    <h2>Редактирование</h2>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Имя</mat-label>
+        <input matInput [(ngModel)]="user.name" name="name">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Фамилия</mat-label>
+        <input matInput [(ngModel)]="user.lastname" name="lastname">
+      </mat-form-field>
 
-  <div class="profile-details">
-    <div class="details-section">
-      <h3>Контактная информация</h3>
-      <div class="contact-item">
-        <mat-icon>email</mat-icon>
-        <span>{{user.email}}</span>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" (click)="isEditing = false">
+          Сохранить
+        </button>
+        <button mat-button (click)="isEditing = false">
+          Отмена
+        </button>
       </div>
-      <div class="contact-item">
-        <mat-icon>phone</mat-icon>
-        <span>{{user.phone}}</span>
-      </div>
-    </div>
-
-    <div class="details-section">
-      <h3>Ключевые навыки</h3>
-      <div class="skills-list">
-        <span class="skill-tag" *ngFor="let skill of user.skills">{{skill}}</span>
-      </div>
-    </div>
+    </form>
   </div>
 </div>

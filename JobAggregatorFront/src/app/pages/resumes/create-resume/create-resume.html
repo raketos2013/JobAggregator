@@ -1,50 +1,117 @@
-<div class="resume-container">
-  <h1>Создание резюме</h1>
+<div class="form-container">
+  <h1 class="page-title">Создание резюме</h1>
   
-  <mat-card class="resume-card">
+  <mat-card class="form-card">
     <mat-card-header>
-      <mat-card-title>Личные данные</mat-card-title>
+      <mat-card-title>Основная информация</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form>
-        <!--  [formGroup]="resumeForm" -->
-        <!-- Основная информация -->
-        <mat-form-field appearance="outline">
-          <mat-label>ФИО</mat-label>
-          <input matInput formControlName="fullName" placeholder="Иванов Иван Иванович">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="example@mail.com">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Телефон</mat-label>
-          <input matInput formControlName="phone" placeholder="+375 (XX) XXX-XX-XX">
-        </mat-form-field>
+      <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+        <!-- ФИО (из токена) -->
+        <div class="form-section">
+          <mat-form-field appearance="outline">
+            <mat-label>ФИО</mat-label>
+            <input matInput [value]="userFullName" readonly>
+          </mat-form-field>
+        </div>
+
         <!-- Опыт работы -->
-        <h3>Опыт работы</h3>
-        <div formArrayName="experience">
-          <div *ngFor="let exp of experience.controls; let i = index" >
-            <!-- [formGroupName]="i" -->
-            <mat-form-field appearance="outline">
-              <mat-label>Компания</mat-label>
-              <input matInput formControlName="company">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Должность</mat-label>
-              <input matInput formControlName="position">
-            </mat-form-field>
-            <button mat-icon-button color="warn" (click)="removeExperience(i)">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Опыт работы</mat-label>
+          <textarea matInput formControlName="experience" rows="3"></textarea>
+        </mat-form-field>
+
+        <!-- Ссылки -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Ссылки (GitHub, LinkedIn и т.д.)</mat-label>
+          <textarea matInput formControlName="links" rows="2"></textarea>
+        </mat-form-field>
+
+        <!-- Возраст и гендер -->
+        <div class="row-fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Возраст</mat-label>
+            <input matInput type="number" formControlName="age" min="14" max="99">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Гендер</mat-label>
+            <mat-select formControlName="gender">
+              <mat-option *ngFor="let gender of genders" [value]="gender">
+                {{ getGenderString(gender) }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Фото -->
+        <div class="photo-upload">
+          <h3>Фото профиля</h3>
+          <div class="upload-container">
+            <img *ngIf="photoPreview" [src]="photoPreview" class="photo-preview">
+            <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">
+              <mat-icon>upload</mat-icon> Загрузить фото
+            </button>
+            <input #fileInput type="file" accept="image/*" hidden (change)="onPhotoUpload($event)">
+            <button *ngIf="photoPreview" mat-icon-button color="warn" (click)="removePhoto()">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
-          <button mat-raised-button color="primary" (click)="addExperience()">
-            <mat-icon>add</mat-icon> Добавить опыт
+        </div>
+
+        <!-- Языки -->
+        <h3>Языки</h3>
+        <div formArrayName="languages">
+          <div *ngFor="let lang of languages.controls; let i = index" [formGroupName]="i" class="array-item">
+            <div class="row-fields">
+              <mat-form-field appearance="outline" class="language-field">
+                <mat-label>Выберите язык</mat-label>
+                <mat-select formControlName="language">
+                  <mat-option *ngFor="let langOption of availableLanguages" [value]="langOption">
+                    {{ langOption.name }} ({{ langOption.code }})
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-icon-button color="warn" type="button" (click)="removeLanguage(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <button mat-button type="button" (click)="addLanguage()" [disabled]="availableLanguages.length === 0">
+            <mat-icon>add</mat-icon> Добавить язык
           </button>
         </div>
-        <!-- Кнопка сохранения -->
+
+        <!-- Образование -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Образование</mat-label>
+          <textarea matInput formControlName="education" rows="3"></textarea>
+        </mat-form-field>
+
+        <!-- Ключевые навыки -->
+        <h3>Ключевые навыки</h3>
+        <mat-form-field appearance="outline" class="skills-field">
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row *ngFor="let skill of (skills?.controls || []); let i = index" 
+                         [removable]="true" (removed)="removeSkill(i)">
+              {{ skill.get('name')?.value }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input [formControl]="skillInputControl"
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="[13, 188]"
+                  (matChipInputTokenEnd)="addSkill($event)"
+                  placeholder="Введите навык...">
+          </mat-chip-grid>
+        </mat-form-field>
+
         <div class="actions">
-          <button mat-raised-button color="accent" (click)="onSubmit()">Сохранить резюме</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="resumeForm.invalid">
+            Сохранить резюме
+          </button>
         </div>
       </form>
     </mat-card-content>

@@ -17,4 +17,8 @@ export class OrganizationService{
     getOrganizationById(id: number){
         return this.httClient.get<Organization>(`${environment.apiUrl}/organizations/${id}`);
     }
+
+    getUserOrganizations(){
+        return this.httClient.get<Organization[]>(`${environment.apiUrl}/organizations`);
+    }
 }

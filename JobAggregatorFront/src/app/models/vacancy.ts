@@ -10,7 +10,7 @@ export interface Vacancy{
     priority: number;
     countViews: number;
     countResponses: number;
-    created: Date;
+    created?: Date;
     organizationId: number;
     scheduleType: number;
     requirements?: Handbook[];

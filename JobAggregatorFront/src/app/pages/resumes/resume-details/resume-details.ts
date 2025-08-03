@@ -9,6 +9,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Gender } from '../../../models/enums/gender';
 
 @Component({
   selector: 'app-resume-details',
@@ -23,26 +24,50 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './resume-details.css'
 })
 export class ResumeDetails implements OnInit {
-  private readonly vacancyService = inject(ResumeService)
-      private readonly route = inject(ActivatedRoute);
-      @Input() resumeId?: number;
-      resume = signal<Resume>({} as Resume);
+  loading = true;
+  @Input() resumeId?: number;
+  resume = signal<Resume>({} as Resume);
+
+  constructor(
+    private route: ActivatedRoute,
+    private resumeService: ResumeService
+  ) {}
 
   ngOnInit(): void {
     if (!this.resumeId) {
-      this.resumeId = +this.route.snapshot.paramMap.get('id')!;
-    }
-    this.loadResume();
+        this.resumeId = +this.route.snapshot.paramMap.get('id')!;
+      }
+      this.loadResume();
   }
-
-    isLoading = false;
 
   loadResume(): void {
     if (this.resumeId) {
-      this.vacancyService.getResumeById(this.resumeId).subscribe((res) => {
+      this.resumeService.getResumeById(this.resumeId).subscribe((res) => {
         this.resume.set(res);
       });
     }
+  }
+
+  getGenderString(gender: Gender): string {
+    const genderMap: Record<Gender, string> = {
+      [Gender.Male]: 'Мужской',
+      [Gender.Female]: 'Женский'
+    };
+    return genderMap[gender] || 'Не указан';
+  }
+
+  parseLinks(linksString: string | null): string[] {
+    if(linksString == null) return [];
+    try {
+      return linksString.split('\n').filter(link => link.trim());
+    } catch {
+      return [];
+    }
+  }
+
+  contactUser(): void {
+    // Логика связи с пользователем
+    console.log('Инициация контакта с пользователем', this.resume()?.userId);
   }
 
 }

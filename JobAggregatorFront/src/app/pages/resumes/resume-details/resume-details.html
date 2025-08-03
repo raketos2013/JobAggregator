@@ -1,92 +1,91 @@
-<div class="resume-details-container">
-  @if (isLoading) {
-    <div class="loading-spinner">
-      <mat-spinner diameter="50"></mat-spinner>
-    </div>
-  }
-  @else if (resume()) {
-    <mat-card class="resume-header-card">
+<div class="resume-container">
+  <mat-card class="resume-card">
+    <mat-card-header>
       <div class="header-content">
-        <div class="resume-main-info">
-          <h1>resume.position</h1>
-          <div class="resume-meta">
-            <span class="salary">resume.salary</span>
-            <span>{{resume().experience}}</span>
-            <span>resume.location</span>
-            <span>Обновлено: {{resume().created}}</span>
-          </div>
+        <div class="avatar-container" *ngIf="resume()?.photo">
+          <img [src]="resume().photo" alt="Фото" class="avatar">
         </div>
-        
-        <div class="author-info">
-          <!-- <img [src]="resume.author.avatar" alt="Author" class="author-avatar">
-          <div class="author-details">
-            <h3>{{resume.author.name}}</h3>
-            <div class="author-contacts">
-              <a [href]="'mailto:' + resume.author.email" class="contact-link">
-                <mat-icon>email</mat-icon>
-                {{resume.author.email}}
-              </a>
-              <a [href]="'tel:' + resume.author.phone" class="contact-link">
-                <mat-icon>phone</mat-icon>
-                {{resume.author.phone}}
-              </a>
-            </div>
-          </div> -->
-          user resume
+        <div class="header-text">
+          <!-- <mat-card-title>Резюме #{{ resume().id }}</mat-card-title> -->
+          <mat-card-subtitle>
+            <span class="meta-info">
+              <span class="age-gender">
+                {{ resume().age }} лет, {{ getGenderString(resume().gender) }}
+              </span>
+              <span class="views">
+                <mat-icon>visibility</mat-icon>
+                {{ resume().countViews || 0 }} просмотров
+              </span>
+              <span class="created">
+                <mat-icon>calendar_today</mat-icon>
+                {{ resume().created | date:'dd.MM.yyyy' }}
+              </span>
+            </span>
+          </mat-card-subtitle>
         </div>
       </div>
-      
-      <mat-divider></mat-divider>
-      
-      <div class="resume-actions">
-        buttons
-        <!-- @if (isOwner) {
-          <button mat-raised-button color="primary" (click)="editResume()">
-            <mat-icon>edit</mat-icon>
-            Редактировать
-          </button>
-        }
-        @else {
-          <button mat-raised-button color="primary" (click)="contactApplicant()">
-            <mat-icon>mail</mat-icon>
-            Написать соискателю
-          </button>
-        } -->
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <!-- Опыт работы -->
+      <div class="section" *ngIf="resume()?.experience">
+        <h3><mat-icon>work</mat-icon> Опыт работы</h3>
+        <p class="pre-formatted">{{ resume().experience }}</p>
       </div>
-    </mat-card>
-    
-    <mat-card class="resume-section">
-      <h2>О себе</h2>
-      <p>some description</p>
-    </mat-card>
-    
-    <mat-card class="resume-section">
-      <h2>Навыки</h2>
-      <mat-chip-listbox>
-        <mat-chip *ngFor="let skill of resume().skills">{{skill}}</mat-chip>
-      </mat-chip-listbox>
-    </mat-card>
-    
-    <mat-card class="resume-section">
-      <h2>Опыт работы</h2>
-      <p>{{resume().experience}}</p>
-      <!-- <div class="experience-item" *ngFor="let exp of resume().workExperience">
-        <h3>{{exp.position}} • {{exp.company}}</h3>
-        <p class="period">{{exp.period}}</p>
-        <ul>
-          <li *ngFor="let resp of exp.responsibilities">{{resp}}</li>
-        </ul>
+
+      <!-- Образование -->
+      <div class="section" *ngIf="resume()?.education">
+        <h3><mat-icon>school</mat-icon> Образование</h3>
+        <p class="pre-formatted">{{ resume().education }}</p>
+      </div>
+
+      <!-- Ссылки -->
+      <div class="section" *ngIf="resume()?.links">
+        <h3><mat-icon>link</mat-icon> Ссылки</h3>
+        <div class="links-container">
+          <a *ngFor="let link of parseLinks(resume().links)" 
+             [href]="link" 
+             target="_blank" 
+             class="link-item">
+            <mat-icon>open_in_new</mat-icon>
+            {{ link }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Языки -->
+      <div class="section" *ngIf="resume()?.languages?.length">
+        <h3><mat-icon>language</mat-icon> Языки</h3>
+        <mat-chip-listbox>
+          <mat-chip-option *ngFor="let lang of resume().languages" selected>
+            {{ lang.name }} ({{ lang.code }})
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+
+      <!-- Навыки -->
+      <div class="section" *ngIf="resume()?.skills?.length">
+        <h3><mat-icon>star</mat-icon> Навыки</h3>
+        <mat-chip-listbox>
+          <mat-chip-option *ngFor="let skill of resume().skills" selected>
+            {{ skill.name }}
+          </mat-chip-option>
+        </mat-chip-listbox>
+      </div>
+
+      <!-- Приоритет -->
+      <!-- <div class="section priority-section" *ngIf="resume()?.priority">
+        <mat-icon>priority_high</mat-icon>
+        <span>Приоритет: {{ resume.priority }}/10</span>
       </div> -->
-    </mat-card>
-    
-    <mat-card class="resume-section">
-      <h2>Образование</h2>
-      <p>{{resume().education}}</p>
-      <!-- <div class="education-item" *ngFor="let edu of resume.education">
-        <h3>{{edu.degree}}</h3>
-        <p class="institution">{{edu.institution}}</p>
-        <p class="period">{{edu.period}}</p>
-      </div> -->
-    </mat-card>
-  }
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="contactUser()">
+        <mat-icon>mail</mat-icon> Связаться
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
