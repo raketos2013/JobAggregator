@@ -1,4 +1,5 @@
 ﻿using JobAggregator.Core.Enum;
+using System.Text.Json.Serialization;
 
 namespace JobAggregator.Core.Entities;
 
@@ -21,4 +22,6 @@ public class Vacancy : Entity
     public List<Skill>? Skills { get; set; }
     public List<UserAplication>? UserAplications { get; set; }
     public List<OrganizationAplication>? OrganizationAplications { get; set; }
+    [JsonIgnore]
+    public List<User>? Users { get; set; }
 }

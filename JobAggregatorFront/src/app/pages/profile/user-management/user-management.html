@@ -17,13 +17,23 @@
     <!-- Lastname Column -->
     <ng-container matColumnDef="lastname">
       <th mat-header-cell *matHeaderCellDef>Фамилия</th>
-      <td mat-cell *matCellDef="let user">{{ user.lastname }}</td>
+      <td mat-cell *matCellDef="let user">{{ user.lastName }}</td>
     </ng-container>
 
     <!-- Role Column -->
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef>Роль</th>
-      <td mat-cell *matCellDef="let user">{{ user.role }}</td>
+      <td mat-cell *matCellDef="let user">
+        @if (user.roleId == 1) {
+          ADMIN
+        }
+        @else if (user.roleId == 2) {
+          USER
+        }
+        @else if (user.roleId == 3) {
+          MANAGER
+        }
+      </td>
     </ng-container>
 
     <!-- Actions Column -->

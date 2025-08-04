@@ -10,6 +10,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { OrganizationService } from '../../../services/organization-service';
 import { Organization } from '../../../models/organization';
+import { AuthService } from '../../../services/auth-service';
+import { UserService } from '../../../services/user-service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -24,11 +27,17 @@ import { Organization } from '../../../models/organization';
   styleUrl: './vacancy-details.css'
 })
 export class VacancyDetails implements OnInit{
+  public authService = inject(AuthService)
+    public userService = inject(UserService)
+    
     private readonly vacancyService = inject(VacancyService)
     private readonly organizationService = inject(OrganizationService)
     private readonly route = inject(ActivatedRoute);
     @Input() vacancyId?: number;
     vacancy = signal<Vacancy>({} as Vacancy);
+
+    user = signal<User>({} as User);
+
     organization = signal<Organization>({} as Organization);
 
     // ngOnInit(): void {
@@ -55,6 +64,13 @@ export class VacancyDetails implements OnInit{
       });
       
     }
+  }
+
+  saveVacancy(){
+    let user = this.authService.getUserData();
+    console.log("222222")
+    if(user != null)
+      this.userService.saveVacancy(this.vacancyId, user.id).subscribe((res) => {this.user.set(res)});
   }
 
   applyForVacancy(): void {

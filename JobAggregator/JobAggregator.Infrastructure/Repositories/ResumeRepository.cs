@@ -15,4 +15,9 @@ public class ResumeRepository(AppDbContext context)
                             .Include(d => d.Skills)
                             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public async Task<List<Resume>> GetResumesByUserIdAsync(int id)
+    {
+        return await context.Resumes.Where(x => x.UserId == id).ToListAsync();
+    }
 }

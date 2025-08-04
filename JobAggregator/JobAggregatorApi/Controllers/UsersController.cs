@@ -100,4 +100,26 @@ public class UsersController(IUserService userService,
         }
         return BadRequest();
     }
+
+    [HttpGet("{userId}/SaveVacancy/{vacancyId}")]
+    public async Task<ActionResult<UserDTO>> SaveVacancy(int userId, int vacancyId)
+    {
+        await userService.SaveVacancy(userId, vacancyId);
+        var user = await userService.GetAsync(userId);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
+    }
+
+    [HttpGet("{id}/savedVacancies")]
+    public async Task<ActionResult<List<Vacancy>>> GetSavedVacancies(int id)
+    {
+        var vacancies = await userService.GetSavedVacancyAsync(id);
+        return vacancies;
+    }
+
+    [HttpGet("{id}/resumes")]
+    public async Task<ActionResult<List<Resume>>> GetUserResumes(int id)
+    {
+        return await userService.GetUserResumesAsync(id);
+    }
 }

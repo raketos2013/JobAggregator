@@ -181,9 +181,11 @@ export class CreateResume implements OnInit{
       // }
 
       console.log('Данные для отправки:', this.resumeForm.value);
-
+      
+      let user = this.authService.getUserData();
+      if(user == null) return;
       const resumeDTO: ResumeDTO = {
-        userId: 1,
+        userId: user.id,
         experience: this.resumeForm.value.experience,
         links: this.resumeForm.value.links,
         age: this.resumeForm.value.age,

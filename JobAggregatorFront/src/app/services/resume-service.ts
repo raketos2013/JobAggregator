@@ -27,7 +27,7 @@ export class ResumeService{
                             });
     }
 
-    getUserResumes(){
-        return this.httClient.get<Resume[]>(`${environment.apiUrl}/resumes`);
+    getUserResumes(userId : number){
+        return this.httClient.get<Resume[]>(`${environment.apiUrl}/users/${userId}/resumes`);
     }
 }

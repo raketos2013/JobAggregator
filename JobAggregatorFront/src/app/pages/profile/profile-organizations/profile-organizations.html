@@ -1,6 +1,10 @@
 <div class="my-organizations">
-  <h2>Мои организации</h2>
-
+  <div class="header-actions">
+    <h2>Мои Организации</h2>
+    <button mat-raised-button color="primary" routerLink="/createOrganization">
+      <mat-icon>add</mat-icon> Создать новую
+    </button>
+  </div>
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <div class="org-grid">

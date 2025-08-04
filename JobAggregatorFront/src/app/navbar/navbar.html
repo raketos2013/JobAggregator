@@ -11,10 +11,10 @@
   
   <div class="user-section">
     <!-- Для авторизованных пользователей -->
-    <div *ngIf="authService.isAuthenticated$ | async; else unauthorizedBlock">
+    <div *ngIf="authService.isAuthenticated(); else unauthorizedBlock">
       <button mat-button [matMenuTriggerFor]="userMenu">
         <mat-icon>account_circle</mat-icon>
-        {{ authService.currentUser?.name }}
+        {{ authService.getUserData()?.name }}
       </button>
       
       <mat-menu #userMenu="matMenu">
@@ -22,7 +22,7 @@
           <mat-icon>person</mat-icon>
           <span>Мой профиль</span>
         </button>
-        <button mat-menu-item routerLink="/my-resumes">
+        <!-- <button mat-menu-item routerLink="/my-resumes">
           <mat-icon>description</mat-icon>
           <span>Мои резюме</span>
         </button>
@@ -33,7 +33,7 @@
         <button mat-menu-item routerLink="/saved-vacancies">
           <mat-icon>bookmark</mat-icon>
           <span>Сохранённые вакансии</span>
-        </button>
+        </button> -->
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -7,6 +7,8 @@ import { VacancyService } from '../../../services/vacancy-service';
 import { Vacancy } from '../../../models/vacancy';
 import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { UserService } from '../../../services/user-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-saved-vacancies',
@@ -23,14 +25,17 @@ export class SavedVacancies implements OnInit{
   vacancies: Vacancy[] = [];
   loading = true;
 
-  constructor(private vacancyService: VacancyService) {}
+  private readonly userService = inject(UserService);
+  private readonly authService = inject(AuthService)
 
   ngOnInit(): void {
     this.loadSavedVacancies();
   }
 
   loadSavedVacancies(): void {
-    this.vacancyService.getSavedVacancies(1).subscribe({
+    let user = this.authService.getUserData();
+    if(user == null) return;
+    this.userService.getSavedVacancies(user.id).subscribe({
       next: (vacancies) => {
         this.vacancies = vacancies;
         this.loading = false;

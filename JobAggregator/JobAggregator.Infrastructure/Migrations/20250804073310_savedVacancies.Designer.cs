@@ -3,6 +3,7 @@ using System;
 using JobAggregator.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobAggregator.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250804073310_savedVacancies")]
+    partial class savedVacancies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,10 +224,6 @@ namespace JobAggregator.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -584,21 +583,6 @@ namespace JobAggregator.Infrastructure.Migrations
                     b.ToTable("SkillVacancy");
                 });
 
-            modelBuilder.Entity("UserVacancy", b =>
-                {
-                    b.Property<int>("UsersId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("VacanciesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UsersId", "VacanciesId");
-
-                    b.HasIndex("VacanciesId");
-
-                    b.ToTable("UserVacancy");
-                });
-
             modelBuilder.Entity("ActivityOrganization", b =>
                 {
                     b.HasOne("JobAggregator.Core.Entities.Activity", null)
@@ -809,21 +793,6 @@ namespace JobAggregator.Infrastructure.Migrations
                     b.HasOne("JobAggregator.Core.Entities.Skill", null)
                         .WithMany()
                         .HasForeignKey("SkillsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("JobAggregator.Core.Entities.Vacancy", null)
-                        .WithMany()
-                        .HasForeignKey("VacanciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("UserVacancy", b =>
-                {
-                    b.HasOne("JobAggregator.Core.Entities.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

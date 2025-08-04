@@ -11,7 +11,6 @@
     <app-card-vacancy
       *ngFor="let vacancy of vacancies()"
       [vacancy]="vacancy"
-      (click)="viewVacancyDetails(vacancy.id)"
       >
     </app-card-vacancy>
   </div>

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-card-vacancy',
@@ -23,7 +24,8 @@ import { AuthService } from '../../../services/auth-service';
   styleUrl: './card-vacancy.css'
 })
 export class CardVacancy {
-  public authService = inject(AuthService);
+  public authService = inject(AuthService)
+  public userService = inject(UserService)
   
   @Input() vacancy!: Vacancy;
 
@@ -52,4 +54,11 @@ export class CardVacancy {
   // toggleFavorite(): void {
   //   this.favoriteToggled.emit(this.vacancy.id);
   // }
+
+  saveVacancy(){
+    let user = this.authService.getUserData();
+    console.log("222222")
+    if(user != null)
+      this.userService.saveVacancy(this.vacancy.id, user.id);
+  }
 }

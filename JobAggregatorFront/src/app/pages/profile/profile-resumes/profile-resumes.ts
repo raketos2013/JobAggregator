@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Resume } from '../../../models/resume';
 import { ResumeService } from '../../../services/resume-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-profile-resumes',
@@ -23,14 +24,21 @@ export class ProfileResumes implements OnInit{
   resumes: Resume[] = [];
   loading = true;
 
-  constructor(private resumeService: ResumeService) {}
+  private readonly resumeService = inject(ResumeService)
+  private readonly authService = inject(AuthService)
 
   ngOnInit(): void {
     this.loadResumes();
   }
 
   loadResumes(): void {
-    this.resumeService.getUserResumes().subscribe({
+    let user = this.authService.getUserData();
+    if(user == null){
+      this.loading = false;
+      return;
+    }
+    
+    this.resumeService.getUserResumes(user.id).subscribe({
       next: (resumes) => {
         this.resumes = resumes;
         this.loading = false;

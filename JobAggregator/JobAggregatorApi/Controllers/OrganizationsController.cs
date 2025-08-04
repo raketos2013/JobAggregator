@@ -35,10 +35,10 @@ public class OrganizationsController(IOrganizationService organizationService,
 
     // POST api/<OrganizationController>
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] OrganizationDTO organization)
+    public async Task<IActionResult> Post([FromBody] CreateOrganizationDTO createOrganizationDTO)
     {
-        var newOrganization = mapper.Map<Organization>(organization);
-        var created = await organizationService.CreateAsync(newOrganization);
+        var newOrganization = mapper.Map<Organization>(createOrganizationDTO.Organization);        
+        var created = await organizationService.CreateAsync(newOrganization, createOrganizationDTO.UserId);
         return Ok(created);
     }
 

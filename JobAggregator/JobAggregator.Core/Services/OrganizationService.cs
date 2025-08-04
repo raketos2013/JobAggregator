@@ -15,8 +15,21 @@ public class OrganizationService(IUnitOfWork unitOfWork)
         var deleted = await unitOfWork.OrganizationRepository.DeleteAsync(id);
         return deleted && await unitOfWork.SaveAsync() > 0;
     }
-    public async Task<Organization> CreateAsync(Organization organization)
+    public async Task<Organization> CreateAsync(Organization organization, int userId)
     {
+        var user = await unitOfWork.UserRepository.GetAsync(userId);
+        if (user == null)
+        {
+            throw new DomainException("Failed to create organization.");
+        }
+        if (organization.Users == null)
+        {
+            organization.Users = [user];
+        }
+        else
+        {
+            organization.Users.Add(user);
+        }
         var createdOrganization = await unitOfWork.OrganizationRepository.CreateAsync(organization);
         return await unitOfWork.SaveAsync() > 0 ? createdOrganization
             : throw new DomainException("Failed to create organization.");

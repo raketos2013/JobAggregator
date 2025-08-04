@@ -87,4 +87,5 @@ public class VacanciesController(IVacancyService vacancyService,
             return Ok(deleted);
         }
     }
+
 }

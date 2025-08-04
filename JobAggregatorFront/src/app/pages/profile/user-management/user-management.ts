@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { UserIdDTO } from '../../../models/DTOs/userIdDTO';
 
 @Component({
   selector: 'app-user-management',
@@ -20,7 +21,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   styleUrl: './user-management.css'
 })
 export class UserManagement implements OnInit{
-  users = signal<User[]>([]);
+  users = signal<UserIdDTO[]>([]);
   displayedColumns: string[] = ['id', 'name', 'lastname', 'role', 'actions'];
 
   constructor(private userService: UserService) {}
@@ -30,8 +31,12 @@ export class UserManagement implements OnInit{
   }
 
   loadUsers(): void {
-    this.userService.getUsers().subscribe((res) => this.users.set(res));
-    console.log(this.users())
+     let useres : User[];
+    this.userService.getUsers().subscribe((res) => {
+      this.users.set(res);
+    });
+    
+    
   }
 
   grantRole(userId: number, role: string): void {

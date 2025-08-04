@@ -27,7 +27,5 @@ export class VacancyService{
               });
     }
 
-    getSavedVacancies(userId : number){
-        return this.httClient.get<Vacancy[]>(`${environment.apiUrl}/vacancies`);
-    }
+    
 }

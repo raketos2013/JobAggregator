@@ -34,6 +34,7 @@ export class Vacancies implements OnInit{
 
   ngOnInit(): void{
     this.vacancyService.getVacancies().subscribe((res) => this.vacancies.set(res));
+    console.log(this.vacancies());
   }
 
 

@@ -19,4 +19,11 @@ public class UserRepository(AppDbContext context)
     {
         return await context.Users.SearchByTerm(query.SearchTerm).SortSkipTakeAsync(query);
     }
+
+    public async Task<User?> GetVacanciesAsync(int id)
+    {
+        return await context.Users
+                            .Include(d => d.Vacancies)
+                            .FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

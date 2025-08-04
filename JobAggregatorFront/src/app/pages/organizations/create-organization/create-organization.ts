@@ -8,16 +8,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from "@angular/material/chips";
 import { Organization } from '../../../models/organization';
 import { OrganizationService } from '../../../services/organization-service';
+import { CommonModule } from '@angular/common';
+import { OrganizationDTO } from '../../../models/DTOs/organizationDTO';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-create-organization',
-  imports: [MatCardModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatInputModule, MatChipsModule, ReactiveFormsModule],
+  imports: [MatCardModule, 
+            MatFormFieldModule, 
+            MatIconModule, 
+            MatButtonModule, 
+            MatInputModule, 
+            MatChipsModule, 
+            ReactiveFormsModule, 
+            CommonModule],
   templateUrl: './create-organization.html',
   styleUrl: './create-organization.css'
 })
 export class CreateOrganization {
   organizationForm: FormGroup;
   skillInputControl = new FormControl('');
+  private readonly authService = inject(AuthService)
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +39,7 @@ export class CreateOrganization {
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       website: ['', [Validators.pattern('https?://.+')]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.pattern('[0-9]{10,15}')]],
+      phoneNumber: ['', [Validators.pattern('[0-9]{9}')]],
       address: [''],
       activities: this.fb.array([])
     });
@@ -58,20 +69,29 @@ export class CreateOrganization {
 
   onSubmit(): void {
     if (this.organizationForm.valid) {
-      const formValue: Organization = {
-        ...this.organizationForm.value,
-        vacancies: null // При создании организации вакансий нет
-      };
+      // const formValue: Organization = {
+      //   ...this.organizationForm.value,
+      //   vacancies: null // При создании организации вакансий нет
+      // };
 
-      // this.organizationService.createOrganization(formValue).subscribe({
-      //   next: (org) => {
-      //     console.log('Организация создана:', org);
-      //     // Перенаправление на страницу организации
-      //   },
-      //   error: (err) => {
-      //     console.error('Ошибка создания организации:', err);
-      //   }
-      // });
+      const organization: OrganizationDTO = {
+        name: this.organizationForm.value.name,
+        description: this.organizationForm.value.description,
+        website: this.organizationForm.value.website,
+        email: this.organizationForm.value.email,
+        phoneNumber: this.organizationForm.value.phoneNumber,
+        address: this.organizationForm.value.address,
+        activities: this.organizationForm.value.activities
+      }
+      let user = this.authService.getUserData()
+      if(user != null){
+        console.log('ORG')
+        console.log(organization)
+        console.log('USR')
+        console.log(user.id)
+        this.organizationService.createOrganization(organization, user.id);
+      }
+      
     }
 }
 }
