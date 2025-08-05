@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -22,7 +22,7 @@ import { AuthService } from '../../../services/auth-service';
   styleUrl: './saved-vacancies.css'
 })
 export class SavedVacancies implements OnInit{
-  vacancies: Vacancy[] = [];
+  vacancies = signal<Vacancy[]>([]);
   loading = true;
 
   private readonly userService = inject(UserService);
@@ -37,7 +37,7 @@ export class SavedVacancies implements OnInit{
     if(user == null) return;
     this.userService.getSavedVacancies(user.id).subscribe({
       next: (vacancies) => {
-        this.vacancies = vacancies;
+        this.vacancies.set(vacancies);
         this.loading = false;
       },
       error: (err) => {
@@ -48,12 +48,14 @@ export class SavedVacancies implements OnInit{
   }
 
   removeVacancy(vacancyId: number): void {
-    // this.vacancyService.unsaveVacancy(vacancyId).subscribe({
-    //   next: () => {
-    //     this.vacancies = this.vacancies.filter(v => v.id !== vacancyId);
-    //   },
-    //   error: (err) => console.error('Error removing vacancy', err)
-    // });
+    let user = this.authService.getUserData();
+    if(user == null) return;
+    this.userService.unsaveVacancy(vacancyId, user.id).subscribe({
+      next: () => {
+        this.loadSavedVacancies()
+      },
+      error: (err) => console.error('Error removing vacancy', err)
+    });
   }
 
 }

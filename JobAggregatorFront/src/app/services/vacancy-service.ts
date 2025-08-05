@@ -26,6 +26,5 @@ export class VacancyService{
                 this.router.navigate([`/vacancies/${res.id}`]);
               });
     }
-
     
 }

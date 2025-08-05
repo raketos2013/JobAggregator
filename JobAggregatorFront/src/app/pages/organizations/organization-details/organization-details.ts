@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
 import { OrganizationService } from '../../../services/organization-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Organization } from '../../../models/organization';
 
 @Component({
@@ -16,7 +16,8 @@ import { Organization } from '../../../models/organization';
               MatTabsModule,
               MatIconModule,
               MatButtonModule,
-              MatProgressSpinnerModule],
+              MatProgressSpinnerModule,
+              RouterModule],
   templateUrl: './organization-details.html',
   styleUrl: './organization-details.css'
 })

@@ -11,8 +11,8 @@
         <!-- Основные поля -->
         <mat-form-field appearance="outline">
           <mat-label>Имя</mat-label>
-          <input matInput formControlName="firstName" placeholder="Иван">
-          <mat-error *ngIf="registerForm.get('firstName')?.hasError('required')">
+          <input matInput formControlName="name" placeholder="Иван">
+          <mat-error *ngIf="registerForm.get('name')?.hasError('required')">
             Обязательное поле
           </mat-error>
         </mat-form-field>

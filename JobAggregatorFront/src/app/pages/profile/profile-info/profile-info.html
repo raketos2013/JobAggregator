@@ -9,7 +9,7 @@
       <button mat-raised-button color="primary" (click)="isEditing = true">
         Редактировать
       </button>
-      <button *ngIf="user.role !== 'Manager'" 
+      <button *ngIf="user.role == 'USER'" 
               mat-raised-button 
               color="accent" 
               (click)="requestManagerRole()">

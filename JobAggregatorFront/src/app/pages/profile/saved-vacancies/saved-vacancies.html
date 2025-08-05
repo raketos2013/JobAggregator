@@ -3,7 +3,7 @@
   
   <mat-spinner *ngIf="loading"></mat-spinner>
 
-  <mat-card *ngFor="let vacancy of vacancies" class="vacancy-card">
+  <mat-card *ngFor="let vacancy of vacancies()" class="vacancy-card">
     <mat-card-header>
       <mat-card-title>{{ vacancy.name }}</mat-card-title>
       <mat-card-subtitle>
@@ -21,7 +21,7 @@
     </mat-card-actions>
   </mat-card>
 
-  <div *ngIf="!loading && vacancies.length === 0" class="empty-state">
+  <div *ngIf="!loading && vacancies().length === 0" class="empty-state">
     <mat-icon>search_off</mat-icon>
     <p>У вас нет сохранённых вакансий</p>
   </div>

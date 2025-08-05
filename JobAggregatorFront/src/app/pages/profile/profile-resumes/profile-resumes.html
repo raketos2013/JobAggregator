@@ -9,7 +9,7 @@
   <mat-spinner *ngIf="loading"></mat-spinner>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let resume of resumes; let i = index">
+    <mat-expansion-panel *ngFor="let resume of resumes(); let i = index">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ 'Резюме #' + (i+1) }}
@@ -33,7 +33,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <div *ngIf="!loading && resumes.length === 0" class="empty-state">
+  <div *ngIf="!loading && resumes().length === 0" class="empty-state">
     <mat-icon>description</mat-icon>
     <p>У вас пока нет резюме</p>
     <button mat-raised-button color="primary" routerLink="/resumes/create">

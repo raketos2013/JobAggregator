@@ -22,7 +22,7 @@ import { UserIdDTO } from '../../../models/DTOs/userIdDTO';
 })
 export class UserManagement implements OnInit{
   users = signal<UserIdDTO[]>([]);
-  displayedColumns: string[] = ['id', 'name', 'lastname', 'role', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'lastname', 'role', 'actions', 'needManager'];
 
   constructor(private userService: UserService) {}
 
@@ -39,8 +39,11 @@ export class UserManagement implements OnInit{
     
   }
 
-  grantRole(userId: number, role: string): void {
+  grantRole(userId: number): void {
     // Логика выдачи роли
+    this.userService.userManager(userId).subscribe((res) => {
+      this.loadUsers();
+    });
   }
 
   blockUser(userId: number): void {

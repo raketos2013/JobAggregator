@@ -27,7 +27,7 @@ import { User } from '../../../models/user';
   styleUrl: './vacancy-details.css'
 })
 export class VacancyDetails implements OnInit{
-  public authService = inject(AuthService)
+    public authService = inject(AuthService)
     public userService = inject(UserService)
     
     private readonly vacancyService = inject(VacancyService)

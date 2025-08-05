@@ -3,4 +3,5 @@ export interface UserIdDTO{
     name: string;
     lastname: string;
     roleId: number;
+    needManager: boolean;
 }

@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { Resume } from '../../../models/resume';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ResumeService } from '../../../services/resume-service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +19,8 @@ import { Gender } from '../../../models/enums/gender';
             MatIconModule,
             MatDividerModule,
             MatChipsModule,
-            MatProgressSpinnerModule],
+            MatProgressSpinnerModule,
+            RouterModule],
   templateUrl: './resume-details.html',
   styleUrl: './resume-details.css'
 })

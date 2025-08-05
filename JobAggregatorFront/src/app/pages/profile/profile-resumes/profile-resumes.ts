@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatExpansionModule } from "@angular/material/expansion";
@@ -21,7 +21,7 @@ import { AuthService } from '../../../services/auth-service';
   styleUrl: './profile-resumes.css'
 })
 export class ProfileResumes implements OnInit{
-  resumes: Resume[] = [];
+  resumes = signal<Resume[]>([]);
   loading = true;
 
   private readonly resumeService = inject(ResumeService)
@@ -40,7 +40,7 @@ export class ProfileResumes implements OnInit{
     
     this.resumeService.getUserResumes(user.id).subscribe({
       next: (resumes) => {
-        this.resumes = resumes;
+        this.resumes.set(resumes);
         this.loading = false;
       },
       error: (err) => {

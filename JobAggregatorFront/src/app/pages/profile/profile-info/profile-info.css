@@ -54,3 +54,11 @@
     gap: 1rem;
   }
 }
+.success-snackbar {
+  background-color: #4caf50; /* Зелёный цвет для успеха */
+  color: white;
+}
+
+.success-snackbar .mat-simple-snackbar-action {
+  color: white;
+}

@@ -41,7 +41,7 @@
       <th mat-header-cell *matHeaderCellDef>Действия</th>
       <td mat-cell *matCellDef="let user">
         <button mat-icon-button color="primary" 
-                (click)="grantRole(user.id, 'Manager')"
+                (click)="grantRole(user.id)"
                 matTooltip="Сделать менеджером">
           <mat-icon>security</mat-icon>
         </button>
@@ -50,6 +50,13 @@
                 matTooltip="Заблокировать">
           <mat-icon>block</mat-icon>
         </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="needManager">
+      <th mat-header-cell *matHeaderCellDef>Запрос на роль</th>
+      <td mat-cell *matCellDef="let user">
+        <mat-icon *ngIf="user.needManager" color="primary">check_circle</mat-icon>
       </td>
     </ng-container>
 

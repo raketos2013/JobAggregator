@@ -110,6 +110,13 @@ public class UsersController(IUserService userService,
         return Ok(userDTO);
     }
 
+    [HttpGet("{userId}/DeleteVacancy/{vacancyId}")]
+    public async Task<ActionResult<UserDTO>> DeleteVacancy(int userId, int vacancyId)
+    {
+        await userService.DeleteVacancy(userId, vacancyId);
+        return Ok(true);
+    }
+
     [HttpGet("{id}/savedVacancies")]
     public async Task<ActionResult<List<Vacancy>>> GetSavedVacancies(int id)
     {
@@ -121,5 +128,30 @@ public class UsersController(IUserService userService,
     public async Task<ActionResult<List<Resume>>> GetUserResumes(int id)
     {
         return await userService.GetUserResumesAsync(id);
+    }
+
+    [HttpGet("{id}/userManager")]
+    public async Task<ActionResult<UserDTO>> UserManager(int id)
+    {
+        var user = await userService.GetAsync(id);
+        if (user == null) 
+            return NotFound();
+        user.RoleId = 3;
+        user.NeedManager = false;
+        await userService.UpdateAsync(user);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
+    }
+
+    [HttpGet("{id}/requestManager")]
+    public async Task<ActionResult<UserDTO>> RequestManager(int id)
+    {
+        var user = await userService.GetAsync(id);
+        if (user == null)
+            return NotFound();
+        user.NeedManager = true;
+        await userService.UpdateAsync(user);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
     }
 }

@@ -1,10 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { User } from '../../../models/user';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { UserService } from '../../../services/user-service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-info',
@@ -12,15 +14,35 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
             MatFormFieldModule,
             FormsModule,
             MatButtonModule,
-            MatInputModule],
+            MatInputModule,
+            MatSnackBarModule],
   templateUrl: './profile-info.html',
   styleUrl: './profile-info.css'
 })
 export class ProfileInfo {
+  private readonly userService = inject(UserService)
   @Input() user!: User;
-    isEditing = false;
+  isEditing = false;
+
+  constructor(
+    private snackBar: MatSnackBar
+  ) {}
+
 
     requestManagerRole(): void {
-      // Логика запроса роли менеджера
+      this.userService.requestManagerRole().subscribe({
+        next: () => {
+          this.showNotification();
+        },
+        error: (err) => {
+          console.error('Ошибка запроса роли', err);
+        }
+      });
+    }
+    private showNotification(): void {
+      this.snackBar.open('Запрос на роль Manager успешно отправлен!', 'Закрыть', {
+        duration: 5000, // Автоматически закроется через 5 секунд
+        panelClass: ['success-snackbar']
+      });
     }
 }

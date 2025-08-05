@@ -18,6 +18,7 @@ public class User : Entity
     public string LastName { get; set; }
     public UserStatus Status { get; set; }
     public int RoleId { get; set; }
+    public bool NeedManager { get; set; }
     [JsonIgnore]
     public List<Organization>? Organizations { get; set; }
     public List<Article>? Articles { get; set; }
