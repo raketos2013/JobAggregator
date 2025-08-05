@@ -13,6 +13,8 @@ import { Organization } from '../../../models/organization';
 import { AuthService } from '../../../services/auth-service';
 import { UserService } from '../../../services/user-service';
 import { User } from '../../../models/user';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrganizationUsersDTO } from '../../../models/DTOs/organization-usersDTO';
 
 @Component({
   selector: 'app-vacancy-details',
@@ -22,7 +24,8 @@ import { User } from '../../../models/user';
     MatButtonModule,
     MatChipsModule,
     MatDividerModule,
-  RouterModule],
+    RouterModule,
+    MatSnackBarModule],
   templateUrl: './vacancy-details.html',
   styleUrl: './vacancy-details.css'
 })
@@ -38,7 +41,10 @@ export class VacancyDetails implements OnInit{
 
     user = signal<User>({} as User);
 
-    organization = signal<Organization>({} as Organization);
+    organization = signal<OrganizationUsersDTO>({} as OrganizationUsersDTO);
+    constructor(
+      private snackBar: MatSnackBar
+    ) {}
 
     // ngOnInit(): void {
     //   const vacancyId = Number(this.route.snapshot.paramMap.get('id'))
@@ -68,10 +74,19 @@ export class VacancyDetails implements OnInit{
 
   saveVacancy(){
     let user = this.authService.getUserData();
-    console.log("222222")
-    if(user != null)
-      this.userService.saveVacancy(this.vacancyId, user.id).subscribe((res) => {this.user.set(res)});
-  }
+if(user != null)
+    this.userService.saveVacancy(this.vacancyId, user.id)
+                      .subscribe((res) => {
+                                  this.user.set(res)
+                                 this.showNotification();
+                                });
+}
+  private showNotification(): void {
+      this.snackBar.open('Вакансия сохранена', 'Закрыть', {
+        duration: 5000, // Автоматически закроется через 5 секунд
+        panelClass: ['success-snackbar']
+      });
+    }
 
   applyForVacancy(): void {
     console.log('Applying for vacancy:', this.vacancyId);

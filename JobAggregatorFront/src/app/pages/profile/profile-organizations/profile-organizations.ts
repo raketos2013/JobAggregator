@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { OrganizationService } from '../../../services/organization-service';
 import { Organization } from '../../../models/organization';
+import { OrganizationUsersDTO } from '../../../models/DTOs/organization-usersDTO';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-profile-organizations',
@@ -20,7 +22,8 @@ import { Organization } from '../../../models/organization';
   styleUrl: './profile-organizations.css'
 })
 export class ProfileOrganizations implements OnInit{
-  organizations: Organization[] = [];
+  private readonly authService = inject(AuthService)
+  organizations: OrganizationUsersDTO[] = [];
   loading = true;
 
   constructor(private organizationService: OrganizationService) {}
@@ -30,7 +33,9 @@ export class ProfileOrganizations implements OnInit{
   }
 
   loadOrganizations(): void {
-    this.organizationService.getUserOrganizations().subscribe({
+    let user = this.authService.getUserData()
+    if (user == null) return
+    this.organizationService.getUserOrganizations(user.id).subscribe({
       next: (orgs) => {
         this.organizations = orgs;
         this.loading = false;

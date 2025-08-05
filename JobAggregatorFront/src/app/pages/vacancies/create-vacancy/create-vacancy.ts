@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, Input, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from "@angular/material/card";
@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatChipListbox } from '@angular/material/chips';
 import { VacancyService } from '../../../services/vacancy-service';
 import { VacancyDTO } from '../../../models/DTOs/vacancyDTO';
+import { OrganizationService } from '../../../services/organization-service';
 
 @Component({
   selector: 'app-create-vacancy',
@@ -29,6 +30,7 @@ import { VacancyDTO } from '../../../models/DTOs/vacancyDTO';
 })
 export class CreateVacancy {
   private readonly vacancyService = inject(VacancyService)
+  private readonly organizationService = inject(OrganizationService)
   @ViewChild('chipList') chipList!: MatChipListbox;
   vacancyForm: FormGroup;
   skillInputControl = new FormControl('');
@@ -133,7 +135,7 @@ export class CreateVacancy {
         description: this.vacancyForm.value.description,
         location: this.vacancyForm.value.location,
         salary: this.vacancyForm.value.salary,
-        organizationId: 1,
+        organizationId: this.organizationService.organizationId(),
         scheduleType: this.vacancyForm.value.employmentType,
         requirements: this.vacancyForm.value.requirements,
         responsibilities: this.vacancyForm.value.responsibilities,

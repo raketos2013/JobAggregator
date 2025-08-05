@@ -29,8 +29,13 @@ public class OrganizationsController(IOrganizationService organizationService,
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var organization = await organizationService.GetAsync(id);
-        return organization == null ? NotFound() : Ok(organization);
+        var organization = await organizationService.GetWithUserAsync(id);
+        var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
+        foreach (var item in organization.Users)
+        {
+            organizationDTO.IdUsers.Add(item.Id);
+        }
+        return organization == null ? NotFound() : Ok(organizationDTO);
     }
 
     // POST api/<OrganizationController>
@@ -69,5 +74,18 @@ public class OrganizationsController(IOrganizationService organizationService,
         {
             return Ok(deleted);
         }
+    }
+
+    [HttpGet("/user{id}")]
+    public async Task<IActionResult> GetByUserId(int id)
+    {
+        var organizations = await organizationService.GetByUserIdAsync(id);
+
+        var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
+        foreach (var item in organization.Users)
+        {
+            organizationDTO.IdUsers.Add(item.Id);
+        }
+        return organization == null ? NotFound() : Ok(organizationDTO);
     }
 }

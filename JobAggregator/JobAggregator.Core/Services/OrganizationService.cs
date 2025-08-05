@@ -48,4 +48,19 @@ public class OrganizationService(IUnitOfWork unitOfWork)
     {
         return await unitOfWork.OrganizationRepository.GetAsync(id);
     }
+
+    public async Task<Organization> GetWithUserAsync(int id)
+    {
+        var organization = await unitOfWork.OrganizationRepository.GetWithUserAsync(id);
+        foreach (var user in organization.Users)
+        {
+            user.Organizations = null;
+        }
+        return organization;
+    }
+
+    public async Task<List<Organization>> GetByUserIdAsync(int id)
+    {
+        var organizations = await.OrganizationRepository.GetByUserIdAsync(id);
+    }
 }

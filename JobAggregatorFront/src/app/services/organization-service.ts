@@ -1,10 +1,11 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { inject, Injectable, signal } from "@angular/core";
 import { Organization } from "../models/organization";
 import { environment } from "../environments/environment";
 import { OrganizationDTO } from "../models/DTOs/organizationDTO";
 import { Router } from "@angular/router";
 import { CreateOrganizationDTO } from "../models/DTOs/create-organizationDTO";
+import { OrganizationUsersDTO } from "../models/DTOs/organization-usersDTO";
 
 @Injectable({
     providedIn: 'root',
@@ -12,18 +13,18 @@ import { CreateOrganizationDTO } from "../models/DTOs/create-organizationDTO";
 export class OrganizationService{
     private readonly httClient = inject(HttpClient);
     private readonly router = inject(Router);
+    organizationId = signal<number>(0);
 
     getOrganizations(){
-        //https://6vw5xwbz-7261.euw.devtunnels.ms
         return this.httClient.get<Organization[]>(`${environment.apiUrl}/organizations`);
     }
 
     getOrganizationById(id: number){
-        return this.httClient.get<Organization>(`${environment.apiUrl}/organizations/${id}`);
+        return this.httClient.get<OrganizationUsersDTO>(`${environment.apiUrl}/organizations/${id}`);
     }
 
-    getUserOrganizations(){
-        return this.httClient.get<Organization[]>(`${environment.apiUrl}/organizations`);
+    getUserOrganizations(id: number){
+        return this.httClient.get<OrganizationUsersDTO[]>(`${environment.apiUrl}/organizations/user/${id}`);
     }
 
     createOrganization(organization: OrganizationDTO, userId: number){
@@ -31,8 +32,6 @@ export class OrganizationService{
             organization: organization,
             userId: userId
         }
-        console.log('@@@@@@@@@@@@@@@@')
-        console.log(createOrganizationDTO)
         this.httClient.post<Organization>(`${environment.apiUrl}/organizations`, createOrganizationDTO)
             .subscribe((res) => {
                 this.router.navigate([`/organizations/${res.id}`])

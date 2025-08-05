@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { UserService } from '../../../services/user-service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-card-vacancy',
@@ -18,7 +19,8 @@ import { UserService } from '../../../services/user-service';
     MatPaginatorModule,
     CommonModule,
     MatButtonModule,
-    RouterModule
+    RouterModule,
+    MatSnackBarModule
   ],
   templateUrl: './card-vacancy.html',
   styleUrl: './card-vacancy.css'
@@ -32,7 +34,8 @@ export class CardVacancy {
   @Output() viewDetailsClicked = new EventEmitter<number>();
 
   constructor(
-    private router: Router 
+    private router: Router, 
+    private snackBar: MatSnackBar
   ) {}
 
   handleCardClick(event: MouseEvent): void {
@@ -57,8 +60,21 @@ export class CardVacancy {
 
   saveVacancy(){
     let user = this.authService.getUserData();
-    console.log("222222")
-    if(user != null)
-      this.userService.saveVacancy(this.vacancy.id, user.id);
+    
+    if(user != null){
+      console.log("222222----"+user.id)
+      this.userService.saveVacancy(this.vacancy.id, user.id)
+                      .subscribe((res) => {
+                                  this.showNotification();
+                                });;
+    }
+      
   }
+
+  private showNotification(): void {
+      this.snackBar.open('Вакансия сохранена', 'Закрыть', {
+        duration: 5000, // Автоматически закроется через 5 секунд
+        panelClass: ['success-snackbar']
+      });
+    }
 }

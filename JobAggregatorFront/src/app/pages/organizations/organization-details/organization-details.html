@@ -41,7 +41,7 @@
       <mat-tab label="О компании">
         <mat-card class="about-card">
           <h2>Описание</h2>
-          <p>Some description</p>
+          <p>{{organization().description}}</p>
           
           <h2>Контактная информация</h2>
           <div class="contact-info">
@@ -72,6 +72,9 @@
       </mat-tab> -->
     </mat-tab-group>
     <mat-card-actions align="end">
+      @if(isUserOrganization()){
+        <button mat-raised-button color="primary" routerLink="/createVacancy" >Создать вакансию</button>
+      }
         <button mat-button routerLink="/organizations">Назад</button>
         <!-- <button mat-raised-button color="primary" (click)="applyForVacancy()">Откликнуться</button> -->
         <!-- <button mat-button>Сохранить</button> -->

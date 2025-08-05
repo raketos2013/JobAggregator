@@ -5,7 +5,7 @@ export interface VacancyDTO{
     description: string;
     location?: string;
     salary?: number;
-    organizationId: number;
+    organizationId?: number;
     scheduleType: number;
     requirements?: Handbook[];
     responsibilities?: Handbook[];
