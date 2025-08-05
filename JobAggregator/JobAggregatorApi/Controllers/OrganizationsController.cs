@@ -76,16 +76,21 @@ public class OrganizationsController(IOrganizationService organizationService,
         }
     }
 
-    [HttpGet("/user{id}")]
-    public async Task<IActionResult> GetByUserId(int id)
+    [HttpGet("{id}/usersId")]
+    public async Task<ActionResult<List<OrganizationUsersDTO>>> GetByUserId(int id)
     {
         var organizations = await organizationService.GetByUserIdAsync(id);
-
-        var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
-        foreach (var item in organization.Users)
+        List<OrganizationUsersDTO> organizationsDTO = new List<OrganizationUsersDTO>();
+        foreach (var organization in organizations)
         {
-            organizationDTO.IdUsers.Add(item.Id);
+            var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
+            foreach (var item in organization.Users)
+            {
+                organizationDTO.IdUsers.Add(item.Id);
+            }
+            organizationsDTO.Add(organizationDTO);
         }
-        return organization == null ? NotFound() : Ok(organizationDTO);
+                
+        return organizations == null ? NotFound() : Ok(organizationsDTO);
     }
 }

@@ -12,7 +12,8 @@ public class OrganizationRepository(AppDbContext context)
 {
     public async Task<List<Organization>> GetByUserIdAsync(int id)
     {
-        return await context.Organizations.Where(x => x.Users.Any(z => z.Id == id)).ToListAsync();
+        return await context.Organizations.Include(v => v.Users)
+            .Where(x => x.Users.Any(z => z.Id == id)).ToListAsync();
     }
 
     public async Task<Organization> GetWithUserAsync(int id)

@@ -61,6 +61,6 @@ public class OrganizationService(IUnitOfWork unitOfWork)
 
     public async Task<List<Organization>> GetByUserIdAsync(int id)
     {
-        var organizations = await.OrganizationRepository.GetByUserIdAsync(id);
+        return await unitOfWork.OrganizationRepository.GetByUserIdAsync(id);
     }
 }

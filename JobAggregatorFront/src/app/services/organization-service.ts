@@ -24,7 +24,7 @@ export class OrganizationService{
     }
 
     getUserOrganizations(id: number){
-        return this.httClient.get<OrganizationUsersDTO[]>(`${environment.apiUrl}/organizations/user/${id}`);
+        return this.httClient.get<OrganizationUsersDTO[]>(`${environment.apiUrl}/organizations/${id}/usersId`);
     }
 
     createOrganization(organization: OrganizationDTO, userId: number){

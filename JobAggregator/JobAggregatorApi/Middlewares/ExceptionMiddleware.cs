@@ -4,7 +4,7 @@ using System.Net;
 
 namespace JobAggregator.Api.Middlewares;
 
-public class ExceptionMiddleware(RequestDelegate next)
+public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext httpContext)
     {
@@ -14,8 +14,8 @@ public class ExceptionMiddleware(RequestDelegate next)
 		}
 		catch (Exception e)
 		{
-			// TODO: добавить логи
-			int statusCode = (int)HttpStatusCode.InternalServerError;
+            logger.LogError(e, "Message: {message}.", e.Message);
+            int statusCode = (int)HttpStatusCode.InternalServerError;
 			var details = "Internal server error";
             switch (e)
             {
