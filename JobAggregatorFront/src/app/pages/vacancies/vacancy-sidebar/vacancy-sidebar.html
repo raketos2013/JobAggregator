@@ -1,0 +1,45 @@
+<mat-card class="sidebar-card">
+  <mat-card-header>
+    <mat-card-title>Полезная информация</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="sidebar-section">
+      <h3>Советы для поиска</h3>
+      <mat-list>
+        <mat-list-item>
+          <mat-icon matListItemIcon>lightbulb</mat-icon>
+          <span>Используйте ключевые слова</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>lightbulb</mat-icon>
+          <span>Подпишитесь на уведомления</span>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>lightbulb</mat-icon>
+          <span>Обновляйте резюме регулярно</span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>Популярные теги</h3>
+      <mat-chip-listbox>
+        <mat-chip-option>JavaScript</mat-chip-option>
+        <mat-chip-option>Angular</mat-chip-option>
+        <mat-chip-option>React</mat-chip-option>
+        <mat-chip-option>Java</mat-chip-option>
+        <mat-chip-option>Python</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>Подписаться на вакансии</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Ваш email</mat-label>
+        <input matInput type="email">
+      </mat-form-field>
+      <button mat-raised-button color="accent" class="subscribe-btn">Подписаться</button>
+    </div>
+  </mat-card-content>
+</mat-card>

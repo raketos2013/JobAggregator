@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobAggregator.Api.Controllers;
 
-[Authorize]
+//[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class VacanciesController(IVacancyService vacancyService,
@@ -25,8 +25,8 @@ public class VacanciesController(IVacancyService vacancyService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var vacancies = await vacancyService.GetAllAsync(query);
-        var vacanciesDTO = mapper.Map<List<VacancyDTO>>(vacancies);
-        var pagedDTO = new PagedList<VacancyDTO>(vacanciesDTO, vacancies.Count, 
+        //var vacanciesDTO = mapper.Map<List<VacancyDTO>>(vacancies);
+        var pagedDTO = new PagedList<Vacancy>(vacancies, vacancies.Count, 
                                                     vacancies.CurrentPage, vacancies.PageSize);
         return Ok(pagedDTO);
     }
@@ -87,4 +87,5 @@ public class VacanciesController(IVacancyService vacancyService,
             return Ok(deleted);
         }
     }
+
 }

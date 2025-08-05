@@ -73,4 +73,48 @@ public class UserService(IUnitOfWork unitOfWork,
         }
         return false;
     }
+
+    public async Task<bool> SaveVacancy(int userId, int vacancyId)
+    {
+        var user = await unitOfWork.UserRepository.GetVacanciesAsync(userId);
+        if (user == null) 
+            return false;
+        var vacancy = await unitOfWork.VacancyRepository.GetAsync(vacancyId);
+        if (vacancy == null)
+            return false;
+        if (user.Vacancies == null)
+        {
+            user.Vacancies = [vacancy];
+        }
+        else
+        {
+            user.Vacancies.Add(vacancy);
+        }
+        unitOfWork.UserRepository.Update(user);
+        return await unitOfWork.SaveAsync() > 0;
+    }
+
+    public async Task<bool> DeleteVacancy(int userId, int vacancyId)
+    {
+        var user = await unitOfWork.UserRepository.GetVacanciesAsync(userId);
+        if (user == null)
+            return false;
+        var vacancy = await unitOfWork.VacancyRepository.GetAsync(vacancyId);
+        if (vacancy == null)
+            return false;
+        user.Vacancies.Remove(vacancy);
+        unitOfWork.UserRepository.Update(user);
+        return await unitOfWork.SaveAsync() > 0;
+    }
+
+    public async Task<List<Vacancy>> GetSavedVacancyAsync(int userId)
+    {
+        var user = await unitOfWork.UserRepository.GetVacanciesAsync(userId);
+        return user.Vacancies;
+    }
+
+    public async Task<List<Resume>> GetUserResumesAsync(int userId)
+    {
+        return await unitOfWork.ResumeRepository.GetResumesByUserIdAsync(userId);
+    }
 }

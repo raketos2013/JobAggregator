@@ -1,0 +1,126 @@
+.organization-details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 100px 0;
+}
+
+.error-card {
+  text-align: center;
+  padding: 40px;
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #2d2d2d;
+}
+
+.error-card mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #f44336;
+  margin-bottom: 16px;
+}
+
+.organization-header-card {
+  background-color: #2d2d2d;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  gap: 32px;
+}
+
+.company-logo {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  padding: 12px;
+}
+
+.header-info {
+  flex: 1;
+}
+
+.header-info h1 {
+  color: #bb86fc;
+  margin: 0 0 12px 0;
+  font-size: 1.8rem;
+}
+
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #bdbdbd;
+}
+
+.meta-item mat-icon {
+  color: #69f0ae;
+}
+
+.organization-tabs {
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.about-card {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 24px;
+}
+
+.about-card h2 {
+  color: #bb86fc;
+  margin-top: 0;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #40c4ff;
+  text-decoration: none;
+}
+
+.contact-item:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+  
+  .company-meta {
+    justify-content: center;
+  }
+}

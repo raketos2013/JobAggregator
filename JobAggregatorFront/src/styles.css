@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+:root {
+  --dark-primary: #121212;
+  --dark-surface: #1e1e1e;
+  --dark-secondary: #2d2d2d;
+  --primary-accent: #bb86fc;
+  --secondary-accent: #03dac6;
+  --error-color: #cf6679;
+}
+
+
+/* Основной фон приложения */
+body {
+  background-color: #121212; /* Глубокий тёмный фон */
+  color: rgba(255, 255, 255, 0.87); /* Белый текст с 87% непрозрачностью */
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  min-height: 100vh; /* На всю высоту viewport */
+}
+
+/* Дополнительные стили для Material-компонентов */
+.mat-card {
+  background-color: #1e1e1e; /* Тёмный фон карточек */
+  color: white;
+}
+
+.mat-toolbar {
+  background-color: #1a1a1a !important; /* Тёмный фон тулбара */
+}
+
+
+
+/* Кастомизация Material-компонентов */
+.mat-dialog-container {
+  background-color: #1e1e1e !important;
+}
+
+.mat-form-field {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.mat-input-element {
+  color: white;
+}

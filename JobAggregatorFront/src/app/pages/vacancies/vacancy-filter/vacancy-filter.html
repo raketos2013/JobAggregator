@@ -1,0 +1,69 @@
+<mat-card class="filters-card">
+  <mat-card-header>
+    <mat-card-title>Фильтры</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Поиск -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Поиск по ключевым словам</mat-label>
+      <input matInput placeholder="Должность, навыки, компания">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <!-- Зарплата -->
+    <mat-expansion-panel class="filter-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Зарплата</mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <mat-radio-group>
+        <mat-radio-button value="any">Любая</mat-radio-button>
+        <mat-radio-button value="50">От 50 000 ₽</mat-radio-button>
+        <mat-radio-button value="100">От 100 000 ₽</mat-radio-button>
+        <mat-radio-button value="150">От 150 000 ₽</mat-radio-button>
+      </mat-radio-group>
+      
+      <div class="salary-range">
+        <mat-slider min="0" max="300" step="10" thumbLabel>
+          <input matSliderThumb>
+        </mat-slider>
+        <div class="range-values">
+          <span>0 ₽</span>
+          <span>300 000 ₽</span>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Опыт работы -->
+    <mat-expansion-panel class="filter-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Опыт работы</mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <mat-selection-list>
+        <mat-list-option checkboxPosition="before" *ngFor="let exp of experienceOptions" [value]="exp.value">
+          {{exp.label}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-expansion-panel>
+
+    <!-- Тип занятости -->
+    <mat-expansion-panel class="filter-section">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Тип занятости</mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <mat-selection-list>
+        <mat-list-option checkboxPosition="before" *ngFor="let type of employmentTypes" [value]="type.value">
+          {{type.label}}
+        </mat-list-option>
+      </mat-selection-list>
+    </mat-expansion-panel>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-stroked-button class="reset-btn">Сбросить</button>
+    <button mat-raised-button color="primary" class="apply-btn">Применить</button>
+  </mat-card-actions>
+</mat-card>

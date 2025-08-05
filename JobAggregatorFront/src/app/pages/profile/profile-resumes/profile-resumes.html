@@ -1,0 +1,43 @@
+<div class="my-resumes">
+  <div class="header-actions">
+    <h2>Мои резюме</h2>
+    <button mat-raised-button color="primary" routerLink="/createResume">
+      <mat-icon>add</mat-icon> Создать новое
+    </button>
+  </div>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let resume of resumes(); let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ 'Резюме #' + (i+1) }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Создано: {{ resume.created | date:'dd.MM.yyyy' }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="resume-actions">
+        <button mat-button color="primary" [routerLink]="['/resumes', resume.id]">
+          Просмотреть
+        </button>
+        <button mat-button [routerLink]="['/resumes', resume.id, 'edit']">
+          Редактировать
+        </button>
+        <button mat-button color="warn" (click)="deleteResume(resume.id)">
+          Удалить
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!loading && resumes().length === 0" class="empty-state">
+    <mat-icon>description</mat-icon>
+    <p>У вас пока нет резюме</p>
+    <button mat-raised-button color="primary" routerLink="/resumes/create">
+      Создать первое резюме
+    </button>
+  </div>
+</div>

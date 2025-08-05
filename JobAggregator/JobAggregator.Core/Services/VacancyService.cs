@@ -4,6 +4,7 @@ using JobAggregator.Core.Extensions;
 using JobAggregator.Core.Interfaces.Repositories;
 using JobAggregator.Core.Interfaces.Services;
 using JobAggregator.Core.Queries;
+using Microsoft.Extensions.Logging;
 
 namespace JobAggregator.Core.Services;
 

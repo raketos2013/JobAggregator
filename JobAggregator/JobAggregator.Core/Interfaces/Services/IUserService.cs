@@ -13,4 +13,8 @@ public interface IUserService
     Task<User?> GetAsync(int id);
     Task<User?> GetByLoginAsync(string login);
     Task<bool> ValidateUserAsync(string login, string password);
+    Task<bool> SaveVacancy(int userId, int vacancyId);
+    Task<bool> DeleteVacancy(int userId, int vacancyId);
+    Task<List<Vacancy>> GetSavedVacancyAsync(int userId);
+    Task<List<Resume>> GetUserResumesAsync(int userId);
 }

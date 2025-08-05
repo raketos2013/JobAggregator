@@ -1,0 +1,27 @@
+.sidebar-card {
+  background-color: #2d2d2d;
+  position: sticky;
+  top: 20px;
+}
+
+.news-item {
+  height: auto !important;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.news-item:last-child {
+  border-bottom: none;
+}
+
+.news-date {
+  color: #bb86fc;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.news-excerpt {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}

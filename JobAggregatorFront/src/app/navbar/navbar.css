@@ -1,0 +1,56 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  margin-left: 20px;
+}
+
+.nav-links a {
+  margin-right: 10px;
+}
+
+.nav-links a.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-section button[mat-button] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-section button[mat-raised-button] {
+  margin-left: 0;
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .user-section {
+    margin-left: auto;
+    flex-direction: row; /* Важно: оставляем в строке на мобильных */
+    flex-wrap: wrap; /* Разрешаем перенос при нехватке места */
+    justify-content: flex-end;
+  }
+
+  .user-section button {
+    font-size: 12px; /* Уменьшаем размер на мобильных */
+    padding: 0 8px; /* Уменьшаем отступы */
+  }
+}

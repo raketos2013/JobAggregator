@@ -8,4 +8,5 @@ public interface IVacancyRepository : IRepositoryBase<Vacancy>
 {
     Task<List<Vacancy>> GetByOrganizationIdAsync(int organizationId);
     Task<PagedList<Vacancy>> SearchByTermAsync(Query query);
+    new Task<Vacancy?> GetAsync(int id);
 }

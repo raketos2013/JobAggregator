@@ -23,8 +23,8 @@ public class UsersController(IUserService userService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var users = await userService.GetAllAsync(query);
-        var usersDTO = mapper.Map<List<UserDTO>>(users);
-        var pagedDTO = new PagedList<UserDTO>(usersDTO, users.Count, users.CurrentPage, users.PageSize);
+        //var usersDTO = mapper.Map<List<UserDTO>>(users);
+        var pagedDTO = new PagedList<User>(users, users.Count, users.CurrentPage, users.PageSize);
         return Ok(pagedDTO);
     }
 
@@ -99,5 +99,59 @@ public class UsersController(IUserService userService,
             return Ok(updated);
         }
         return BadRequest();
+    }
+
+    [HttpGet("{userId}/SaveVacancy/{vacancyId}")]
+    public async Task<ActionResult<UserDTO>> SaveVacancy(int userId, int vacancyId)
+    {
+        await userService.SaveVacancy(userId, vacancyId);
+        var user = await userService.GetAsync(userId);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
+    }
+
+    [HttpGet("{userId}/DeleteVacancy/{vacancyId}")]
+    public async Task<ActionResult<UserDTO>> DeleteVacancy(int userId, int vacancyId)
+    {
+        await userService.DeleteVacancy(userId, vacancyId);
+        return Ok(true);
+    }
+
+    [HttpGet("{id}/savedVacancies")]
+    public async Task<ActionResult<List<Vacancy>>> GetSavedVacancies(int id)
+    {
+        var vacancies = await userService.GetSavedVacancyAsync(id);
+        return vacancies;
+    }
+
+    [HttpGet("{id}/resumes")]
+    public async Task<ActionResult<List<Resume>>> GetUserResumes(int id)
+    {
+        return await userService.GetUserResumesAsync(id);
+    }
+
+    [HttpGet("{id}/userManager")]
+    public async Task<ActionResult<UserDTO>> UserManager(int id)
+    {
+        var user = await userService.GetAsync(id);
+        if (user == null) 
+            return NotFound();
+        user.RoleId = 3;
+        user.NeedManager = false;
+        await userService.UpdateAsync(user);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
+    }
+
+    [HttpGet("{id}/requestManager")]
+    public async Task<ActionResult<UserDTO>> RequestManager(int id)
+    {
+        var user = await userService.GetAsync(id);
+        if (user == null)
+            return NotFound();
+        user.NeedManager = true;
+        await userService.UpdateAsync(user);
+        var userDTO = mapper.Map<UserDTO>(user);
+        return Ok(userDTO);
     }
 }

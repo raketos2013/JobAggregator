@@ -1,0 +1,36 @@
+/* .container{
+    display: grid;
+    place-items: center;
+}
+.main{
+    width: 1200px;
+    background-color: #444a4a;
+    height: 100%;
+    color: white;
+}
+
+.toolbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+} */
+
+
+
+.container {
+  background-color: transparent; /* Прозрачный, чтобы был виден body фон */
+  padding: 20px;
+}
+
+/* Дополнительные цветовые акценты */
+.primary-color {
+  color: #bb86fc; /* Фиолетовый акцент */
+}
+
+.accent-color {
+  color: #03dac6; /* Бирюзовый акцент */
+}
+
+

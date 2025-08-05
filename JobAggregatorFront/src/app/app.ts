@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from '@angular/core';
+import { Router, RouterOutlet, RouterModule } from '@angular/router';
+import { Navbar } from "./navbar/navbar";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Navbar, CommonModule, RouterModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected title = 'JobAggregatorFront';
+  protected title = 'Jobber';
+
+  constructor(private router: Router) {}
+
+
 }

@@ -1,0 +1,36 @@
+.resume-card {
+  background-color: #2d2d2d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.favorite-button mat-icon {
+  color: #f44336;
+}
+
+.skills {
+  margin: 16px 0;
+}
+
+.updated {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px !important;
+}

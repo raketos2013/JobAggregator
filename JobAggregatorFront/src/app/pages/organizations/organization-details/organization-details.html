@@ -1,0 +1,83 @@
+<div class="organization-details-container">
+  @if (isLoading) {
+    <div class="loading-spinner">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  }
+  @else if (error) {
+    <mat-card class="error-card">
+      <mat-icon>error_outline</mat-icon>
+      <p>{{ error }}</p>
+      <button mat-raised-button color="primary" routerLink="/organizations">
+        Вернуться к списку
+      </button>
+    </mat-card>
+  }
+  @else if (organization()) {
+    <mat-card class="organization-header-card">
+      <div class="header-content">
+        <!-- <img [src]="organization.logo" [alt]="organization.name" class="company-logo"> -->
+        <div class="header-info">
+          <h1>{{ organization().name }}</h1>
+          <div class="company-meta">
+            <span class="meta-item">
+              <mat-icon>location_on</mat-icon>
+              {{ organization().address }}
+            </span>
+            <span class="meta-item">
+              <mat-icon>business</mat-icon>
+              {{ organization().activities }}
+            </span>
+            <!-- <span class="meta-item">
+              <mat-icon>star</mat-icon>
+              {{ organization().rating | number:'1.1-1' }}
+            </span> -->
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-tab-group class="organization-tabs">
+      <mat-tab label="О компании">
+        <mat-card class="about-card">
+          <h2>Описание</h2>
+          <p>{{organization().description}}</p>
+          
+          <h2>Контактная информация</h2>
+          <div class="contact-info">
+            @if (organization().website) {
+              <a [href]="organization().website" target="_blank" class="contact-item">
+                <mat-icon>public</mat-icon>
+                {{ organization().website }}
+              </a>
+            }
+            @if (organization().email) {
+              <a [href]="'mailto:' + organization().email" class="contact-item">
+                <mat-icon>email</mat-icon>
+                {{ organization().email }}
+              </a>
+            }
+            @if (organization().phoneNumber) {
+              <a [href]="'tel:' + organization().phoneNumber" class="contact-item">
+                <mat-icon>phone</mat-icon>
+                {{ organization().phoneNumber }}
+              </a>
+            }
+          </div>
+        </mat-card>
+      </mat-tab>
+      
+      <!-- <mat-tab label="Вакансии">
+        <app-vacancies-list [vacancies]="company.vacancies" [showFilters]="false"></app-vacancies-list>
+      </mat-tab> -->
+    </mat-tab-group>
+    <mat-card-actions align="end">
+      @if(isUserOrganization()){
+        <button mat-raised-button color="primary" routerLink="/createVacancy" >Создать вакансию</button>
+      }
+        <button mat-button routerLink="/organizations">Назад</button>
+        <!-- <button mat-raised-button color="primary" (click)="applyForVacancy()">Откликнуться</button> -->
+        <!-- <button mat-button>Сохранить</button> -->
+    </mat-card-actions>
+  }
+</div>

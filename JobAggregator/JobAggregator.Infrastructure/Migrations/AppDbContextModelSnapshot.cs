@@ -223,6 +223,10 @@ namespace JobAggregator.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("text");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -441,6 +445,9 @@ namespace JobAggregator.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("NeedManager")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -578,6 +585,21 @@ namespace JobAggregator.Infrastructure.Migrations
                     b.HasIndex("VacanciesId");
 
                     b.ToTable("SkillVacancy");
+                });
+
+            modelBuilder.Entity("UserVacancy", b =>
+                {
+                    b.Property<int>("UsersId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VacanciesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UsersId", "VacanciesId");
+
+                    b.HasIndex("VacanciesId");
+
+                    b.ToTable("UserVacancy");
                 });
 
             modelBuilder.Entity("ActivityOrganization", b =>
@@ -790,6 +812,21 @@ namespace JobAggregator.Infrastructure.Migrations
                     b.HasOne("JobAggregator.Core.Entities.Skill", null)
                         .WithMany()
                         .HasForeignKey("SkillsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("JobAggregator.Core.Entities.Vacancy", null)
+                        .WithMany()
+                        .HasForeignKey("VacanciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("UserVacancy", b =>
+                {
+                    b.HasOne("JobAggregator.Core.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,0 +1,33 @@
+<div class="my-organizations">
+  <div class="header-actions">
+    <h2>Мои Организации</h2>
+    <button mat-raised-button color="primary" routerLink="/createOrganization">
+      <mat-icon>add</mat-icon> Создать новую
+    </button>
+  </div>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <div class="org-grid">
+    <mat-card *ngFor="let org of organizations" class="org-card">
+      <!-- /<img *ngIf="org.logo" [src]="org.logo" alt="Logo" class="org-logo"> -->
+      <mat-card-header>
+        <mat-card-title>{{ org.name }}</mat-card-title>
+        <mat-card-subtitle>{{ org.website }}</mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-actions>
+        <button mat-button [routerLink]="['/organizations', org.id]">
+          Управление
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loading && organizations.length === 0" class="empty-state">
+    <mat-icon>business</mat-icon>
+    <p>Вы не управляете ни одной организацией</p>
+    <!-- <button mat-raised-button color="primary" routerLink="/organizations/create">
+      Создать организацию
+    </button> -->
+  </div>
+</div>

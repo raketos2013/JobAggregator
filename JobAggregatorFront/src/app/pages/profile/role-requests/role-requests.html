@@ -1,0 +1,34 @@
+<!-- <div class="role-requests">
+  <h2>Запросы на роли</h2>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <mat-card *ngFor="let req of requests" class="request-card">
+    <mat-card-header>
+      <mat-card-title>{{ req.userName }} {{ req.userLastname }}</mat-card-title>
+      <mat-card-subtitle>
+        Запрошена роль: {{ req.requestedRole }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Дата запроса:</strong> {{ req.createdAt | date:'dd.MM.yyyy' }}</p>
+      <p *ngIf="req.message"><strong>Сообщение:</strong> {{ req.message }}</p>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-button color="primary" (click)="approveRequest(req.id)">
+        Одобрить
+      </button>
+      <button mat-button color="warn" (click)="rejectRequest(req.id)">
+        Отклонить
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div *ngIf="!loading && requests.length === 0" class="empty-state">
+    <mat-icon>check_circle</mat-icon>
+    <p>Нет ожидающих запросов</p>
+  </div>
+</div> -->
+ToDo

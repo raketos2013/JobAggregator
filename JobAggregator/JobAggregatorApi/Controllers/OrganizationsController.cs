@@ -20,8 +20,8 @@ public class OrganizationsController(IOrganizationService organizationService,
     {
         var query = mapper.Map<Query>(queryDTO);
         var organizations = await organizationService.GetAllAsync(query);
-        var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
-        var pagedDTO = new PagedList<OrganizationDTO>(organizationsDTO, organizations.Count, organizations.CurrentPage, organizations.PageSize);
+        //var organizationsDTO = mapper.Map<List<OrganizationDTO>>(organizations);
+        var pagedDTO = new PagedList<Organization>(organizations, organizations.Count, organizations.CurrentPage, organizations.PageSize);
         return Ok(pagedDTO);
     }
 
@@ -29,16 +29,21 @@ public class OrganizationsController(IOrganizationService organizationService,
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var organization = await organizationService.GetAsync(id);
-        return organization == null ? NotFound() : Ok(organization);
+        var organization = await organizationService.GetWithUserAsync(id);
+        var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
+        foreach (var item in organization.Users)
+        {
+            organizationDTO.IdUsers.Add(item.Id);
+        }
+        return organization == null ? NotFound() : Ok(organizationDTO);
     }
 
     // POST api/<OrganizationController>
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] OrganizationDTO organization)
+    public async Task<IActionResult> Post([FromBody] CreateOrganizationDTO createOrganizationDTO)
     {
-        var newOrganization = mapper.Map<Organization>(organization);
-        var created = await organizationService.CreateAsync(newOrganization);
+        var newOrganization = mapper.Map<Organization>(createOrganizationDTO.Organization);        
+        var created = await organizationService.CreateAsync(newOrganization, createOrganizationDTO.UserId);
         return Ok(created);
     }
 
@@ -69,5 +74,23 @@ public class OrganizationsController(IOrganizationService organizationService,
         {
             return Ok(deleted);
         }
+    }
+
+    [HttpGet("{id}/usersId")]
+    public async Task<ActionResult<List<OrganizationUsersDTO>>> GetByUserId(int id)
+    {
+        var organizations = await organizationService.GetByUserIdAsync(id);
+        List<OrganizationUsersDTO> organizationsDTO = new List<OrganizationUsersDTO>();
+        foreach (var organization in organizations)
+        {
+            var organizationDTO = mapper.Map<OrganizationUsersDTO>(organization);
+            foreach (var item in organization.Users)
+            {
+                organizationDTO.IdUsers.Add(item.Id);
+            }
+            organizationsDTO.Add(organizationDTO);
+        }
+                
+        return organizations == null ? NotFound() : Ok(organizationsDTO);
     }
 }

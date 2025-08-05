@@ -1,0 +1,44 @@
+<div class="general-info">
+  <div *ngIf="!isEditing">
+    <h2>Основная информация</h2>
+    <p><strong>Имя:</strong> {{ user.name }}</p>
+    <p><strong>Фамилия:</strong> {{ user.lastname }}</p>
+    <p><strong>Роль:</strong> {{ user.role }}</p>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="isEditing = true">
+        Редактировать
+      </button>
+      <button *ngIf="user.role == 'USER'" 
+              mat-raised-button 
+              color="accent" 
+              (click)="requestManagerRole()">
+        Получить роль Manager
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isEditing">
+    <h2>Редактирование</h2>
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Имя</mat-label>
+        <input matInput [(ngModel)]="user.name" name="name">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Фамилия</mat-label>
+        <input matInput [(ngModel)]="user.lastname" name="lastname">
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" (click)="isEditing = false">
+          Сохранить
+        </button>
+        <button mat-button (click)="isEditing = false">
+          Отмена
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

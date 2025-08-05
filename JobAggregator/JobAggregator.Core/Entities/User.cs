@@ -1,6 +1,7 @@
 ﻿using JobAggregator.Core.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JobAggregator.Core.Entities;
 
@@ -17,6 +18,8 @@ public class User : Entity
     public string LastName { get; set; }
     public UserStatus Status { get; set; }
     public int RoleId { get; set; }
+    public bool NeedManager { get; set; }
+    [JsonIgnore]
     public List<Organization>? Organizations { get; set; }
     public List<Article>? Articles { get; set; }
     public List<Comment>? Comments { get; set; }
@@ -28,4 +31,5 @@ public class User : Entity
     public List<Chat>? Chats2 { get; set; }
     public List<Message>? Messages { get; set; }
     public List<Resume>? Resumes { get; set; }
+    public List<Vacancy>? Vacancies { get; set; }
 }

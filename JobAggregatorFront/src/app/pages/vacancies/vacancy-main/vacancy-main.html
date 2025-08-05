@@ -1,0 +1,13 @@
+<div class="container" *ngIf="isVacanciesPage()">
+  <div class="layout">
+    <div class="filters-column">
+      <app-vacancy-filter></app-vacancy-filter>
+    </div>
+    <div class="vacancies-column">
+      <app-vacancies></app-vacancies>
+    </div>
+    <div class="sidebar-column">
+      <app-vacancy-sidebar></app-vacancy-sidebar>
+    </div>
+  </div>
+</div>

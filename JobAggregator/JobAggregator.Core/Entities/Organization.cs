@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace JobAggregator.Core.Entities;
 
@@ -6,6 +7,7 @@ public class Organization : Entity
 {
     [Required]
     public string Name { get; set; }
+    public string Description { get; set; }
     public string? Website { get; set; }
     [EmailAddress]
     [Required]

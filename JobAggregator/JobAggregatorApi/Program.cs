@@ -52,6 +52,16 @@ builder.Services.AddSwaggerGen(setup => {
 });
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
+var frontendUrl = builder.Configuration.GetValue<string>("FrontendUrl") ?? "http://localhost:4200";
+builder.Services.AddCors(setup =>
+{
+    setup.AddPolicy("FrontendCors",
+        policy => policy.WithOrigins(frontendUrl)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+        );
+});
+
 var jwtConfig = builder.Configuration.GetSection(nameof(JwtConfiguration)).Get<JwtConfiguration>();
 if (jwtConfig != null)
 {
@@ -81,6 +91,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
+
+app.UseCors("FrontendCors");
 
 app.UseHttpsRedirection();
 

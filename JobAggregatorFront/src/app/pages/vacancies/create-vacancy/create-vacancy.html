@@ -1,0 +1,141 @@
+<div class="form-container">
+  <h1 class="page-title">Добавить вакансию</h1>
+  
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>Информация о вакансии</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="vacancyForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+        <!-- Основные поля -->
+        <div class="form-section">
+          <mat-form-field appearance="outline">
+            <mat-label>Должность</mat-label>
+            <input matInput formControlName="title" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Локация</mat-label>
+            <input matInput formControlName="location">
+          </mat-form-field>
+        </div>
+
+        <div class="row-fields">
+          <mat-form-field appearance="outline" class="salary-field">
+            <mat-label>Зарплата</mat-label>
+            <input matInput type="number" formControlName="salary" class="no-spinners">
+            <span matSuffix>
+              <mat-select formControlName="currency" class="currency-select">
+                <mat-option value="RUB">₽</mat-option>
+                <mat-option value="USD">$</mat-option>
+                <mat-option value="EUR">€</mat-option>
+                <mat-option value="BYN">Br</mat-option>
+              </mat-select>
+            </span>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="employment-field">
+            <mat-label>Тип занятости</mat-label>
+            <mat-select formControlName="employmentType">
+              <mat-option value="2">Полная</mat-option>
+              <mat-option value="3">Частичная</mat-option>
+              <mat-option value="4">Удалённая</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Описание -->
+        <div class="full-width-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Описание вакансии</mat-label>
+            <textarea matInput formControlName="description" rows="5"></textarea>
+          </mat-form-field>
+        </div>
+
+        <!-- Требования -->
+        <h3>Требования</h3>
+        <div formArrayName="requirements">
+          <div *ngFor="let req of requirements.controls; let i = index" [formGroupName]="i" class="array-item">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Требование {{i + 1}}</mat-label>
+              <input matInput formControlName="name">
+              <button matSuffix mat-icon-button color="warn" 
+                      type="button"
+                      (click)="removeRequirement(i); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <button mat-button type="button" (click)="addRequirement()">
+            <mat-icon>add</mat-icon> Добавить требование
+          </button>
+        </div>
+
+        <!-- Обязанности -->
+        <h3>Обязанности</h3>
+        <div formArrayName="responsibilities">
+          <div *ngFor="let req of responsibilities.controls; let i = index" [formGroupName]="i" class="array-item">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Обязанность {{i + 1}}</mat-label>
+              <input matInput formControlName="name">
+              <button matSuffix mat-icon-button color="warn" 
+                      type="button"
+                      (click)="removeResponsibility(i); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <button mat-button type="button" (click)="addResponsibility()">
+            <mat-icon>add</mat-icon> Добавить обязанность
+          </button>
+        </div>
+
+        <!-- Предложения -->
+        <h3>Мы предлагаем</h3>
+        <div formArrayName="offers">
+          <div *ngFor="let req of offers.controls; let i = index" [formGroupName]="i" class="array-item">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Предложение {{i + 1}}</mat-label>
+              <input matInput formControlName="name">
+              <button matSuffix mat-icon-button color="warn" 
+                      type="button"
+                      (click)="removeOffer(i); $event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <button mat-button type="button" (click)="addOffer()">
+            <mat-icon>add</mat-icon> Добавить предложение
+          </button>
+        </div>
+
+        <!-- Ключевые навыки -->
+       <h3>Ключевые навыки</h3>
+       <mat-form-field appearance="outline" class="skills-field">
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row *ngFor="let skill of skills.controls; let i = index" 
+                         [removable]="true" (removed)="removeSkill(i)">
+              {{ skill.get('name')?.value }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input [formControl]="skillInputControl"
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="[13, 188]"
+                  (matChipInputTokenEnd)="addSkill($event)"
+                  placeholder="Введите навык...">
+          </mat-chip-grid>
+        </mat-form-field>
+
+        
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="vacancyForm.invalid">
+            Опубликовать
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

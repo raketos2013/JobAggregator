@@ -1,0 +1,50 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #3f51b5;
+}
+
+.form-card {
+  width: 100%;
+  padding: 20px;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.row-fields {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.skills-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 600px) {
+  .row-fields {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

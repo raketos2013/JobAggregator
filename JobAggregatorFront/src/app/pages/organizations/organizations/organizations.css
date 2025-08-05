@@ -1,0 +1,51 @@
+.companies-page-container {
+  display: flex;
+  gap: 24px;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.filters-column {
+  flex: 2;
+  min-width: 280px;
+}
+
+.companies-column {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-column {
+  flex: 2;
+  min-width: 280px;
+}
+
+.companies-header {
+  background-color: #2d2d2d;
+  padding: 16px 24px;
+}
+
+.companies-header h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+.companies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .companies-page-container {
+    flex-direction: column;
+  }
+  
+  .filters-column, .companies-column, .sidebar-column {
+    width: 100%;
+  }
+}

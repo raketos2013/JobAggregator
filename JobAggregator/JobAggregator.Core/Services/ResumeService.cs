@@ -11,6 +11,7 @@ public class ResumeService(IUnitOfWork unitOfWork) : IResumeService
 {
     public async Task<Resume> CreateAsync(Resume resume)
     {
+        resume.Created = DateTime.Now;
         var createdResume = await unitOfWork.ResumeRepository.CreateAsync(resume);
         return await unitOfWork.SaveAsync() > 0 ? createdResume
             : throw new DomainException("Failed to create resume.");

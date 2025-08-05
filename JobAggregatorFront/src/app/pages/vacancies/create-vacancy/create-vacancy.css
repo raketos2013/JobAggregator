@@ -1,0 +1,283 @@
+/* .form-container {
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+mat-form-field {
+  margin-bottom: 15px;
+}
+
+.row-fields {
+  display: flex;
+  gap: 15px;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.array-item {
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+mat-chip {
+  margin: 3px;
+}
+.skills-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.skills-field mat-chip-list {
+  display: block;
+  padding-top: 5px;
+}
+
+
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinners {
+  -moz-appearance: textfield;
+}
+
+
+.salary-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.currency-select {
+  width: 80px;
+  margin-right: -8px;
+}
+
+.currency-select .mat-select-trigger {
+  height: 100%;
+}
+
+
+
+@media (max-width: 600px) {
+  .row-fields {
+    flex-direction: column;
+  }
+} */
+
+
+
+/* .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-card {
+  width: 100%;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+
+.salary-field {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.currency-select {
+  width: 30px;
+}
+
+.currency-select .mat-select-trigger {
+  height: 100%;
+}
+
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinners {
+  -moz-appearance: textfield;
+}
+
+.row-fields {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.full-width-field mat-form-field {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .row-fields {
+    flex-direction: column;
+  }
+  
+  .salary-field,
+  .employment-field {
+    width: 100%;
+  }
+} */
+
+
+
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form-card {
+  width: 100%;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.row-fields {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.full-width-field mat-form-field {
+  width: 100%;
+}
+
+.salary-field, .employment-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.currency-select {
+  width: 30px;
+  margin-right: 15px;
+}
+
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-spinners {
+  -moz-appearance: textfield;
+}
+
+.full-width-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.array-item {
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.array-item.removing {
+  transform: translateX(-100%);
+  opacity: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.skills-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.skills-field mat-chip-row {
+  margin: 3px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .row-fields {
+    flex-direction: column;
+  }
+  
+  .salary-field,
+  .employment-field {
+    width: 100%;
+  }
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+}
+.delete-btn {
+  margin-left: 8px;
+}

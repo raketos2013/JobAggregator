@@ -1,0 +1,35 @@
+<div class="my-responses">
+  <h2>Мои отклики</h2>
+
+  <mat-spinner *ngIf="loading"></mat-spinner>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let app of applications">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ app.vacancy.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Статус: {{ getStatusText(app.status) }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <p><strong>Компания:</strong> qweqwe</p>
+      <p><strong>Дата отклика:</strong> 3123123</p>
+
+      <mat-card-actions align="end">
+        <button mat-button [routerLink]="['/vacancies', app.vacancy.id]">
+          Просмотреть вакансию
+        </button>
+        <button mat-button color="warn" (click)="withdrawApplication(app.id)">
+          Отозвать отклик
+        </button>
+      </mat-card-actions>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div *ngIf="!loading && applications.length === 0" class="empty-state">
+    <mat-icon>send</mat-icon>
+    <p>Вы пока не откликались на вакансии</p>
+  </div>
+</div>
